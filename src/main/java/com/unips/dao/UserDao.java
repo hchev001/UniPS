@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.unips.entity.UserInfo;
 
+@Repository
 public class UserDao {
 	
 	
@@ -33,7 +35,7 @@ public class UserDao {
 		String sql = "SELECT u.id id, u.username username, u.password password, a.authority authority " + 
 					 "FROM `unipsdb`.`users` AS u " +
 					 "LEFT JOIN `unipsdb`.`authorities` as a " +
-					 "ON a.id=u.authority_id" +
+					 "ON a.id=u.authority_id " +
 					 "WHERE u.enabled=1 AND u.username=?";
 		
 		UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), username);
