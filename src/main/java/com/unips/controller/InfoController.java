@@ -1,4 +1,4 @@
-package com.unips;
+package com.unips.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
