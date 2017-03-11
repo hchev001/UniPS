@@ -1,8 +1,12 @@
 package com.unips.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 
-public interface InfoService {
+@Service
+public class InfoService {
 	@PreAuthorize("hasAnyRole('ADMIN','USER', 'BUSINESS')")
-	public String getMsg();
+	public String getMsg() {
+		return "Hello ";
+	}
 }
