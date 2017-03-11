@@ -3,6 +3,6 @@ package com.unips.service;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface InfoService {
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER', 'BUSINESS')")
 	public String getMsg();
 }

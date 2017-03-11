@@ -20,7 +20,6 @@ public class AuthenticationService implements UserDetailsService  {
 	@Autowired
 	UserDao userDao;
 	
-	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
