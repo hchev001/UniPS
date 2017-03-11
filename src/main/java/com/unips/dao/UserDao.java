@@ -36,7 +36,7 @@ public class UserDao {
 					 "FROM `unipsdb`.`users` AS u " +
 					 "LEFT JOIN `unipsdb`.`authorities` as a " +
 					 "ON a.id=u.authority_id " +
-					 "WHERE u.enabled=1 AND u.username=?";
+					 "WHERE u.statu_id=1 AND u.username=?";
 		
 		UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), username);
 		
