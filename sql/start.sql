@@ -10,19 +10,25 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
-  `authority_id` int(2) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `authority_id` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 -- Create a table for the authorities type 
 CREATE TABLE IF NOT EXISTS `unipsdb`.`authorities` (
-  `id` int(2) NOT NULL,
+  `id` tinyint(1) NOT NULL,
   `authority` varchar(15) NOT NULL,
   primary key (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Create table for the user status
+CREATE TABLE IF NOT EXISTS `unipsdb`.`status` (
+  `id` tinyint(1) NOT NULL,
+  `authority` varchar(15) NOT NULL,
+  primary key (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Add data  to the authorities types
 TRUNCATE `unipsdb`.`authorities`;
@@ -30,6 +36,14 @@ INSERT INTO `unipsdb`.`authorities` (`id`, `authority`) VALUES
 	(0, 'ROLE_ADMIN'),
 	(1, 'ROLE_USER'),
     (2, 'ROLE_BUSINESS');
+    
+-- Add data  to the user status
+TRUNCATE `unipsdb`.`authorities`;
+INSERT INTO `unipsdb`.`authorities` (`id`, `authority`) VALUES
+	(0, 'ACTIVE'),
+	(1, 'DISABLED'),
+    (2, 'SUSPENDED'),
+    (3, 'BANNED');
 
 -- Add data for the usernames
 TRUNCATE `unipsdb`.`users`;
