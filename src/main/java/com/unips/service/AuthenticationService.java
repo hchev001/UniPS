@@ -3,7 +3,6 @@ package com.unips.service;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,8 +18,8 @@ import com.unips.entity.UserInfo;
 public class AuthenticationService implements UserDetailsService  {
 	
 	@Autowired
-	@Qualifier("mysql")
 	UserDao userDao;
+	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
