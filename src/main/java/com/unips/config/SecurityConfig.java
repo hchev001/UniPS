@@ -27,11 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
-			.httpBasic().and()
+			//.httpBasic().and()
 			.authorizeRequests()
-				.antMatchers("/index.html", "/", "/login", "/message", "/home").permitAll()
+				.antMatchers("/index.html", "/", "/login", "/message", "/home", "/signup").permitAll()
 				.antMatchers("/api/businesses").hasAnyRole("BUSINESS", "ADMIN")
 				.antMatchers("/api/users").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/api/admins").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			.csrf()
