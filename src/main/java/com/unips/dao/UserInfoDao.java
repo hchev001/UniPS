@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.unips.entity.UserInfo;
 
 @Repository
-public class UserDao {
+public class UserInfoDao {
 	
 	
 	@Autowired
@@ -41,4 +41,5 @@ public class UserDao {
 		
 		return userInfo;
 	}
+
 }
