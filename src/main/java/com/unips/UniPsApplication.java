@@ -25,12 +25,6 @@ public class UniPsApplication {
 		return "forward:/";
 	}
 
-	@RequestMapping("/user")
-	@ResponseBody
-	public Principal user(Principal user) {
-		return user;
-	}
-
 	@RequestMapping("/resource")
 	@ResponseBody
 	public Map<String, Object> home() {

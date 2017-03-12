@@ -16,6 +16,11 @@ public class InfoController {
 	@Autowired
 	private  InfoService service;
 	
+	/** 
+	 * Sample controller to see how information is retrieved after 
+	 * Authentication has succeeded.
+	 * TODO: Remove in the Future
+	 */
 	@RequestMapping("/info")
 	public @ResponseBody String userInfo(Authentication authentication) {
 		String msg = "";
