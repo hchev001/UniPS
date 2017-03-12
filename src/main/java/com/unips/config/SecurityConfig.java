@@ -28,14 +28,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.httpBasic().and()
 			.authorizeRequests()
-				.antMatchers("/index.html", "/", "/login", "/message", "/home", "/userInfo").permitAll()
 				.antMatchers("/api/businesses/**").hasAnyRole("BUSINESS", "ADMIN")
 				.antMatchers("/api/users/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/api/admins/**").hasRole("ADMIN")
-				.anyRequest().authenticated()
-				.and()
-			.csrf()
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+				.antMatchers("/**").permitAll()
+				.anyRequest().authenticated();
+				
+		
+			/*Turn on for production but off otherwise */
+			/*  .and()
+				.csrf()
+				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());*/
+		
 		// @formatter:on
 	}
 	
