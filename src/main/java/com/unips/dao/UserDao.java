@@ -8,12 +8,12 @@ public interface UserDao<T> {
 
 	public List<User> getAllUsers();
 
-	public T getUserByUsername(String username);
+	public User getUserByUsername(String username);
 
-	public T addUser();
+	public int addUser(User user);
 
-	public T editUserByUsername(String username);
+	public int editUserByUsername(String username);
 	
-	public T deleteUserByusername(String username);
+	public int deleteUserByusername(String username);
 
 }

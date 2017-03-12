@@ -2,6 +2,7 @@ package com.unips.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,12 +34,12 @@ public class UserDaoMysql <T> implements UserDao<T> {
 			
 			while(rs.next()) {
 				
-				Long id = rs.getLong("id");
+				Long id = rs.getLong("user_id");
 				
 				// If its not in the map create it
 				if (!userMap.containsKey(id)) {
 					User user = new User();
-					user.setId(rs.getInt("id"));
+					user.setId(rs.getInt("user_id"));
 					user.setCreatedDate(rs.getDate("createdDate"));
 					user.setUsername(rs.getString("username"));
 					user.setPassword(rs.getString("password"));
@@ -55,7 +56,6 @@ public class UserDaoMysql <T> implements UserDao<T> {
 					user.setPictures(pictures);
 					
 					userMap.put(id, user);
-					
 				} else {
 					userMap.get(id).getPictures().add(rs.getString("picture"));
 				}
@@ -72,38 +72,59 @@ public class UserDaoMysql <T> implements UserDao<T> {
 		
 		String sql = "(SELECT * FROM `unipsdb`.`users` AS u " +
 					 "LEFT JOIN `unipsdb`.`user_pictures` AS p " +
-					 "ON u.id = p.user_id) " +
+					 "ON u.user_id = p.user_id) " +
 					 "UNION " +
 					 "(SELECT * FROM `unipsdb`.`users` AS u " +
 					 "RIGHT JOIN `unipsdb`.`user_pictures` AS p " +
-					 "ON u.id = p.user_id);";
+					 "ON u.user_id = p.user_id);";
 		
 		List<User> users = jdbcTemplate.query(sql, new UserResultSetExtractor());
 		return users;
 	}
 
 	@Override
-	public T getUserByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUserByUsername(String username) {
+
+		String sql = "SELECT * FROM `unipsdb`.`users` AS u " +
+					 "LEFT JOIN `unipsdb`.`user_pictures` AS p "+
+					 "ON u.user_id=p.user_id " +
+					 "WHERE u.username=?";
+		
+		List<User> user = jdbcTemplate.query(sql, new Object[]{username}, new int[]{Types.VARCHAR},
+				new UserResultSetExtractor());
+		return  user.get(0);
+	}
+	
+
+	@Override
+	public int addUser(User user) {
+		
+		String sql = "INSERT INTO `unipsdb`.`users` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `authority_id`) " +
+					 "VALUES (?, ?, ?,?, ?, ?, ?);";
+		
+		Object[] values = {
+				user.getUsername(),
+				user.getPassword(),
+				user.getEmail(),
+				user.getQuestion1(),
+				user.getQuestion2(),
+				user.getStatus(),
+				user.getRole()
+		};
+		
+		return jdbcTemplate.update(sql, values);
 	}
 
 	@Override
-	public T addUser() {
+	public int editUserByUsername(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
-	public T editUserByUsername(String username) {
+	public int deleteUserByusername(String username) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T deleteUserByusername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 }

@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	AuthenticationService authenticationService;
 	
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		// @formatter:off
 		http
 			.httpBasic().and()

@@ -34,7 +34,7 @@ public class UserInfoDaoMysql implements UserInfoDao{
 		String sql = "SELECT u.username username, u.password password, a.authority authority " + 
 					 "FROM `unipsdb`.`users` AS u " +
 					 "LEFT JOIN `unipsdb`.`authorities` as a " +
-					 "ON a.id=u.authority_id " +
+					 "ON a.authority_id=u.authority_id " +
 					 "WHERE u.status_id=1 AND u.username=?";
 		
 		UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), username);

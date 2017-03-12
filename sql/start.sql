@@ -7,7 +7,7 @@ CREATE DATABASE IF NOT EXISTS `unipsdb`;
 
 -- Crate the table for the users
 CREATE TABLE IF NOT EXISTS `unipsdb`.`users` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `user_id` INT(11) NOT NULL AUTO_INCREMENT,
     `createdDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `username` VARCHAR(50) NOT NULL,
     `password` VARCHAR(50) NOT NULL,
@@ -18,42 +18,42 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`users` (
     `description` BLOB(200),
     `status_id` TINYINT(1) NOT NULL,
     `authority_id` TINYINT(1) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`user_id`)
 )  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
 
 -- Create a table for the authorities type 
 CREATE TABLE IF NOT EXISTS `unipsdb`.`authorities` (
-    `id` TINYINT(1) NOT NULL,
+    `authority_id` TINYINT(1) NOT NULL,
     `authority` VARCHAR(15) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`authority_id`)
 )  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
 -- Create table for the user status
 CREATE TABLE IF NOT EXISTS `unipsdb`.`status` (
-    `id` TINYINT(1) NOT NULL,
+    `status_id` TINYINT(1) NOT NULL,
     `status` VARCHAR(15) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`status_id`)
 )  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
 -- Create a table for the pictures
 CREATE TABLE IF NOT EXISTS `unipsdb`.`user_pictures` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT, 
+	`user_picture_id` INT(11) NOT NULL AUTO_INCREMENT, 
     `picture` VARCHAR(100) NOT NULL,
     `user_id` INT(11),
-     PRIMARY KEY (`id`)
+     PRIMARY KEY (`user_picture_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
 -- Add data  to the authorities types
 TRUNCATE `unipsdb`.`authorities`;
-INSERT INTO `unipsdb`.`authorities` (`id`, `authority`) VALUES
+INSERT INTO `unipsdb`.`authorities` (`authority_id`, `authority`) VALUES
 	(0, 'ROLE_ADMIN'),
 	(1, 'ROLE_USER'),
     (2, 'ROLE_BUSINESS');
     
 -- Add data  to the user status
 TRUNCATE `unipsdb`.`status`;
-INSERT INTO `unipsdb`.`status` (`id`, `status`) VALUES
+INSERT INTO `unipsdb`.`status` (`status_id`, `status`) VALUES
 	(0, 'ACTIVE'),
 	(1, 'DISABLED'),
     (2, 'SUSPENDED'),
