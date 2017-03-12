@@ -1,10 +1,10 @@
-import { StaticPage } from './app.po';
+import { FrontEndPage } from './app.po';
 
-describe('static App', () => {
-  let page: StaticPage;
+describe('front-end App', () => {
+  let page: FrontEndPage;
 
   beforeEach(() => {
-    page = new StaticPage();
+    page = new FrontEndPage();
   });
 
   it('should display message saying app works', () => {
