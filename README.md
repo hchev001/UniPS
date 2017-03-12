@@ -20,3 +20,10 @@ spring.datasource.password=root
 Place all queries necessary to restore / replicate database state in the /sql folder. 
 
 
+#Mail
+
+Email credentials
+<pre>
+spring.mail.username=unipsi2017@gmail.com
+spring.mail.password=success2017
+</pre
