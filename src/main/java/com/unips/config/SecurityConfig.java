@@ -32,14 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/users/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/api/admins/**").hasRole("ADMIN")
 				.antMatchers("/**").permitAll()
-				.anyRequest().authenticated();
-				
-		
-			/*Turn on for production but off otherwise */
-			/*  .and()
+				.anyRequest().authenticated()
+			.and()
 				.csrf()
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());*/
-		
+				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 		// @formatter:on
 	}
 	

@@ -3,6 +3,7 @@ package com.unips.service;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,12 +19,13 @@ import com.unips.entity.UserInfo;
 public class AuthenticationService implements UserDetailsService  {
 	
 	@Autowired
-	UserInfoDao userInfoDao;
+	@Qualifier("userInfo.mysql")
+	UserInfoDao userInfoDaoMysql;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		UserInfo userInfo = userInfoDao.getUserInfo(username);
+		UserInfo userInfo = userInfoDaoMysql.getUserInfo(username);
 		GrantedAuthority authority = new SimpleGrantedAuthority(userInfo.getRole());
 		UserDetails userDetails = (UserDetails) new User(userInfo.getUsername(), userInfo.getPassword(), Arrays.asList(authority));
 		return userDetails;
