@@ -18,7 +18,6 @@ import com.unips.service.UserService;
 @PreAuthorize("hasAnyRole('ADMIN','USER')")
 public class UserController {
 
-	
 	@Autowired
 	UserService<User> service;
 	
@@ -32,6 +31,7 @@ public class UserController {
 	public User getUserByUsername(@PathVariable("username") String username){
 		return service.getUserByUsername(username);
 	}
+	
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public int addUser(@RequestBody User user) {

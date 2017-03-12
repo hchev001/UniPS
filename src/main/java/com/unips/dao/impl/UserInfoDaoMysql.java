@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -35,11 +36,13 @@ public class UserInfoDaoMysql implements UserInfoDao{
 					 "FROM `unipsdb`.`users` AS u " +
 					 "LEFT JOIN `unipsdb`.`authorities` as a " +
 					 "ON a.authority_id=u.authority_id " +
-					 "WHERE u.status_id=1 AND u.username=?";
-		
-		UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), username);
-		
-		return userInfo;
+					 "WHERE u.status_id=0 AND u.username=?";
+		try {
+			UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), username);
+			return userInfo;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 }

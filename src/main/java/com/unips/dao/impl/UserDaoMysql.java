@@ -99,8 +99,8 @@ public class UserDaoMysql <T> implements UserDao<T> {
 	@Override
 	public int addUser(User user) {
 		
-		String sql = "INSERT INTO `unipsdb`.`users` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `authority_id`) " +
-					 "VALUES (?, ?, ?,?, ?, ?, ?);";
+		String sql = "INSERT INTO `unipsdb`.`users` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `authority_id`, `token`) " +
+					 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		
 		Object[] values = {
 				user.getUsername(),
@@ -108,15 +108,15 @@ public class UserDaoMysql <T> implements UserDao<T> {
 				user.getEmail(),
 				user.getQuestion1(),
 				user.getQuestion2(),
-				user.getStatus(),
-				user.getRole()
+				user.getStatus().ordinal(),
+				user.getRole().ordinal(),
+				user.getToken()
 		};
-		
 		return jdbcTemplate.update(sql, values);
 	}
 
 	@Override
-	public int editUserByUsername(String username) {
+	public int updateUserByUsername(String username) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -125,6 +125,29 @@ public class UserDaoMysql <T> implements UserDao<T> {
 	public int deleteUserByusername(String username) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String getToken(String cadidateToken) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String verifyEmail(String candidateToken) {
+		
+		String sql = "SELECT username FROM `unipsdb`.`users` u WHERE u.token=?";
+		String username = jdbcTemplate.queryForObject(sql, new Object[] {candidateToken}, String.class);
+		
+		return username;
+	}
+
+	@Override
+	public int updateUserStatusByUsername(String username, UserStatus status) {
+		
+		String sql = "UPDATE `unipsdb`.`users` u SET u.status_id=? WHERE u.username=?;";
+	
+		return jdbcTemplate.update(sql, new Object[] {status.ordinal(), username});
 	}
 
 }

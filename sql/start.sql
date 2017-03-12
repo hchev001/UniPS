@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`users` (
     `description` BLOB(200),
     `status_id` TINYINT(1) NOT NULL,
     `authority_id` TINYINT(1) NOT NULL,
+    `token` VARCHAR(50),
     PRIMARY KEY (`user_id`)
 )  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
@@ -62,9 +63,9 @@ INSERT INTO `unipsdb`.`status` (`status_id`, `status`) VALUES
 -- Add data for the usernames
 TRUNCATE `unipsdb`.`users`;
 INSERT INTO `unipsdb`.`users` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `authority_id`) VALUES
-	('kathy', '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', 'kathy@kathy.com','blue2','blue2', 1, 0),
-	('sam', '904752ad9c4ae4186c4b4897321c517de0618702','sam@sam.com','red2', 'red2', 1, 1),
-    ('starbucks', '904752ad9c4ae4186c4b4897321c517de0618702', 'star@star.com', 'green1', 'green2', 1, 2);
+	('kathy', '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', 'kathy@kathy.com','blue2','blue2', 0, 0),
+	('sam', '904752ad9c4ae4186c4b4897321c517de0618702','sam@sam.com','red2', 'red2', 0, 1),
+    ('starbucks', '904752ad9c4ae4186c4b4897321c517de0618702', 'star@star.com', 'green1', 'green2', 0, 2);
     
 -- Add data to the pictures
 TRUNCATE `unipsdb`.`user_pictures`;

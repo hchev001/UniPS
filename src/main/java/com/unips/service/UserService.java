@@ -1,16 +1,20 @@
 package com.unips.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.unips.constants.BusinessConstants.UserRoles;
+import com.unips.constants.BusinessConstants.UserStatus;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.User;
 import com.unips.entity.UserInfo;
+import com.unips.mail.SmptMailSender;
 
 @Service
 public class UserService<T> {
@@ -24,6 +28,9 @@ public class UserService<T> {
 	@Autowired
 	@Qualifier("userInfo.mysql")
 	UserInfoDao userInfoDao;
+	
+	@Autowired
+	SmptMailSender mailSender;
 
 	public List<User> getAllUsers() {
 		return userDao.getAllUsers();
@@ -38,30 +45,49 @@ public class UserService<T> {
 		// Make sure the user does not exits
 		UserInfo userInfo = userInfoDao.getUserInfo(user.getUsername());
 
-		if (userInfo == null)
+		if (userInfo != null)
 			return 0;
 		
-		
-		// Add password and update database
-		int update_records = 0;
+		// Add created fields
+		int updated_records = 0;
 		
 		ShaPasswordEncoder encode = new ShaPasswordEncoder();
 		user.setPassword(encode.encodePassword(user.getPassword(), null));
-		update_records = userDao.addUser(user);
+		user.setToken(UUID.randomUUID().toString());
+		user.setStatus(UserStatus.DISABLED);
+		user.setRole(UserRoles.ROLE_USER);
+		
+		updated_records = userDao.addUser(user);
 
 		// Check updated records and send email
-		if (update_records != VALID_MAX_COUNT_ONE)
-			return update_records;
+		if (updated_records != VALID_MAX_COUNT_ONE)
+			return updated_records;
 		
-		//TODO: Send Email.
+		// Send Email
+		try {
+			String url = "http://localhost:8080/userVerification?token=" + user.getToken();
+			mailSender.sendUserVerificationEmail(user.getEmail(), url);
+		} catch (Exception e) {
+			// Let it go....
+		}
 		
-		
-		return update_records;
-
+		return updated_records;
 	}
 
-	public int editUserByUsername(String username) {
-		return userDao.editUserByUsername(username);
+	public boolean verifyEmail(String candidateToken) {
+		
+		String username = userDao.verifyEmail(candidateToken);
+		
+		if (username == null)
+			return false;
+	
+		userDao.updateUserStatusByUsername(username, UserStatus.ACTIVE);	
+		return true;
+	}
+	
+
+	public int updateUserByUsername(String username) {
+		return userDao.updateUserByUsername(username);
 	}
 
 	public int deleteUserByusername(String username) {

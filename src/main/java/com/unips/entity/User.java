@@ -22,6 +22,7 @@ public class User {
 
 	private UserStatus status;
 	private UserRoles role;
+	private String token;
 	
 	
 	@Override
@@ -29,9 +30,16 @@ public class User {
 		return "User [id=" + id + ", createdDate=" + createdDate + ", username=" + username + ", password=" + password
 				+ ", email=" + email + ", question1=" + question1 + ", question2=" + question2 + ", pictureFeatured="
 				+ pictureFeatured + ", pictures=" + pictures + ", description=" + description + ", status=" + status
-				+ ", role=" + role + "]";
+				+ ", role=" + role + ", token=" + token + "]";
 	}
 	
+	
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
 	public int getId() {
 		return id;
 	}

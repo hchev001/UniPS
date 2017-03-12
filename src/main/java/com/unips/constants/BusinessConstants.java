@@ -19,7 +19,7 @@ public class BusinessConstants {
 	 * Reflects the authority representation of the user.
 	 */
 	public enum UserRoles {
-		ROLE_USER, ROLE_ADMIN, ROLE_BUSINESS
+		ROLE_ADMIN, ROLE_USER, ROLE_BUSINESS
 	}
 
 }
