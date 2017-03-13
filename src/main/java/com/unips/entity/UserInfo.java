@@ -1,19 +1,18 @@
 package com.unips.entity;
 
+
 public class UserInfo {
 	
-	private int id;
 	private String username;
 	private String password;
 	private String role;
 	
 	
-	public int getId() {
-		return id;
+	@Override
+	public String toString() {
+		return "UserInfo [username=" + username + ", password=" + password + ", role=" + role + "]";
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getUsername() {
 		return username;
 	}
