@@ -34,3 +34,10 @@ All API testings can be done without restriction by running the class **UniPsApp
 <pre>
 localhost:9999/
 </pre>
+
+#Styling
+
+The CSS framework in use for this application is Bootstrap 4. Be sure to look at examples on website, as bootstrap 3 code may not render properly.
+<pre>
+https://v4-alpha.getbootstrap.com/
+</pre>
