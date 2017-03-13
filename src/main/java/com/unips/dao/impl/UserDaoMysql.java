@@ -21,7 +21,7 @@ import com.unips.dao.UserDao;
 import com.unips.entity.User;
 
 @Repository("user.mysql")
-public class UserDaoMysql <T> implements UserDao<T> {
+public class UserDaoMysql implements UserDao {
 	
 	private static class UserResultSetExtractor implements ResultSetExtractor<List<User>> {
 
@@ -155,6 +155,12 @@ public class UserDaoMysql <T> implements UserDao<T> {
 		String sql = "UPDATE `unipsdb`.`users` u SET u.status_id=? WHERE u.username=?;";
 	
 		return jdbcTemplate.update(sql, new Object[] {status.ordinal(), username});
+	}
+
+	@Override
+	public List<String> getQuestions(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

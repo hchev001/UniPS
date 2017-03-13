@@ -25,7 +25,7 @@ public class UserService<T> {
 
 	@Autowired
 	@Qualifier("user.mysql")
-	UserDao<User> userDao;
+	UserDao userDao;
 
 	@Autowired
 	@Qualifier("userInfo.mysql")

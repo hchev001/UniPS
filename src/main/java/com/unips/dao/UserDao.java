@@ -5,7 +5,7 @@ import java.util.List;
 import com.unips.constants.BusinessConstants.UserStatus;
 import com.unips.entity.User;
 
-public interface UserDao<T> {
+public interface UserDao {
 
 	public List<User> getAllUsers();
 
