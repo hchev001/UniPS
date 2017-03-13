@@ -116,9 +116,21 @@ public class UserDaoMysql <T> implements UserDao<T> {
 	}
 
 	@Override
-	public int updateUserByUsername(String username) {
-		// TODO Auto-generated method stub
-		return 0;
+	public User updateUser(User user) {
+		
+		String sql = "UPDATE `unipsdb`.`users` u " +
+					 "SET u.username = ?, u.password = ?, u.email = ?, u.question1 = ?, u.question2 = ? " +
+					 "WHERE u.username = ?;";		
+		
+		Object[] values = {user.getUsername(),
+				user.getPassword(),
+				user.getEmail(),
+				user.getQuestion1(),
+				user.getQuestion2(),
+				user.getUsername()};
+		
+		jdbcTemplate.update(sql, values);
+		return user;
 	}
 
 	@Override
@@ -127,11 +139,6 @@ public class UserDaoMysql <T> implements UserDao<T> {
 		return 0;
 	}
 
-	@Override
-	public String getToken(String cadidateToken) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String verifyEmail(String candidateToken) {

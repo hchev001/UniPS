@@ -13,11 +13,9 @@ public interface UserDao<T> {
 
 	public int addUser(User user);
 
-	public int updateUserByUsername(String username);
+	public User updateUser(User user);
 	
 	public int deleteUserByusername(String username);
-	
-	public String getToken(String candidateToken);
 	
 	public String verifyEmail(String candidateToken);
 	

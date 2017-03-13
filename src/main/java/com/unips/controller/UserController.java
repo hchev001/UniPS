@@ -2,6 +2,7 @@ package com.unips.controller;
 
 import java.util.List;
 
+import org.junit.experimental.theories.ParametersSuppliedBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,5 +37,10 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST)
 	public int addUser(@RequestBody User user) {
 		return service.addUser(user);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT)
+	public User updateUser(@RequestBody User user){
+		return service.updateUser(user);
 	}
 }

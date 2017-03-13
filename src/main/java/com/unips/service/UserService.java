@@ -86,8 +86,13 @@ public class UserService<T> {
 	}
 	
 
-	public int updateUserByUsername(String username) {
-		return userDao.updateUserByUsername(username);
+	public User updateUser(User user) {
+		
+		// Encode the password
+		ShaPasswordEncoder encode = new ShaPasswordEncoder();
+		user.setPassword(encode.encodePassword(user.getPassword(), null));
+		
+		return userDao.updateUser(user);
 	}
 
 	public int deleteUserByusername(String username) {
