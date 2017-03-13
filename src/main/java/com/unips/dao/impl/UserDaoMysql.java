@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
-import com.unips.constants.BusinessConstants.UserRoles;
-import com.unips.constants.BusinessConstants.UserStatus;
+import com.unips.constants.BusinessConstants.Roles;
+import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserDao;
 import com.unips.entity.User;
 
@@ -46,8 +46,8 @@ public class UserDaoMysql implements UserDao {
 					user.setQuestion2(rs.getString("question2"));
 					user.setPictureFeatured(rs.getString("pictureFeatured"));
 					user.setDescription(rs.getString("description"));
-					user.setStatus(UserStatus.values() [rs.getInt("status_id")]);
-					user.setRole(UserRoles.values() [rs.getInt("authority_id")]);
+					user.setStatus(Status.values() [rs.getInt("status_id")]);
+					user.setRole(Roles.values() [rs.getInt("authority_id")]);
 					
 					List<String> pictures = new LinkedList<>();
 					pictures.add(rs.getString("picture"));
@@ -150,7 +150,7 @@ public class UserDaoMysql implements UserDao {
 	}
 
 	@Override
-	public int updateUserStatus(String username, UserStatus status) {
+	public int updateUserStatus(String username, Status status) {
 		
 		String sql = "UPDATE `unipsdb`.`users` u SET u.status_id=? WHERE u.username=?;";
 	

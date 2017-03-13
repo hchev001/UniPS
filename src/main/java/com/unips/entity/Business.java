@@ -6,20 +6,33 @@ import java.util.List;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 
-public class User {
-
+public class Business {
+	
 	private int id;
 	private Date createdDate;
-
+	
 	private String username;
 	private String password;
+	private String name;
+	private long phone;
+	private long phoneBusiness;
 	private String email;
 	private String question1;
 	private String question2;
+	
 	private String pictureFeatured;
 	private List<String> pictures;
+	
 	private String description;
-
+	private String hours;
+	
+	private int rateAverage;
+	
+	private List<Comment> comments;
+	private List<Rating> ratings;
+	private Address address;
+	
+	
 	private Status status;
 	private Roles role;
 	private String token;
@@ -27,19 +40,15 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", createdDate=" + createdDate + ", username=" + username + ", password=" + password
-				+ ", email=" + email + ", question1=" + question1 + ", question2=" + question2 + ", pictureFeatured="
-				+ pictureFeatured + ", pictures=" + pictures + ", description=" + description + ", status=" + status
-				+ ", role=" + role + ", token=" + token + "]";
+		return "Business [id=" + id + ", createdDate=" + createdDate + ", username=" + username + ", password="
+				+ password + ", name=" + name + ", phone=" + phone + ", phoneBusiness=" + phoneBusiness + ", email="
+				+ email + ", question1=" + question1 + ", question2=" + question2 + ", pictureFeatured="
+				+ pictureFeatured + ", pictures=" + pictures + ", description=" + description + ", hours=" + hours
+				+ ", rateAverage=" + rateAverage + ", comments=" + comments + ", ratings=" + ratings + ", address="
+				+ address + ", status=" + status + ", role=" + role + ", token=" + token + "]";
 	}
 	
 	
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
 	public int getId() {
 		return id;
 	}
@@ -63,6 +72,24 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getPhone() {
+		return phone;
+	}
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
+	public long getPhoneBusiness() {
+		return phoneBusiness;
+	}
+	public void setPhoneBusiness(long phoneBusiness) {
+		this.phoneBusiness = phoneBusiness;
 	}
 	public String getEmail() {
 		return email;
@@ -100,6 +127,36 @@ public class User {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getHours() {
+		return hours;
+	}
+	public void setHours(String hours) {
+		this.hours = hours;
+	}
+	public int getRateAverage() {
+		return rateAverage;
+	}
+	public void setRateAverage(int rateAverage) {
+		this.rateAverage = rateAverage;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	public Status getStatus() {
 		return status;
 	}
@@ -112,6 +169,10 @@ public class User {
 	public void setRole(Roles role) {
 		this.role = role;
 	}
-
-
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

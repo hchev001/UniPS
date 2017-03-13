@@ -10,8 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.unips.constants.BusinessConstants.UserRoles;
-import com.unips.constants.BusinessConstants.UserStatus;
+import com.unips.constants.BusinessConstants.Roles;
+import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.User;
@@ -59,8 +59,8 @@ public class UserService<T> {
 		ShaPasswordEncoder encode = new ShaPasswordEncoder();
 		user.setPassword(encode.encodePassword(user.getPassword(), null));
 		user.setToken(UUID.randomUUID().toString());
-		user.setStatus(UserStatus.DISABLED);
-		user.setRole(UserRoles.ROLE_USER);
+		user.setStatus(Status.DISABLED);
+		user.setRole(Roles.ROLE_USER);
 		
 		updated_records = userDao.addUser(user);
 
@@ -86,7 +86,7 @@ public class UserService<T> {
 		if (username == null)
 			return false;
 	
-		userDao.updateUserStatus(username, UserStatus.ACTIVE);	
+		userDao.updateUserStatus(username, Status.ACTIVE);	
 		return true;
 	}
 	
