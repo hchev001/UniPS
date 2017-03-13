@@ -1,47 +1,25 @@
 package com.unips.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
+import com.unips.constants.BusinessConstants.UserStatus;
+import com.unips.entity.User;
 
-import com.unips.entity.UserInfo;
+public interface UserDao {
 
-@Repository
-public class UserDao {
+	public List<User> getAllUsers();
+
+	public User getUser(String username);
+
+	public int addUser(User user);
+
+	public User updateUser(User user);
 	
+	public int deleteUser(String username);
 	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	public String verifyEmail(String candidateToken);
 	
-	private static class UserRowMapper implements RowMapper<UserInfo> {
+	public int updateUserStatus(String username, UserStatus status);
 
-		@Override
-		public UserInfo mapRow(ResultSet rs, int i) throws SQLException {
-			UserInfo userInfo = new UserInfo();
-			userInfo.setId(rs.getInt("id"));
-			userInfo.setUsername(rs.getString("username"));
-			userInfo.setPassword(rs.getString("password"));
-			userInfo.setRole(rs.getString("authority"));
-			return userInfo;
-		}
-	}
-	
-	public UserInfo getUserInfo(String username) {
-		
-		String sql = "SELECT u.id id, u.username username, u.password password, a.authority authority " + 
-					 "FROM `unipsdb`.`users` AS u " +
-					 "LEFT JOIN `unipsdb`.`authorities` as a " +
-					 "ON a.id=u.authority_id " +
-					 "WHERE u.enabled=1 AND u.username=?";
-		
-		UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), username);
-		
-		return userInfo;
-	}
-
-
+	public List<String> getQuestions(String username);
 }

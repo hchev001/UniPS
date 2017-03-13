@@ -20,3 +20,17 @@ spring.datasource.password=root
 Place all queries necessary to restore / replicate database state in the /sql folder. 
 
 
+#Mail
+
+Email credentials
+<pre>
+spring.mail.username=unipsi2017@gmail.com
+spring.mail.password=success2017
+</pre>
+
+#Testing
+
+All API testings can be done without restriction by running the class **UniPsApplicationTests** under the test packages and using the address
+<pre>
+localhost:9999/
+</pre>
