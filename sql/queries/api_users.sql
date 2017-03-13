@@ -30,7 +30,6 @@ UPDATE `unipsdb`.`users` u
 SET u.status_id=? WHERE u.username=?;
 
 -- Upate User 
-
 UPDATE `unipsdb`.`users` u
 SET u.username = ?, 
 	u.password = ?,
@@ -38,3 +37,7 @@ SET u.username = ?,
     u.question1 = ?,
     u.question2 = ?
 WHERE u.username = ?;
+
+-- Delete user
+DELETE FROM `unipsdb`.`users`
+WHERE username = ?

@@ -9,16 +9,17 @@ public interface UserDao<T> {
 
 	public List<User> getAllUsers();
 
-	public User getUserByUsername(String username);
+	public User getUser(String username);
 
 	public int addUser(User user);
 
 	public User updateUser(User user);
 	
-	public int deleteUserByusername(String username);
+	public int deleteUser(String username);
 	
 	public String verifyEmail(String candidateToken);
 	
-	public int updateUserStatusByUsername(String username, UserStatus status);
+	public int updateUserStatus(String username, UserStatus status);
 
+	public List<String> getQuestions(String username);
 }

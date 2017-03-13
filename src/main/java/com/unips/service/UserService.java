@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,14 +34,17 @@ public class UserService<T> {
 	@Autowired
 	SmptMailSender mailSender;
 
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<User> getAllUsers() {
 		return userDao.getAllUsers();
 	}
 
-	public User getUserByUsername(String username) {
-		return userDao.getUserByUsername(username);
+	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
+	public User getUser(String username) {
+		return userDao.getUser(username);
 	}
 
+	
 	public int addUser(User user) {
 
 		// Make sure the user does not exits
@@ -81,11 +86,12 @@ public class UserService<T> {
 		if (username == null)
 			return false;
 	
-		userDao.updateUserStatusByUsername(username, UserStatus.ACTIVE);	
+		userDao.updateUserStatus(username, UserStatus.ACTIVE);	
 		return true;
 	}
 	
 
+	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
 	public User updateUser(User user) {
 		
 		// Encode the password
@@ -94,8 +100,10 @@ public class UserService<T> {
 		
 		return userDao.updateUser(user);
 	}
-
-	public int deleteUserByusername(String username) {
-		return userDao.deleteUserByusername(username);
+	
+	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
+	public int deleteUser(String username) {
+		return userDao.deleteUser(username);
 	}
+	
 }

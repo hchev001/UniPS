@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.unips.constants.BusinessConstants.UserRoles;
@@ -83,7 +81,7 @@ public class UserDaoMysql <T> implements UserDao<T> {
 	}
 
 	@Override
-	public User getUserByUsername(String username) {
+	public User getUser(String username) {
 
 		String sql = "SELECT * FROM `unipsdb`.`users` AS u " +
 					 "LEFT JOIN `unipsdb`.`user_pictures` AS p "+
@@ -134,10 +132,12 @@ public class UserDaoMysql <T> implements UserDao<T> {
 	}
 
 	@Override
-	public int deleteUserByusername(String username) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int deleteUser(String username) {
+		
+		String sql = "DELETE FROM `unipsdb`.`users` WHERE username = ?";
+			
+		return jdbcTemplate.update(sql, new Object[]{username});
+	}	
 
 
 	@Override
@@ -150,7 +150,7 @@ public class UserDaoMysql <T> implements UserDao<T> {
 	}
 
 	@Override
-	public int updateUserStatusByUsername(String username, UserStatus status) {
+	public int updateUserStatus(String username, UserStatus status) {
 		
 		String sql = "UPDATE `unipsdb`.`users` u SET u.status_id=? WHERE u.username=?;";
 	
