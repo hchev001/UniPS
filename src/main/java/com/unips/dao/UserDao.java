@@ -2,7 +2,7 @@ package com.unips.dao;
 
 import java.util.List;
 
-import com.unips.constants.BusinessConstants.UserStatus;
+import com.unips.constants.BusinessConstants.Status;
 import com.unips.entity.User;
 
 public interface UserDao {
@@ -19,7 +19,7 @@ public interface UserDao {
 	
 	public String verifyEmail(String candidateToken);
 	
-	public int updateUserStatus(String username, UserStatus status);
+	public int updateUserStatus(String username, Status status);
 
 	public List<String> getQuestions(String username);
 }
