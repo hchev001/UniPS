@@ -33,7 +33,7 @@ spring.mail.password=success2017
 
 - Import the project into Eclipse (Make sure you have the dependencies installed)
 - Turn on Mysql local server
-- Run the class **UniPsApplication** under the main packages and using the address
+- Run the class **UniPsApplication** under the main packages and visit
 	<pre>
 	localhost:8080
 	</pre>
