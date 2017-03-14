@@ -12,6 +12,15 @@ import { HomeComponent } from './home/home.component';
 import { SearchFieldComponent } from './search-field/search-field.component';
 import { AlertModule } from 'ng2-bootstrap';
 
+import { AlertComponent } from './_directives/index';
+import { AuthGuard } from './_guards/index';
+import { routing }        from './app.routing';
+import { AlertService, AuthenticationService, UserService } from './_services/index';
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers/index';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BaseRequestOptions } from '@angular/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,15 +30,28 @@ import { AlertModule } from 'ng2-bootstrap';
     ProfileComponent,
     HomeComponent,
     SearchFieldComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
     AlertModule.forRoot(),
     FormsModule,
     HttpModule,
-    routes
+    routes,
+    routing
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    UserService,
+
+    // providers used to create fake backend
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions
+  ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
