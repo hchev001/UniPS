@@ -1,7 +1,7 @@
 #box-wrapper{
     background-image: url(/images/header.jpg);
     background-size: cover;
-    background-attachment: auto;
+    background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
     min-height: 450px;
@@ -12,6 +12,7 @@
 
 .customContainer{
     position: relative;
+    align-items: center;
     margin-left: 0;
     margin-right: 0;
     margin-top: 100px;
@@ -25,4 +26,11 @@
     background-attachment: fixed;
 }
 
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+}
 
