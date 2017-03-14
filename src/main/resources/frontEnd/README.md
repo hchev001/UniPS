@@ -12,6 +12,9 @@ https://github.com/angular/angular-cli/wiki/stories-include-bootstrap
 For Bootstrap 4 documenation, please visit:
 https://v4-alpha.getbootstrap.com/
 
+## Fake Rest Service
+Set up a json server if you need a fake REST service. More information can be found at https://jsonplaceholder.typicode.com/
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
