@@ -1,0 +1,4 @@
+/*remove the default 15px padding*/
+.container-fluid{
+    padding: 0;
+}
