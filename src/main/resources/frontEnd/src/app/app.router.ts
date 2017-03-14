@@ -2,8 +2,10 @@ import {ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/index';
+import { RegisterComponent } from './register/index';
+import { AuthGuard } from './_guards/index';
+
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 
