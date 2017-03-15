@@ -1,4 +1,8 @@
-﻿import { Injectable } from '@angular/core';
+﻿//The authentication service is used to login and logout of the application,
+//to login it posts the users credentials to the api and checks the response for a token,
+//if there is one it means authentication was successful so the user details including the
+//token are added to local storage.
+import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'

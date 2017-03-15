@@ -1,4 +1,6 @@
-﻿import { Injectable } from '@angular/core';
+﻿//The alert service enables any component in the application to display 
+//alert messages at the top of the page via the alert component.
+import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
