@@ -5,6 +5,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Bootstrap Dependency
+We are using version 4.X of Bootstrap. If you are receiving bootstrap dependency errors after calling ng serve or ng build. Please follow the instructions in the following link to install Bootstrap 4 as a global reference. 
+https://github.com/angular/angular-cli/wiki/stories-include-bootstrap
+
+For Bootstrap 4 documenation, please visit:
+https://v4-alpha.getbootstrap.com/
+
+## Fake Rest Service
+Set up a json server if you need a fake REST service. More information can be found at https://jsonplaceholder.typicode.com/
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
