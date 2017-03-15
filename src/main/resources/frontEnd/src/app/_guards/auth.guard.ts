@@ -1,4 +1,5 @@
-﻿import { Injectable } from '@angular/core';
+﻿//The auth guard is used to prevent unauthenticated users from accessing restricted routes
+import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable()

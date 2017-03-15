@@ -1,3 +1,7 @@
+
+
+/*The register component has a single register() method that creates
+ a new user with the user service when the register form is submitted.*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
