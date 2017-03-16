@@ -1,18 +1,18 @@
 -- Get information about all users. All needed to create an object
 (SELECT * 
 FROM `unipsdb`.`user` AS u
-LEFT JOIN `unipsdb`.`user_picture` AS p
+LEFT JOIN `unipsdb`.`picture` AS p
 ON u.user_id = p.user_id)
 UNION
 (SELECT * 
 FROM `unipsdb`.`user` AS u
-RIGHT JOIN `unipsdb`.`user_picture` AS p
+RIGHT JOIN `unipsdb`.`picture` AS p
 ON u.user_id = p.user_id);
 
 -- Get information from one user by username
 SELECT * 
 FROM `unipsdb`.`user` AS u
-LEFT JOIN `unipsdb`.`user_picture` AS p
+LEFT JOIN `unipsdb`.`picture` AS p
 ON u.user_id=p.user_id
 WHERE u.username='kathy';
 

@@ -26,45 +26,6 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`status` (
 )  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
 
--- Create the table for the users
-CREATE TABLE IF NOT EXISTS `unipsdb`.`user` (
-    `user_id` INT(11) NOT NULL AUTO_INCREMENT,
-    `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `username` VARCHAR(50) NOT NULL,
-    `password` VARCHAR(50) NOT NULL,
-    `email` VARCHAR(50) NOT NULL,
-    `question1` VARCHAR(50) NOT NULL,
-    `question2` VARCHAR(50) NOT NULL,
-    `picture_featured` VARCHAR(100) DEFAULT NULL,
-    `description` TINYTEXT,
-    `status_id` TINYINT(1) NOT NULL,
-    `role_id` TINYINT(1) NOT NULL,
-    `token` VARCHAR(50) DEFAULT NULL,
-    PRIMARY KEY (`user_id`),
-    KEY `token` (`token`),
-    KEY `role_idx` (`role_id`),
-    KEY `status_idx` (`status_id`),
-    CONSTRAINT `fk_user_role_id` FOREIGN KEY (`role_id`)
-        REFERENCES `unipsdb`.`role` (`role_id`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `fk_user_status_id` FOREIGN KEY (`status_id`)
-        REFERENCES `unipsdb`.`status` (`status_id`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
-)  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
-
-
--- Create a table for the pictures
-CREATE TABLE IF NOT EXISTS `unipsdb`.`user_picture` (
-    `user_picture_id` INT(11) NOT NULL AUTO_INCREMENT,
-    `picture` VARCHAR(100) NOT NULL,
-    `user_id` INT(11) DEFAULT NULL,
-    PRIMARY KEY (`user_picture_id`),
-    KEY `user_idx` (`user_id`),
-    CONSTRAINT `fk_user_picture_user_id` FOREIGN KEY (`user_id`)
-        REFERENCES `unipsdb`.`user` (`user_id`)
-        ON DELETE CASCADE ON UPDATE CASCADE
-)  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
-
 
 -- Create Address table
 CREATE TABLE IF NOT EXISTS `unipsdb`.`address` (
@@ -87,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`business_category` (
 
 
 -- Create business table
-CREATE TABLE IF NOT EXISTS `unipsdb`.`business` (
-    `business_id` INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `unipsdb`.`user` (
+    `user_id` INT(11) NOT NULL AUTO_INCREMENT,
     `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `username` VARCHAR(50) NOT NULL,
     `password` VARCHAR(50) NOT NULL,
@@ -105,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`business` (
     `role_id` TINYINT(1) NOT NULL,
     `business_category_id` TINYINT(2) NULL,
     `token` VARCHAR(50) NULL,
-    PRIMARY KEY (`business_id`),
+    PRIMARY KEY (`user_id`),
     UNIQUE INDEX `username` (`username`),
     INDEX `token` (`token`),
     INDEX `address_idx` (`address_id`),
@@ -125,6 +86,24 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`business` (
         REFERENCES `unipsdb`.`business_category` (`business_category_id`)
         ON DELETE CASCADE ON UPDATE CASCADE
 )  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+
+-- Create the picture table
+CREATE TABLE `unipsdb`.`picture` (
+    `picture_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `picture` VARCHAR(100) NULL,
+    `user_id` INT(11) NULL,
+    `user_id_referenced` INT(11) NULL,
+    PRIMARY KEY (`picture_id`),
+    INDEX `user_idx` (`user_id`),
+    INDEX `user_referenced_idx` (`user_id_referenced`),
+    CONSTRAINT `fk_picture_user_id` FOREIGN KEY (`user_id`)
+        REFERENCES `unipsdb`.`user` (`user_id`)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_picture_user_id_referenced` FOREIGN KEY (`user_id_referenced`)
+        REFERENCES `unipsdb`.`user` (`user_id`)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
 
 -- Create a table for the flags
@@ -154,8 +133,8 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`comment` (
     CONSTRAINT `fk_comment_user_id` FOREIGN KEY (`user_id`)
         REFERENCES `unipsdb`.`user` (`user_id`)
         ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT `fk_comment_business_id` FOREIGN KEY(`business_id`)
-		REFERENCES `unipsdb`.`business` (`business_id`)
+	CONSTRAINT `fk_comment_business_id` FOREIGN KEY(`user_id`)
+		REFERENCES `unipsdb`.`user` (`user_id`)
         ON DELETE CASCADE ON UPDATE CASCADE
 )  ENGINE=INNODB DEFAULT CHARACTER SET=LATIN1;
 
@@ -186,27 +165,9 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`rating` (
         REFERENCES `unipsdb`.`user` (`user_id`)
         ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT `fk_rating_business_id` FOREIGN KEY(`business_id`)
-		REFERENCES `unipsdb`.`business` (`business_id`)
+		REFERENCES `unipsdb`.`user` (`user_id`)
         ON DELETE CASCADE ON UPDATE CASCADE
 )  ENGINE=INNODB DEFAULT CHARACTER SET=LATIN1;
-
-
--- Create a business picture table
-CREATE TABLE IF NOT EXISTS `unipsdb`.`business_picture` (
-    `business_picture_id` INT(11) NOT NULL AUTO_INCREMENT,
-    `picture` VARCHAR(100) NOT NULL,
-    `business_id` INT(11) NOT  NULL,
-    `user_id` INT(11) DEFAULT NULL,
-    PRIMARY KEY (`business_picture_id`),
-    KEY `business_idx` (`business_id`),
-    KEY `user_idx` (`user_id`),
-    CONSTRAINT `fk_business_picture_business_id` FOREIGN KEY (`business_id`)
-        REFERENCES `unipsdb`.`business` (`business_id`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_business_picture_user_id` FOREIGN KEY (`user_id`)
-        REFERENCES `unipsdb`.`user` (`user_id`)
-        ON DELETE CASCADE ON UPDATE CASCADE
-)  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
 
 
 
@@ -261,25 +222,6 @@ VALUES
 	(1, 'FLAG');
     
 
--- Add data for the usernames
-INSERT INTO `unipsdb`.`user`
-	(`username`, `password`, `email`, `question1`, `question2`, `description`, `status_id`, `role_id`) 
-VALUES
-	('kathy',  '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', 'kathy@kathy.com', 'kathy answer 1', 'kathy answer 2', 'I am kathy', 1, 0), 
-	('sam',  '904752ad9c4ae4186c4b4897321c517de0618702', 'sam@sam.com', 'sam answer 1', 'sam answer 2', 'I am sam', 1, 1),
-    ('sarah',  '904752ad9c4ae4186c4b4897321c517de0618702', 'sarah@sarah.com', 'sarah answer 1', 'sarah answer 2', 'I am sara', 1, 1);
-
-    
--- Add data to the user pictures
-TRUNCATE `unipsdb`.`user_picture`;
-INSERT INTO `unipsdb`.`user_picture` 
-	(`picture`, `user_id`) 
-VALUES
-	('F:\pics\users\kathy001.png', 1),
-	('F:\pics\users\kathy002.png', 1),
-	('F:\pics\users\sam.jpeg', 2);
-
-
 -- Add data for address
 INSERT INTO `unipsdb`.`address`
 	(`line1`, `line2`, `city`, `state`, `zip`)
@@ -291,10 +233,19 @@ VALUES
 	('11200 SW 8th St', 'GL', 'Miami', 'FL', 33199), 
 	('11200 SW 8th St', 'PG 6 -160', 'Miami', 'FL', 33199);
 
-
     
--- Add data for business
-INSERT INTO `unipsdb`.`business`
+
+-- Add data for the usernames
+-- for users
+INSERT INTO `unipsdb`.`user`
+	(`username`, `password`, `email`, `question1`, `question2`, `description`, `status_id`, `role_id`) 
+VALUES
+	('kathy',  '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', 'kathy@kathy.com', 'kathy answer 1', 'kathy answer 2', 'I am kathy', 1, 0), 
+	('sam',  '904752ad9c4ae4186c4b4897321c517de0618702', 'sam@sam.com', 'sam answer 1', 'sam answer 2', 'I am sam', 1, 1),
+    ('sarah',  '904752ad9c4ae4186c4b4897321c517de0618702', 'sarah@sarah.com', 'sarah answer 1', 'sarah answer 2', 'I am sara', 1, 1);
+    
+-- and data for business
+INSERT INTO `unipsdb`.`user`
 	(`username`, `password`, `phone`, `phone_business`, `email`, `question1`, `question2`, `description`, `hours`, `address_id`, `status_id`, `role_id`, `business_category_id`)
 VALUES
 	('chillis', '5b3a02c900752a8a70f157ce633d37561d6a89cb', 3053482668, 3053482668, 'chillis@chillis.com', 'chillis answer 1', 'chillis answer 2', 'I am Chillis', '11AM - 10PM', 1, 1, 2, 0), 
@@ -304,43 +255,45 @@ VALUES
 	('starbucks', '904752ad9c4ae4186c4b4897321c517de0618702', 3053483072, 3053483072, 'starbucks@starbucks.com', 'starbucks answer 1', 'starbucks answer 2', 'I am Starbucks', '7AM–11PM', 5, 1, 2, 4), 
 	('optics', '051823e651318e9768c181fd156c93d7d841bec7', 3053488439, 3053488439, 'optics@optics.com', 'optics answer 1', 'optics answer 2', 'I am Optics', '9AM–5PM', 6, 1, 2, 5);
 
+    
 
-    
--- Add data to business pictures
-TRUNCATE `unipsdb`.`business_picture`;
--- Added by the business
-INSERT INTO `unipsdb`.`business_picture` 
-	(`picture`, `business_id`)
+-- Add data to the user pictures
+TRUNCATE `unipsdb`.`picture`;
+INSERT INTO `unipsdb`.`picture` 
+	(`picture`, `user_id`) 
 VALUES
-	('F:\pics\business\chillis001.png', 1), 
-    ('F:\pics\business\barnes001.png', 2),
-    ('F:\pics\business\health001.png', 3),
-    ('F:\pics\business\advisor001.png', 4),
-    ('F:\pics\business\advisor002.png', 4);
+	('F:\pics\users\kathy001.png', 1),
+	('F:\pics\users\kathy002.png', 1),
+	('F:\pics\users\sam.jpeg', 2),
+    ('F:\pics\users\chillis001.png', 4), 
+    ('F:\pics\users\barnes001.png', 5),
+    ('F:\pics\users\health001.png', 6),
+    ('F:\pics\users\advisor001.png', 7),
+    ('F:\pics\users\advisor002.png', 7);
     
--- Added by the users
-INSERT INTO `unipsdb`.`business_picture` 
-	(`picture`, `business_id`, `user_id`)
+-- Added by the users to a busniess
+INSERT INTO `unipsdb`.`picture` 
+	(`picture`, `user_id`, `user_id_referenced`)
 VALUES
-	('F:\pics\business\starbucks001.png', 5, 1), 
-    ('F:\pics\business\mystarbucks.png', 5, 2),
-    ('F:\pics\business\optics.png', 6, 2);
+	('F:\pics\business\starbucks001.png', 8, 1), 
+    ('F:\pics\business\mystarbucks.png', 8, 2),
+    ('F:\pics\business\optics.png', 9, 2);
     
-    
-    
+
+
 -- Add data for comments
 INSERT INTO `unipsdb`.`comment`
 	(`subject`, `body`, `comment_flag_id`,`user_id`,`business_id`)
 VALUES
-	('Great service', 'The service I received was great.', 0, 1, 1),
-    ('Too priecy', 'The service was great but the prices are too high', 0, 2, 5),
-    ('I hated it', 'People there are just fucking assholes', 1, 3, 6);
+	('Great service', 'The service I received was great.', 0, 1, 5),
+    ('Too priecy', 'The service was great but the prices are too high', 0, 2, 8),
+    ('I hated it', 'People there are just fucking assholes', 1, 3, 9);
 
 
 -- Add data to the comments
 INSERT INTO `unipsdb`.`rating`
 	(`rating_value_id`, `user_id`, `business_id`)
 VALUES
-	(0, 3, 6),
-    (4, 1, 5);
+	(0, 3, 9),
+    (4, 1, 8);
 

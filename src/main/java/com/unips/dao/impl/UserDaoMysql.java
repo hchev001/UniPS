@@ -69,11 +69,11 @@ public class UserDaoMysql implements UserDao {
 	public List<User> getAllUsers() {
 		
 		String sql = "(SELECT * FROM `unipsdb`.`user` AS u " +
-					 "LEFT JOIN `unipsdb`.`user_picture` AS p " +
+					 "LEFT JOIN `unipsdb`.`picture` AS p " +
 					 "ON u.user_id = p.user_id) " +
 					 "UNION " +
 					 "(SELECT * FROM `unipsdb`.`user` AS u " +
-					 "RIGHT JOIN `unipsdb`.`user_picture` AS p " +
+					 "RIGHT JOIN `unipsdb`.`picture` AS p " +
 					 "ON u.user_id = p.user_id);";
 		
 		List<User> users = jdbcTemplate.query(sql, new UserResultSetExtractor());
@@ -84,7 +84,7 @@ public class UserDaoMysql implements UserDao {
 	public User getUser(String username) {
 
 		String sql = "SELECT * FROM `unipsdb`.`user` AS u " +
-					 "LEFT JOIN `unipsdb`.`user_picture` AS p "+
+					 "LEFT JOIN `unipsdb`.`picture` AS p "+
 					 "ON u.user_id=p.user_id " +
 					 "WHERE u.username=?";
 		
