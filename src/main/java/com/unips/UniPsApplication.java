@@ -22,5 +22,4 @@ public class UniPsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UniPsApplication.class, args);
 	}
-
 }

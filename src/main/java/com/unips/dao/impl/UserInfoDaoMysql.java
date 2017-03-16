@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.UserInfo;
 
@@ -25,20 +26,21 @@ public class UserInfoDaoMysql implements UserInfoDao{
 			UserInfo userInfo = new UserInfo();
 			userInfo.setUsername(rs.getString("username"));
 			userInfo.setPassword(rs.getString("password"));
-			userInfo.setRole(rs.getString("authority"));
+			userInfo.setRole(rs.getString("role"));
 			return userInfo;
 		}
 	}
 	
 	public UserInfo getUserInfo(String username) {
 		
-		String sql = "SELECT u.username username, u.password password, a.authority authority " + 
-					 "FROM `unipsdb`.`users` AS u " +
-					 "LEFT JOIN `unipsdb`.`authorities` as a " +
-					 "ON a.authority_id=u.authority_id " +
-					 "WHERE u.status_id=0 AND u.username=?";
+		String sql = "SELECT u.username username, u.password password, a.role role " + 
+					 "FROM `unipsdb`.`user` AS u " +
+					 "LEFT JOIN `unipsdb`.`role` as a " +
+					 "ON a.role_id=u.role_id " +
+					 "WHERE u.status_id=? AND u.username=?";
 		try {
-			UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), username);
+			Object [] values = {Status.ACTIVE.ordinal(), username};
+			UserInfo userInfo = jdbcTemplate.queryForObject(sql, new UserRowMapper(), values);
 			return userInfo;
 		} catch (EmptyResultDataAccessException e) {
 			return null;

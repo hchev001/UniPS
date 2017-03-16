@@ -1,13 +1,11 @@
 package com.unips.entity;
 
-import com.unips.constants.BusinessConstants.StatesUs;
-
 public class Address {
 	
 	private String line1;
 	private String line2;
 	private String city;
-	private StatesUs state;
+	private String state;
 	private long zip;
 	
 	
@@ -35,10 +33,10 @@ public class Address {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public StatesUs getState() {
+	public String getState() {
 		return state;
 	}
-	public void setState(StatesUs state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 	public long getZip() {
