@@ -1,11 +1,11 @@
 package com.unips.entity;
 
-import com.unips.constants.BusinessConstants.RatingCategory;
+import com.unips.constants.BusinessConstants.RatingValue;
 
 public class Rating {
 	
 	private User creator;
-	private RatingCategory rate;
+	private RatingValue rate;
 	
 	
 	@Override
@@ -19,10 +19,10 @@ public class Rating {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-	public RatingCategory getRate() {
+	public RatingValue getRate() {
 		return rate;
 	}
-	public void setRate(RatingCategory rate) {
+	public void setRate(RatingValue rate) {
 		this.rate = rate;
 	}
 

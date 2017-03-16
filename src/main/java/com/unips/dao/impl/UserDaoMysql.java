@@ -38,16 +38,16 @@ public class UserDaoMysql implements UserDao {
 				if (!userMap.containsKey(id)) {
 					User user = new User();
 					user.setId(rs.getInt("user_id"));
-					user.setCreatedDate(rs.getDate("createdDate"));
+					user.setCreatedDate(rs.getDate("created_date"));
 					user.setUsername(rs.getString("username"));
 					user.setPassword(rs.getString("password"));
 					user.setEmail(rs.getString("email"));
 					user.setQuestion1(rs.getString("question1"));
 					user.setQuestion2(rs.getString("question2"));
-					user.setPictureFeatured(rs.getString("pictureFeatured"));
+					user.setPictureFeatured(rs.getString("picture_featured"));
 					user.setDescription(rs.getString("description"));
 					user.setStatus(Status.values() [rs.getInt("status_id")]);
-					user.setRole(Roles.values() [rs.getInt("authority_id")]);
+					user.setRole(Roles.values() [rs.getInt("role_id")]);
 					
 					List<String> pictures = new LinkedList<>();
 					pictures.add(rs.getString("picture"));
@@ -68,12 +68,12 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public List<User> getAllUsers() {
 		
-		String sql = "(SELECT * FROM `unipsdb`.`users` AS u " +
-					 "LEFT JOIN `unipsdb`.`user_pictures` AS p " +
+		String sql = "(SELECT * FROM `unipsdb`.`user` AS u " +
+					 "LEFT JOIN `unipsdb`.`picture` AS p " +
 					 "ON u.user_id = p.user_id) " +
 					 "UNION " +
-					 "(SELECT * FROM `unipsdb`.`users` AS u " +
-					 "RIGHT JOIN `unipsdb`.`user_pictures` AS p " +
+					 "(SELECT * FROM `unipsdb`.`user` AS u " +
+					 "RIGHT JOIN `unipsdb`.`picture` AS p " +
 					 "ON u.user_id = p.user_id);";
 		
 		List<User> users = jdbcTemplate.query(sql, new UserResultSetExtractor());
@@ -83,8 +83,8 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public User getUser(String username) {
 
-		String sql = "SELECT * FROM `unipsdb`.`users` AS u " +
-					 "LEFT JOIN `unipsdb`.`user_pictures` AS p "+
+		String sql = "SELECT * FROM `unipsdb`.`user` AS u " +
+					 "LEFT JOIN `unipsdb`.`picture` AS p "+
 					 "ON u.user_id=p.user_id " +
 					 "WHERE u.username=?";
 		
@@ -97,7 +97,7 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public int addUser(User user) {
 		
-		String sql = "INSERT INTO `unipsdb`.`users` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `authority_id`, `token`) " +
+		String sql = "INSERT INTO `unipsdb`.`user` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `role_id`, `token`) " +
 					 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		
 		Object[] values = {
@@ -116,7 +116,7 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public User updateUser(User user) {
 		
-		String sql = "UPDATE `unipsdb`.`users` u " +
+		String sql = "UPDATE `unipsdb`.`user` u " +
 					 "SET u.username = ?, u.password = ?, u.email = ?, u.question1 = ?, u.question2 = ? " +
 					 "WHERE u.username = ?;";		
 		
@@ -134,7 +134,7 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public int deleteUser(String username) {
 		
-		String sql = "DELETE FROM `unipsdb`.`users` WHERE username = ?";
+		String sql = "DELETE FROM `unipsdb`.`user` WHERE username = ?";
 			
 		return jdbcTemplate.update(sql, new Object[]{username});
 	}	
@@ -143,7 +143,7 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public String verifyEmail(String candidateToken) {
 		
-		String sql = "SELECT username FROM `unipsdb`.`users` u WHERE u.token=?";
+		String sql = "SELECT username FROM `unipsdb`.`user` u WHERE u.token=?";
 		String username = jdbcTemplate.queryForObject(sql, new Object[] {candidateToken}, String.class);
 		
 		return username;
@@ -152,7 +152,7 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public int updateUserStatus(String username, Status status) {
 		
-		String sql = "UPDATE `unipsdb`.`users` u SET u.status_id=? WHERE u.username=?;";
+		String sql = "UPDATE `unipsdb`.`user` u SET u.status_id=? WHERE u.username=?;";
 	
 		return jdbcTemplate.update(sql, new Object[] {status.ordinal(), username});
 	}
