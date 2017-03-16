@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`business` (
     `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `username` VARCHAR(50) NOT NULL,
     `password` VARCHAR(50) NOT NULL,
-    `phone` INT(10) NULL,
-    `phone_business` INT(10) NULL,
+    `phone` BIGINT(10) NULL,
+    `phone_business` BIGINT(10) NULL,
     `email` VARCHAR(50) NOT NULL,
     `question1` VARCHAR(50) NOT NULL,
     `question2` VARCHAR(50) NOT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`rating` (
 CREATE TABLE IF NOT EXISTS `unipsdb`.`business_picture` (
     `business_picture_id` INT(11) NOT NULL AUTO_INCREMENT,
     `picture` VARCHAR(100) NOT NULL,
-    `business_id` INT(11) DEFAULT NULL,
+    `business_id` INT(11) NOT  NULL,
     `user_id` INT(11) DEFAULT NULL,
     PRIMARY KEY (`business_picture_id`),
     KEY `business_idx` (`business_id`),
@@ -214,33 +214,133 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`business_picture` (
 -- Populate all tables needed --
 -- ------------------------ --
 
-
--- Add data  to the authorities types
-INSERT INTO `unipsdb`.`role` (`role_id`, `role`) VALUES
+-- Add data  to the role types
+INSERT INTO `unipsdb`.`role` 
+	(`role_id`, `role`) 
+VALUES
 	(0, 'ROLE_ADMIN'),
 	(1, 'ROLE_USER'),
     (2, 'ROLE_BUSINESS');
     
 -- Add data  to the user status
-INSERT INTO `unipsdb`.`status` (`status_id`, `status`) VALUES
-	(0, 'ACTIVE'),
-	(1, 'DISABLED'),
+INSERT INTO `unipsdb`.`status` 
+	(`status_id`, `status`) 
+VALUES
+	(0, 'DISABLED'),
+	(1, 'ACTIVE'),
     (2, 'SUSPENDED'),
     (3, 'BANNED');
 
--- Add data for the usernames
-INSERT INTO `unipsdb`.`user` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `role_id`) VALUES
-	('kathy', '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', 'kathy@kathy.com','blue2','blue2', 0, 0),
-	('sam', '904752ad9c4ae4186c4b4897321c517de0618702','sam@sam.com','red2', 'red2', 0, 1),
-    ('starbucks', '904752ad9c4ae4186c4b4897321c517de0618702', 'star@star.com', 'green1', 'green2', 0, 2);
+-- Add data to the business categories
+INSERT INTO `unipsdb`.`business_category` 
+	(`business_category_id`, `category`) 
+VALUES
+	(0, 'RESTAURANT'), 
+	(1, 'SHOPING'), 
+	(2, 'HEATH'), 
+	(3, 'EDUCATION'), 
+	(4, 'COFFEE'), 
+	(5, 'OTHER');
     
--- Add data to the pictures
+-- Add data to the rating values
+INSERT INTO `unipsdb`.`rating_value` 
+	(`rating_value_id`, `value`) 
+VALUES
+	(0, 'BAD'), 
+	(1, 'REGULAR'), 
+	(2, 'AVERAGE'), 
+	(3, 'GOOD'), 
+	(4, 'EXCELLENT');
+  
+  
+-- Add data to the comment flag
+INSERT INTO `unipsdb`.`comment_flag` 
+	(`comment_flag_id`, `flag`) 
+VALUES
+	(0, 'OK'), 
+	(1, 'FLAG');
+    
+
+-- Add data for the usernames
+INSERT INTO `unipsdb`.`user`
+	(`username`, `password`, `email`, `question1`, `question2`, `description`, `status_id`, `role_id`) 
+VALUES
+	('kathy',  '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', 'kathy@kathy.com', 'kathy answer 1', 'kathy answer 2', 'I am kathy', 1, 0), 
+	('sam',  '904752ad9c4ae4186c4b4897321c517de0618702', 'sam@sam.com', 'sam answer 1', 'sam answer 2', 'I am sam', 1, 1),
+    ('sarah',  '904752ad9c4ae4186c4b4897321c517de0618702', 'sarah@sarah.com', 'sarah answer 1', 'sarah answer 2', 'I am sara', 1, 1);
+
+    
+-- Add data to the user pictures
 TRUNCATE `unipsdb`.`user_picture`;
-INSERT INTO `unipsdb`.`user_picture` (`user_id`, `picture`) VALUES
-	(1, 'F:\pics\kathy001.png'),
-	(1, 'F:\pics\kathy002.png'),
-	(2, 'F:\pics\sam.jpeg'),
-	(3, 'F:\pics\starbucks_001.jpeg'),
-	(3, 'F:\pics\starbucks_002.jpeg'),
-	(3, 'F:\pics\starbucks_003.jpeg'),
-	(3, 'F:\pics\starbucks_004.jpeg');
+INSERT INTO `unipsdb`.`user_picture` 
+	(`picture`, `user_id`) 
+VALUES
+	('F:\pics\users\kathy001.png', 1),
+	('F:\pics\users\kathy002.png', 1),
+	('F:\pics\users\sam.jpeg', 2);
+
+
+-- Add data for address
+INSERT INTO `unipsdb`.`address`
+	(`line1`, `line2`, `city`, `state`, `zip`)
+VALUES
+	('11200 SW 8th St', '', 'Miami', 'FL', 33199), 
+	('11000 SW 8th St', 'GC', 'Miami', 'FL', 33174), 
+	('11200 SW 8th St', 'Student Health Center (SHC)', 'Mami', 'FL', 33199), 
+	('11200 SW 8th St', 'PG 6 -100', 'Miami', 'FL', 33199), 
+	('11200 SW 8th St', 'GL', 'Miami', 'FL', 33199), 
+	('11200 SW 8th St', 'PG 6 -160', 'Miami', 'FL', 33199);
+
+
+    
+-- Add data for business
+INSERT INTO `unipsdb`.`business`
+	(`username`, `password`, `phone`, `phone_business`, `email`, `question1`, `question2`, `description`, `hours`, `address_id`, `status_id`, `role_id`, `business_category_id`)
+VALUES
+	('chillis', '5b3a02c900752a8a70f157ce633d37561d6a89cb', 3053482668, 3053482668, 'chillis@chillis.com', 'chillis answer 1', 'chillis answer 2', 'I am Chillis', '11AM - 10PM', 1, 1, 2, 0), 
+	('barnes', 'd57410b6ec1a6a1fd8250a563433c29b3896bdca', 3053482691, 3053482691, 'barnes@barnes.com', 'barners answer 1', 'barners answer 2', 'I am Barnes  & Nobel', '8:30AM - 8PM', 2, 1, 2, 1), 
+	('health', '4a47d9047c7e15cbfd3e189ca28c9db6cdbaf764', 3053482401, 3053482401, 'health@health.com', 'health answer 1', 'health answer 2', 'I am Health', 'until - 8:00 PM', 3, 1, 2, 2), 
+	('advisor', '76af7efae0d034d1e3335ed1b90f24b6cadf2bf1', 3053487936, 3053487936, 'advisor@advisor.com', 'advisor answer 1', 'advisor answer 2', 'I am Advisor', 'Depends', 4, 1, 2, 3), 
+	('starbucks', '904752ad9c4ae4186c4b4897321c517de0618702', 3053483072, 3053483072, 'starbucks@starbucks.com', 'starbucks answer 1', 'starbucks answer 2', 'I am Starbucks', '7AM–11PM', 5, 1, 2, 4), 
+	('optics', '051823e651318e9768c181fd156c93d7d841bec7', 3053488439, 3053488439, 'optics@optics.com', 'optics answer 1', 'optics answer 2', 'I am Optics', '9AM–5PM', 6, 1, 2, 5);
+
+
+    
+-- Add data to business pictures
+TRUNCATE `unipsdb`.`business_picture`;
+-- Added by the business
+INSERT INTO `unipsdb`.`business_picture` 
+	(`picture`, `business_id`)
+VALUES
+	('F:\pics\business\chillis001.png', 1), 
+    ('F:\pics\business\barnes001.png', 2),
+    ('F:\pics\business\health001.png', 3),
+    ('F:\pics\business\advisor001.png', 4),
+    ('F:\pics\business\advisor002.png', 4);
+    
+-- Added by the users
+INSERT INTO `unipsdb`.`business_picture` 
+	(`picture`, `business_id`, `user_id`)
+VALUES
+	('F:\pics\business\starbucks001.png', 5, 1), 
+    ('F:\pics\business\mystarbucks.png', 5, 2),
+    ('F:\pics\business\optics.png', 6, 2);
+    
+    
+    
+-- Add data for comments
+INSERT INTO `unipsdb`.`comment`
+	(`subject`, `body`, `comment_flag_id`,`user_id`,`business_id`)
+VALUES
+	('Great service', 'The service I received was great.', 0, 1, 1),
+    ('Too priecy', 'The service was great but the prices are too high', 0, 2, 5),
+    ('I hated it', 'People there are just fucking assholes', 1, 3, 6);
+
+
+-- Add data to the comments
+INSERT INTO `unipsdb`.`rating`
+	(`rating_value_id`, `user_id`, `business_id`)
+VALUES
+	(0, 3, 6),
+    (4, 1, 5);
+

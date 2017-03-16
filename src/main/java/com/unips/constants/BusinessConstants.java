@@ -12,7 +12,7 @@ public class BusinessConstants {
 	 * Reflects the status of an user.
 	 */
 	public enum Status {
-		ACTIVE, DISABLED, SUSPENDED, BANNED
+		DISABLED, ACTIVE, SUSPENDED, BANNED
 	}
 	
 	/**
