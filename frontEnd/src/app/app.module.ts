@@ -19,7 +19,9 @@ import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService } from './_services/index';
 
 // used to create fake backend
+/*
 import { fakeBackendProvider } from './_helpers/fake-backend';
+*/
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 
@@ -49,7 +51,9 @@ import { BaseRequestOptions } from '@angular/http';
     UserService,
 
     // providers used to create fake backend
+    /*
     fakeBackendProvider,
+    */
     MockBackend,
     BaseRequestOptions
   ],
