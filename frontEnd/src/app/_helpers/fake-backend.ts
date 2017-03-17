@@ -1,4 +1,5 @@
-﻿import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
+﻿/*
+import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 export let fakeBackendProvider = {
@@ -124,3 +125,5 @@ export let fakeBackendProvider = {
     },
     deps: [MockBackend, BaseRequestOptions]
 };
+
+*/
