@@ -1,14 +1,14 @@
-#BackEnd
+# BackEnd
 
 UniPS will allow university employees and students to inquire about businesses/services and review them.  It will consist of four roles: Administrators, Business Entities, Registered Users, and Guests. Department and businesses can voluntarily register in the UniPS web service so they can provide better access to information and services.
 
-##Dependencies
+## Dependencies
 -SpringSource Tool Suite
 -MySql Workbench
 
-##Database
+## Database
 
-###Setup
+### Setup
 The database will be using is a local database and the credentials are:
 <pre>
 spring.datasource.username=root
@@ -17,10 +17,10 @@ spring.datasource.password=root
 
 **Note: You will need to have MySql Configured in your computer and make sure the MySql Server is running.
 
-###Traceability and Version Control
+### Traceability and Version Control
 Place all queries necessary to restore / replicate database state in the /sql folder. 
 
-##Mail
+## Mail
 
 Email credentials
 <pre>
@@ -28,7 +28,7 @@ spring.mail.username=unipsi2017@gmail.com
 spring.mail.password=success2017
 </pre>
 
-##Turning on the Back-end
+## Turning on the Back-end
 
 - Import the project into Eclipse (Make sure you have the dependencies installed)
 - Turn on Mysql local server
@@ -41,7 +41,7 @@ spring.mail.password=success2017
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.1.
 
-##Styling
+## Styling
 
 The CSS framework in use for this application is Bootstrap 4. Be sure to look at examples on website, as bootstrap 3 code may not render properly.
 <pre>
