@@ -14,12 +14,14 @@ import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.UserService;
 
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
 	@Autowired
 	UserService<User> service;
+	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
