@@ -1,6 +1,5 @@
 package com.unips.response;
 
-@SuppressWarnings("unused")
 public class Response <AnyData> {
 	
 	private static final String SUCCESS = "success";
@@ -49,7 +48,6 @@ public class Response <AnyData> {
 		return data;
 	}
 
-
 	public void setData(AnyData data) {
 		this.data = data;
 	}
@@ -58,7 +56,6 @@ public class Response <AnyData> {
 	public String getError() {
 		return error;
 	}
-
 
 	public void setError(String error) {
 		this.error = error;
