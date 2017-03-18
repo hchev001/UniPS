@@ -113,3 +113,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+# Static folder for the compiled front end.
+/src/main/resources/static

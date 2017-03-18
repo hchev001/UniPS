@@ -15,7 +15,7 @@ public class SmptMailSender {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	
+	@Async
 	private void send (String to, String subject, String body) throws MessagingException {
 		
 		MimeMessage message = javaMailSender.createMimeMessage();
@@ -28,6 +28,7 @@ public class SmptMailSender {
 		javaMailSender.send(message);
 	}
 	
+	@Async
 	public void sendUserVerificationEmail(String to, String link) throws MessagingException {
 		
 		final String subject = "Welcome to UniPS";
