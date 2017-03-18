@@ -33,7 +33,10 @@ public class Response <AnyData> {
 		return new Response<AnyData>(FAILURE, error);
 	}
 
-
+	public static <AnyData> Response<AnyData> unimplemented() {
+		return new Response<AnyData>(FAILURE, "Missing implementation in the backend.");
+	}
+	
 	public String getStatus() {
 		return status;
 	}

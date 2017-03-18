@@ -80,7 +80,7 @@ public class UserService<T> {
 			
 			// Send Email
 			try {
-				String url = "http://localhost:8080/userVerification?token=" + user.getToken();
+				String url = "http://localhost:8080/api/userVerification?token=" + user.getToken();
 				mailSender.sendUserVerificationEmail(user.getEmail(), url);
 			} catch (Exception e) {
 				// Let it go....

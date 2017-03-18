@@ -1,28 +1,35 @@
 package com.unips.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.UserService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
-@Api(tags="Registration and Login")
-public class GeneralController {
-	
+@RequestMapping("/api/search")
+@Api(tags={"Search"})
+public class SearchController {
+
 	@Autowired
 	UserService<User> service;
 	
-	@RequestMapping(value="api/signup", method = RequestMethod.POST)
+	@ApiOperation("Search for business entities")
+	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Response<User> addUser(@RequestBody User user) {
-		return service.addUser(user);
+	public Response<List<Business>> search() {
+		return Response.unimplemented();
+		//Accepts "?{keyword},{filter},{rating}"
 	}
 }

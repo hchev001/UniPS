@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.UserService;
@@ -19,45 +20,45 @@ import io.swagger.annotations.ApiOperation;
 
 
 @RestController
-@RequestMapping("/api/users")
-@Api(tags="Basic User")
-public class UserController {
+@RequestMapping("/api/admin")
+@Api(tags="Basic Admin")
+public class AdminController {
 
 	@Autowired
 	UserService<User> service;
 	
-	@ApiOperation("Gets all the users")
+	@ApiOperation("Gets all the admins entities")
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Response<List<User>> getAllUsers() {
-		return service.getAllUsers();
+	public Response<List<User>> getAllAdmin() {
+		return Response.unimplemented();
 	}
 	
-	@ApiOperation("Get user by username")
+	@ApiOperation("Get admin user by username")
 	@RequestMapping(value="{username}", method = RequestMethod.GET)
 	@ResponseBody
-	public Response<User> getUserByUsername(@PathVariable("username") String username){
-		return service.getUser(username);
+	public Response<Business> getAdmin(@PathVariable("username") String username){
+		return Response.unimplemented();
 	}
 	
-	@ApiOperation("Add a new user.")
+	@ApiOperation("Add a new admin")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Response<User> addUser(@RequestBody User user) {
-		return service.addUser(user);
+	public Response<Business> addAdmin(@RequestBody Business business) {
+		return Response.unimplemented();
 	}
 	
-	@ApiOperation("Modify a user by username.")
+	@ApiOperation("Modify an admin by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response<User> updateUser(@RequestBody User user){
-		return service.updateUser(user);
+	public Response<Business> updateAdmin(@RequestBody Business business){
+		return Response.unimplemented();
 	}
 	
-	@ApiOperation("Delete a user by username.")
+	@ApiOperation("Delete an admin by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response<Integer> deleteUser(@PathVariable("username") String username){
-		return service.deleteUser(username);
+	public Response<Integer> updateAdmin(@PathVariable("username") String username){
+		return Response.unimplemented();
 	}
 }
