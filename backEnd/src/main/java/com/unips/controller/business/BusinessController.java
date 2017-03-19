@@ -1,4 +1,4 @@
-package com.unips.controller;
+package com.unips.controller.business;
 
 import java.util.List;
 

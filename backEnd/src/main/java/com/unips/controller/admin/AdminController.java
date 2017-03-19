@@ -1,4 +1,4 @@
-package com.unips.controller;
+package com.unips.controller.admin;
 
 import java.util.List;
 

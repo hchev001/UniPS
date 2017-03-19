@@ -1,4 +1,4 @@
-package com.unips.controller;
+package com.unips.controller.admin;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.unips.entity.Comment;
+import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.UserService;
@@ -20,33 +20,33 @@ import io.swagger.annotations.ApiOperation;
 
 
 @RestController
-@RequestMapping("/api/users/{userName }/{businessName}/ratings")
-@Api(tags={"User-Rating"})
-public class UserRatingController {
+@RequestMapping("/api/admin")
+@Api(tags={"Admin-User-Business"})
+public class AdminUserController {
 
 	@Autowired
 	UserService<User> service;
 	
-	
-	@ApiOperation("Get rating for business")
-	@RequestMapping(method = RequestMethod.GET)
+	@ApiOperation("Get status of user with username by admin")
+	@RequestMapping(value="{userName}/status", method = RequestMethod.GET)
 	@ResponseBody
-	public Response<User> getRating(@RequestBody User user) {
-		return Response.unimplemented();
-	}
-	
-	@ApiOperation("Add rating for business")
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseBody
-	public Response<User> updateReview(@RequestBody User user){
+	public Response<Business> getStatus(@PathVariable("username") String username){
 		return Response.unimplemented();
 	}
 	
 	
-	@ApiOperation("Update review by reviewId")
-	@RequestMapping(method = RequestMethod.PUT)
+	@ApiOperation("Update status of user with username by admin")
+	@RequestMapping(value="{userName}/status", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response<Integer> deleteReview(@PathVariable("username") String username){
+	public Response<Business> updateAdmin(@RequestBody Business business){
+		return Response.unimplemented();
+	}
+	
+
+	@ApiOperation("Upload data into the system")
+	@RequestMapping(value="/upload", method = RequestMethod.POST)
+	@ResponseBody
+	public Response<Business> upload(@RequestBody Business business) {
 		return Response.unimplemented();
 	}
 }

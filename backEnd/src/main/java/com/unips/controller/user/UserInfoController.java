@@ -1,4 +1,4 @@
-package com.unips.controller;
+package com.unips.controller.user;
 
 import java.security.Principal;
 
