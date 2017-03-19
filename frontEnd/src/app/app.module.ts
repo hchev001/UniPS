@@ -24,6 +24,7 @@ import { fakeBackendProvider } from './_helpers/fake-backend';
 */
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
+import { SearchViewComponent } from './search-view/search-view.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BaseRequestOptions } from '@angular/http';
     HomeComponent,
     SearchFieldComponent,
     AlertComponent,
+    SearchViewComponent,
   ],
   imports: [
     BrowserModule,
