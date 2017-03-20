@@ -25,6 +25,11 @@ import { fakeBackendProvider } from './_helpers/fake-backend';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { SearchViewComponent } from './search-view/search-view.component';
+import { BusinessListComponent } from './business-list/business-list.component';
+import { BusinessRowComponent } from './business-row/business-row.component';
+import { BusinessImageComponent } from './business-image/business-image.component';
+import { BusinessDescriptionComponent } from './business-description/business-description.component';
+import { BusinessRatingComponent } from './business-rating/business-rating.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,11 @@ import { SearchViewComponent } from './search-view/search-view.component';
     SearchFieldComponent,
     AlertComponent,
     SearchViewComponent,
+    BusinessListComponent,
+    BusinessRowComponent,
+    BusinessImageComponent,
+    BusinessDescriptionComponent,
+    BusinessRatingComponent,
   ],
   imports: [
     BrowserModule,
