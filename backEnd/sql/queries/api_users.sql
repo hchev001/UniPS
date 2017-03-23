@@ -21,7 +21,6 @@ INSERT INTO `unipsdb`.`user`
 (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `role_id`, `token`)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?);
 
-
 -- Get User by token
 SELECT username FROM `unipsdb`.`user` u WHERE u.token=?;
 
