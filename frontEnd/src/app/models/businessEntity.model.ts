@@ -2,6 +2,8 @@
  * Provides a Business Entity object
  */
 
+import { Comment } from './comment.model';
+
 export class BusinessEntity {
     constructor (
         private id: String,
@@ -19,7 +21,7 @@ export class BusinessEntity {
         private description: String,
         private hours: String,
         private rateAverage: number,
-        private comments: String[],
+        private comments: Comment[],
         private ratings: String[],
         private address: String[],
         private status: String,
