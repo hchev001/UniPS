@@ -3,6 +3,7 @@
  */
 
 import { Comment } from './comment.model';
+import { Address } from './address.model';
 
 export class BusinessEntity {
     constructor (
@@ -23,7 +24,7 @@ export class BusinessEntity {
         private rateAverage: number,
         private comments: Comment[],
         private ratings: String[],
-        private address: String[],
+        private address: Address,
         private status: String,
         private role: String,
         private token: String
