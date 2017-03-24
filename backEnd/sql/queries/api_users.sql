@@ -16,11 +16,10 @@ LEFT JOIN `unipsdb`.`picture` AS p
 ON u.user_id=p.user_id
 WHERE u.username='kathy';
 
--- Insert a new User.
+-- Insert a new user
 INSERT INTO `unipsdb`.`user` 
 (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `role_id`, `token`)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?);
-
 
 -- Get User by token
 SELECT username FROM `unipsdb`.`user` u WHERE u.token=?;
@@ -29,7 +28,7 @@ SELECT username FROM `unipsdb`.`user` u WHERE u.token=?;
 UPDATE `unipsdb`.`user` u 
 SET u.status_id=? WHERE u.username=?;
 
--- Upate User 
+-- Upate user by username
 UPDATE `unipsdb`.`user` u
 SET u.username = ?, 
 	u.password = ?,
@@ -38,6 +37,6 @@ SET u.username = ?,
     u.question2 = ?
 WHERE u.username = ?;
 
--- Delete user
+-- Delete user by username
 DELETE FROM `unipsdb`.`user`
-WHERE username = ?
+WHERE username = '?';
