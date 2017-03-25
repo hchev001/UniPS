@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchViewComponent implements OnInit {
 
+  isDropDownMenu: boolean;
+  classesObj: Object;
+
   constructor() { }
 
   ngOnInit() {
+    this.isDropDownMenu = false;
+    this.toggleDropDown(event);
   }
 
+  toggleDropDown(event): void {
+    this.isDropDownMenu = !this.isDropDownMenu;
+    this.classesObj = {
+      'dropdown-menu': this.isDropDownMenu
+    };
+  }
 }

@@ -6,13 +6,16 @@
       <app-search-field></app-search-field>
     </div>
   </div>
+
+
+
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-2" style="border-right:medium #5e5e5e solid; ">
       <h2> Filters </h2>
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="True" aria-expanded="false">
+      <button (click)="toggleDropDown()" class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="True" aria-expanded="false">
         Category
       </button>
-      <div class="dropdown dropdown-menu" aria-labelledby="dropdownFilterButton">
+      <div class="dropdown" [ngClass]="classesObj" aria-labelledby="dropdownFilterButton">
         <button class="dropdown-item" type="button">Restaurants</button>
         <button class="dropdown-item" type="button">Shopping</button>
         <button class="dropdown-item" type="button">Health & Medical</button>
@@ -25,26 +28,28 @@
       </div>
       <div class="btn-group-vertical" data-toggle="buttons">
         <h3>Extra</h3>
-        <label class="btn btn-primary active">
+        <label class="btn btn-secondary active btn-sm">
           <input type="checkbox" autocomplete="off"> Open Now
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-secondary btn-sm">
           <input type="checkbox" autocomplete="off"> New Business
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-secondary btn-sm">
           <input type="checkbox" autocomplete="off"> Study Spot
         </label>
-</div>
     </div>
+  </div>
 
-    <div class="col-md-8">
-      <h2> Results </h2>
+    <div class="col-md-10">
+      <h2 > Results </h2>
 
       <div class="row">
         <div class="col-md-4">
-          <img src="http://socohospice.org/newsite/wp-content/uploads/2016/11/unnamed.png" alt="Mountain View" style="width:80%;height:80%; border: #000000 3px outset; display: block;">
+          <img src="http://socohospice.org/newsite/wp-content/uploads/2016/11/unnamed.png" alt="Mountain View" routerLink = "/businessentity"
+          style="width:80%;height:80%; border: #000000 3px outset; display: block;">
         </div>
         <div class="col-md-8">
+          <h4 routerLink="/businessentity">Chili's </h4>
           <app-business-rating></app-business-rating>
           <p> Family-friendly chain serving classic Tex-Mex & American food in a Southwestern-style setting</p>
         </div>
@@ -55,6 +60,7 @@
           <img src="https://yt3.ggpht.com/-9I9HElh2aVA/AAAAAAAAAAI/AAAAAAAAAAA/smWcQnw3JFE/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt="Mountain View" style="width:80%;height:80%; border: #000000 3px outset; display: block;">
         </div>
         <div class="col-md-8">
+          <h4>Subway</h4>
           <app-business-rating></app-business-rating>
           <p> Discover better-for-you sub sandwiches at Subway</p>
         </div>
@@ -65,6 +71,7 @@
           <img src="http://flicksandfood.com/wp-content/uploads/2016/01/new-logo.jpg" alt="Mountain View" style="width:80%;height:80%; border: #000000 3px outset; display: block;">
         </div>
         <div class="col-md-8">
+          <h4>Pollo Tropical</h4>
           <app-business-rating></app-business-rating>
           <p>Take your senses to an oasis of flavors. Our days start early chopping, slicing and grilling, making sauces from scratch and soaking our own beans. 
             We’re freshness fanatics on a never-ending quest to make sure that life tastes better under the palm. </p>
