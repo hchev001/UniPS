@@ -30,6 +30,8 @@ import { BusinessRowComponent } from './business-row/business-row.component';
 import { BusinessImageComponent } from './business-image/business-image.component';
 import { BusinessDescriptionComponent } from './business-description/business-description.component';
 import { BusinessRatingComponent } from './business-rating/business-rating.component';
+import { BusinessEntityComponent } from './business-entity/business-entity.component';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { BusinessRatingComponent } from './business-rating/business-rating.compo
     BusinessImageComponent,
     BusinessDescriptionComponent,
     BusinessRatingComponent,
+    BusinessEntityComponent,
   ],
   imports: [
     BrowserModule,

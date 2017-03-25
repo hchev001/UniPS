@@ -10,6 +10,7 @@ import { AuthGuard } from './_guards/index';
 import { HomeComponent } from './home/index';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchViewComponent } from './search-view/search-view.component'
+import { BusinessEntityComponent } from './business-entity/business-entity.component'
 
 
 
@@ -21,6 +22,7 @@ export const router: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'search', component: SearchViewComponent },
+    { path: 'businessentity', component: BusinessEntityComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 
