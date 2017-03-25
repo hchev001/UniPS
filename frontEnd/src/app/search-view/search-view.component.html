@@ -8,11 +8,11 @@
   </div>
   <div class="row">
     <div class="col-md-4">
-      <p> Filters </p>
+      <h2> Filters </h2>
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="True" aria-expanded="false">
         Category
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownFilterButton">
+      <div class="dropdown dropdown-menu" aria-labelledby="dropdownFilterButton">
         <button class="dropdown-item" type="button">Restaurants</button>
         <button class="dropdown-item" type="button">Shopping</button>
         <button class="dropdown-item" type="button">Health & Medical</button>
@@ -20,9 +20,11 @@
         <button class="dropdown-item" type="button">Coffee & Tea</button>
       </div>
       <div>
-        <p> Rating Component </p>
+        <h3>Rating</h3>
+        <app-business-rating></app-business-rating>
       </div>
       <div class="btn-group-vertical" data-toggle="buttons">
+        <h3>Extra</h3>
         <label class="btn btn-primary active">
           <input type="checkbox" autocomplete="off"> Open Now
         </label>
@@ -36,40 +38,34 @@
     </div>
 
     <div class="col-md-8">
-      <p> Results </p>
+      <h2> Results </h2>
 
       <div class="row">
         <div class="col-md-4">
-          <p> Picture of Chilis </p>
+          <img src="http://socohospice.org/newsite/wp-content/uploads/2016/11/unnamed.png" alt="Mountain View" style="width:80%;height:80%; border: #000000 3px outset; display: block;">
         </div>
         <div class="col-md-8">
-          <p> Rating Component: </p>
-        </div>
-        <div class="col-md-12">
+          <app-business-rating></app-business-rating>
           <p> Family-friendly chain serving classic Tex-Mex & American food in a Southwestern-style setting</p>
         </div>
       </div> 
 
       <div class="row">
         <div class="col-md-4">
-          <p> Picture of Subway </p>
+          <img src="https://yt3.ggpht.com/-9I9HElh2aVA/AAAAAAAAAAI/AAAAAAAAAAA/smWcQnw3JFE/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt="Mountain View" style="width:80%;height:80%; border: #000000 3px outset; display: block;">
         </div>
         <div class="col-md-8">
-          <p> Rating Component: </p>
-        </div>
-        <div class="col-md-12">
+          <app-business-rating></app-business-rating>
           <p> Discover better-for-you sub sandwiches at Subway</p>
         </div>
       </div>      
       
       <div class="row">
         <div class="col-md-4">
-          <p> Picture of Pollo Tropical  goes here </p>
+          <img src="http://flicksandfood.com/wp-content/uploads/2016/01/new-logo.jpg" alt="Mountain View" style="width:80%;height:80%; border: #000000 3px outset; display: block;">
         </div>
         <div class="col-md-8">
-          <p> Rating Component: </p>
-        </div>
-        <div class="col-md-12">
+          <app-business-rating></app-business-rating>
           <p>Take your senses to an oasis of flavors. Our days start early chopping, slicing and grilling, making sauces from scratch and soaking our own beans. 
             We’re freshness fanatics on a never-ending quest to make sure that life tastes better under the palm. </p>
         </div>
