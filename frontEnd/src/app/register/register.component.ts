@@ -17,6 +17,10 @@ export class RegisterComponent implements OnInit {
   model: any = {};
   loading = false;
 
+  isSecurityQuestion1DropDown: boolean;
+  isSecurityQuestion2DropDown: boolean;
+  classesObj1: Object;
+
   constructor(
         private router: Router,
         private userService: UserService,
@@ -38,6 +42,24 @@ export class RegisterComponent implements OnInit {
     }
 
   ngOnInit() {
+      this.isSecurityQuestion1DropDown = false;
+      this.isSecurityQuestion2DropDown = false;
+      this.toggleDropDown1(event);
+      this.toggleDropDown2(event);
+  }
+
+  toggleDropDown1(event): void {
+      this.isSecurityQuestion1DropDown = !this.isSecurityQuestion1DropDown;
+      this.classesObj1 = {
+          'dropdown-menu': this.isSecurityQuestion1DropDown
+      };
+  }
+
+  toggleDropDown2(event): void {
+      this.isSecurityQuestion2DropDown = !this.isSecurityQuestion2DropDown;
+      this.classesObj1 = {
+          'dropdown-menu': this.isSecurityQuestion2DropDown;
+      };
   }
 
 }
