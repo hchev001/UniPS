@@ -1,0 +1,2 @@
+in order to overcome the category bootstrap category dropdown vs dropdown-menu we can configure the button to trigger the removal of 
+dropdown-menu class using a angular directive
