@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
+import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.BusinessDao;
@@ -33,6 +34,7 @@ public class BusinessDaoMysql implements BusinessDao {
 		public List<Business> extractData(ResultSet rs) throws SQLException, DataAccessException {
 			
 			Map<Long, Business> userMap = new HashMap<>();
+			Map<Long, Boolean> processedComments = new HashMap<>();
 			
 			while(rs.next()) {
 				
@@ -57,13 +59,65 @@ public class BusinessDaoMysql implements BusinessDao {
 					user.setPhoneBusiness(rs.getLong("phone_business"));
 					user.setHours(rs.getString("hours"));
 					
+					
+					// Add the address
+					Address address = new Address();
+					address.setLine1(rs.getString("line1"));
+					address.setLine2(rs.getString("line2"));
+					address.setCity(rs.getString("city"));
+					address.setState(rs.getString("state"));
+					address.setZip(rs.getLong("zip"));
+					user.setAddress(address);
+					
+					// Instantiate the address.
 					List<String> pictures = new LinkedList<>();
 					pictures.add(rs.getString("picture"));
 					user.setPictures(pictures);
 					
+					// Instantiate the comments.
+					List<Comment> comments = new LinkedList<>();
+					if (rs.getLong("comment_id") != 0) {
+						Comment comment = new Comment();
+						comment.setId(rs.getInt("comment_id"));
+						comment.setCreatedDate(rs.getDate("created_date"));
+						comment.setSubject(rs.getString("subject"));
+						comment.setBody(rs.getString("body"));
+						comment.setFlag(CommentFlag.values()[rs.getInt("comment_flag_id")]);
+						comment.setUserId(rs.getInt("user_id"));
+						comment.setBussinessId(rs.getInt("business_id"));
+						
+						comments.add(comment);
+						user.setComments(comments);
+						
+						// Update the map of processed.
+						processedComments.put((long) comment.getId(), true);
+					}
+					
+					
+					// Update in the map
 					userMap.put(id, user);
 				} else {
 					userMap.get(id).getPictures().add(rs.getString("picture"));
+					
+					List<Comment> comments = userMap.get(id).getComments();
+					
+					long commentId = rs.getLong("comment_id");
+					boolean processed = processedComments.containsKey(commentId);
+					
+					if (commentId != 0 && !processed) {
+						
+						Comment comment = new Comment();
+						comment.setId(rs.getInt("comment_id"));
+						comment.setCreatedDate(rs.getDate("created_date"));
+						comment.setSubject(rs.getString("subject"));
+						comment.setBody(rs.getString("body"));
+						comment.setFlag(CommentFlag.values()[rs.getInt("comment_flag_id")]);
+						comment.setUserId(rs.getInt("user_id"));
+						comment.setBussinessId(rs.getInt("business_id"));
+						
+						comments.add(comment);
+						userMap.get(id).setComments(comments);
+					}
 				}
 			}
 			return new ArrayList<>(userMap.values());
@@ -76,20 +130,21 @@ public class BusinessDaoMysql implements BusinessDao {
 	@Override
 	public List<Business> getAllBusiness() {
 		
-		String sql = "(SELECT * FROM `unipsdb`.`user` AS u " +
+		String sql = "SELECT * FROM `unipsdb`.`user` AS u " +
+					 "LEFT JOIN `unipsdb`.`address` AS a " +
+					 "ON u.address_id = a.address_id " + 
 					 "LEFT JOIN `unipsdb`.`picture` AS p " +
-					 "ON u.user_id = p.user_id " +
-					 "WHERE u.role_id=?) " +
-					 "UNION " +
-					 "(SELECT * FROM `unipsdb`.`user` AS u " +
-					 "RIGHT JOIN `unipsdb`.`picture` AS p " +
 					 "ON u.user_id = p.user_id " + 
-					 "WHERE u.role_id=?);";
+					 "RIGHT JOIN `unipsdb`.`picture` AS p1 " +
+					 "ON u.user_id = p1.user_id " + 
+					 "LEFT JOIN `unipsdb`.`comment` AS c " +
+					 "ON u.user_id = c.business_id " + 
+					 "WHERE u.role_id = ?";
 		
 		int role = Roles.ROLE_BUSINESS.ordinal();
 		
 		List<Business> business = jdbcTemplate.query(sql, new UserResultSetExtractor(),
-				new Object[] {role, role});
+				new Object[] {role});
 	
 		return business;
 	}

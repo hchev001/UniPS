@@ -52,30 +52,30 @@ public class BusinessService<T>{
 		try {
 			
 			List<Business> business = businessDao.getAllBusiness();
-			List<Comment> comments = businessReviewDao.getAllComments();
-
-			
-			// Put all users in a map for quick access.
-			// And instantiate the comments
-			Map<Integer, Business> businessMap = new HashMap<>();
-			for (Business b : business) {
-				b.setComments(new LinkedList<Comment>());
-				businessMap.put(new Integer(b.getId()), b);
-			}
-			
-			// Add the comments
-			for (Comment c : comments) {
-				Business b = businessMap.get(c.getBussinessId());
-				b.getComments().add(c);
-				businessMap.put(new Integer(c.getUserId()), b);
-			}
-			
-			
-			// Add the address
-			
-			
-			
-			business = new ArrayList<>(businessMap.values());
+//			List<Comment> comments = businessReviewDao.getAllComments();
+//
+//			
+//			// Put all users in a map for quick access.
+//			// And instantiate the comments
+//			Map<Integer, Business> businessMap = new HashMap<>();
+//			for (Business b : business) {
+//				b.setComments(new LinkedList<Comment>());
+//				businessMap.put(new Integer(b.getId()), b);
+//			}
+//			
+//			// Add the comments
+//			for (Comment c : comments) {
+//				Business b = businessMap.get(c.getBussinessId());
+//				b.getComments().add(c);
+//				businessMap.put(new Integer(c.getUserId()), b);
+//			}
+//			
+//			
+//			// Add the address
+//			
+//			
+//			
+//			business = new ArrayList<>(businessMap.values());
 			return  Response.success(business);
 			
 		} catch (Exception e) {
