@@ -4,6 +4,18 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Register with UniPS</h2>
+            <p>Please pick the account you would like to register for:</p>
+            <label class="custom-control custom-radio">
+              <input (change)="userFieldToggle()" id="radio1" name="radio" type="radio" class="custom-control-input">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">User Account </span>
+            </label>
+            <label class="custom-control custom-radio">
+              <input (change) = "businessFieldToggle()" id="radio2" name="radio" type="radio" class="custom-control-input">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Business Account</span>
+            </label>
+
         </div>
         <div class="col-md-6">
             <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>

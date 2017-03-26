@@ -17,6 +17,9 @@ export class RegisterComponent implements OnInit {
   model: any = {};
   loading = false;
 
+  businessAcountFields: boolean;
+  userAccountFields: boolean;
+
 
 
   constructor(
@@ -39,7 +42,28 @@ export class RegisterComponent implements OnInit {
                 });
     }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.businessAcountFields = false;
+    console.log(this.businessAcountFields);
+    this.userAccountFields = false;
+    console.log(this.userAccountFields);
 
+  }
+
+  userFieldToggle () : boolean {
+    this.userAccountFields = !this.userAccountFields;
+    this.businessAcountFields = false;
+    console.log(this.userAccountFields);
+    console.log(this.businessAcountFields);
+    return this.userAccountFields;
+  }
+
+  businessFieldToggle () : boolean {
+    this.businessAcountFields = !this.businessAcountFields;
+    this.businessAcountFields = true;
+    console.log(this.businessAcountFields);
+    console.log(this.userAccountFields);
+    return this.businessAcountFields;
+  }
 
 }
