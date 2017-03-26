@@ -23,4 +23,5 @@ public interface BusinessDao {
 	public int updateUserStatus(String username, Status status);
 
 	public List<String> getQuestions(String username);
+	
 }

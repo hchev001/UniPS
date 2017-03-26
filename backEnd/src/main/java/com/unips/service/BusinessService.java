@@ -19,13 +19,13 @@ import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
 
 @Service
-public class UserService<T> {
+public class BusinessService<T> extends UserService<T>{
 
 	private static final int VALID_MAX_COUNT_ONE = 1;
 
 	@Autowired
-	@Qualifier("user.mysql")
-	UserDao userDao;
+	@Qualifier("business.mysql")
+	BusinessDao businessDao;
 
 	@Autowired
 	@Qualifier("userInfo.mysql")
@@ -43,7 +43,7 @@ public class UserService<T> {
 		}	
 	}
 
-	@PreAuthorize("#username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
 	public Response<User> getUser(String username) {
 		
 		try {
@@ -94,7 +94,7 @@ public class UserService<T> {
 	}
 	
 
-	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
 	public Response<User> updateUser(User user) {
 		
 		try {
@@ -110,7 +110,7 @@ public class UserService<T> {
 		}
 	}
 	
-	@PreAuthorize("#username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
 	public Response<Integer> deleteUser(String username) {
 		try {
 			return Response.success(userDao.deleteUser(username));
@@ -119,15 +119,5 @@ public class UserService<T> {
 		}
 	}
 	
-	
-	public boolean verifyEmail(String candidateToken) {
-		
-		String username = userDao.verifyEmail(candidateToken);
-		
-		if (username == null)
-			return false;
-	
-		userDao.updateUserStatus(username, Status.ACTIVE);	
-		return true;
-	}
+
 }

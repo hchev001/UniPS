@@ -25,13 +25,13 @@ import io.swagger.annotations.ApiOperation;
 public class BusinessController {
 
 	@Autowired
-	UserService<User> service;
+	BusinessService<Business> service;
 	
 	@ApiOperation("Gets all the business entities")
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Response<List<Business>> getAllBusiness() {
-		return Response.unimplemented();
+		return service.getAllBusiness();
 	}
 	
 	@ApiOperation("Get business user by username")
