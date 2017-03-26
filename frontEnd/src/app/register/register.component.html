@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-6">
             <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-                
+
                 <!--First Name and Last Name -->
                 <div class="row">
                     <div class="col-md-6">
@@ -93,29 +93,30 @@
             </div>
 
             <h4> Security Questions </h4>
-
-            <button (click)="toggleDropDown1()" class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownSecurityQuestion1" data-toggle="dropdown" aria-haspopup="True" aria-expanded="false">
-                Pick Security Question #1
-            </button>
-            <div class="dropdown" [ngClass]="classesObj" aria-labelledby="dropdownSecurityQuestion1">
-                <button class="dropdown-item" type="button">What is your favorite sports team?</button>
-                <button class="dropdown-item" type="button">What is your mother's maiden name?</button>
-                <button class="dropdown-item" type="button">What Elementary School did you attend?</button>
-                <button class="dropdown-item" type="button">Where did you meat your spouse?</button>
+            <div class="">
+              <h5>Pick Security Question #1</h5>
+              <select class="form-control">
+                <option value="q1.1">What is your favorite sports team?</option>
+                <option value="q1.2">What is your mother's maiden name?</option>
+                <option value="q1.3">What Elementary School did you attend?</option>
+                <option value="q1.4">Where did you meet your spouse?</option>
+              </select>
             </div>
+
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                 <label for="answer1">Answer</label>
                 <input type="text" class="form-control" name="answer1" [(ngModel)]="model.answer1" #answer1="ngModel" required />
             </div>
 
-            <button (click)="toggleDropDown2()" class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownSecurityQuestion2" data-toggle="dropdown" aria-haspopup="True" aria-expanded="false">
-                Pick Security Question #2
-            </button>
-            <div class="dropdown" [ngClass]="classesObg" aria-labelledby="dropdownSecurityQuestion2">
-                <button class="dropdown-item" type="button">When is your anniversar?y</button>
-                <button class="dropdown-item" type="button">What was your favorite place to visit as a child?</button>
-                <button class="dropdown-item" type="button">What street did you grop up on?</button>
-                <button class="dropdown-item" type="button">Which is your favorite web browser?</button>
+
+            <div class="">
+                <h5> Pick Security QUestion #2 </h5>
+                <select class="form-control">
+                    <option value="q2.1">When is your anniversary?</option>
+                    <option value="q2.2">What was your favorite place to visit as a child?</option>
+                    <option value="q2.3">What streed did you grow up on?</option>
+                    <option value="q2.4">WHich is your favorite web browser?</option>
+                </select>
             </div>
 
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
