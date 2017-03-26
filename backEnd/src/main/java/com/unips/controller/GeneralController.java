@@ -11,13 +11,16 @@ import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.UserService;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@Api(tags="Registration and Login")
 public class GeneralController {
 	
 	@Autowired
 	UserService<User> service;
 	
-	@RequestMapping(value="/signup", method = RequestMethod.POST)
+	@RequestMapping(value="api/signup", method = RequestMethod.POST)
 	@ResponseBody
 	public Response<User> addUser(@RequestBody User user) {
 		return service.addUser(user);

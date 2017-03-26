@@ -27583,6 +27583,7 @@ var DatePickerInnerComponent = (function () {
     function DatePickerInnerComponent() {
         this.selectionDone = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"](undefined);
         this.update = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"](false);
+        this.activeDateChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"](undefined);
         this.stepDay = {};
         this.stepMonth = {};
         this.stepYear = {};
@@ -27737,6 +27738,7 @@ var DatePickerInnerComponent = (function () {
             var month = this.activeDate.getMonth() + direction * (expectedStep.months || 0);
             this.activeDate = new Date(year, month, 1);
             this.refreshView();
+            this.activeDateChange.emit(this.activeDate);
         }
     };
     DatePickerInnerComponent.prototype.toggleMode = function (direction) {
@@ -27821,6 +27823,7 @@ var DatePickerInnerComponent = (function () {
         'initDate': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] },],
         'selectionDone': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
         'update': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
+        'activeDateChange': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
         'activeDate': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] },],
     };
     return DatePickerInnerComponent;
@@ -81311,6 +81314,8 @@ var DatePickerComponent = (function () {
         /** if false week numbers will be hidden */
         this.showWeeks = true;
         this.selectionDone = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"](undefined);
+        /** callback to invoke when the activeDate is changed. */
+        this.activeDateChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"](undefined);
         this.onChange = Function.prototype;
         this.onTouched = Function.prototype;
         this._now = new Date();
@@ -81338,6 +81343,9 @@ var DatePickerComponent = (function () {
     DatePickerComponent.prototype.onSelectionDone = function (event) {
         this.selectionDone.emit(event);
     };
+    DatePickerComponent.prototype.onActiveDateChange = function (event) {
+        this.activeDateChange.emit(event);
+    };
     // todo: support null value
     DatePickerComponent.prototype.writeValue = function (value) {
         if (this._datePicker.compare(value, this._activeDate) === 0) {
@@ -81359,7 +81367,7 @@ var DatePickerComponent = (function () {
     DatePickerComponent.decorators = [
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"], args: [{
                     selector: 'datepicker',
-                    template: "\n    <datepicker-inner [activeDate]=\"activeDate\"\n                      (update)=\"onUpdate($event)\"\n                      [datepickerMode]=\"datepickerMode\"\n                      [initDate]=\"initDate\"\n                      [minDate]=\"minDate\"\n                      [maxDate]=\"maxDate\"\n                      [minMode]=\"minMode\"\n                      [maxMode]=\"maxMode\"\n                      [showWeeks]=\"showWeeks\"\n                      [formatDay]=\"formatDay\"\n                      [formatMonth]=\"formatMonth\"\n                      [formatYear]=\"formatYear\"\n                      [formatDayHeader]=\"formatDayHeader\"\n                      [formatDayTitle]=\"formatDayTitle\"\n                      [formatMonthTitle]=\"formatMonthTitle\"\n                      [startingDay]=\"startingDay\"\n                      [yearRange]=\"yearRange\"\n                      [customClass]=\"customClass\"\n                      [dateDisabled]=\"dateDisabled\"\n                      [onlyCurrentMonth]=\"onlyCurrentMonth\"\n                      [shortcutPropagation]=\"shortcutPropagation\"\n                      [monthColLimit]=\"monthColLimit\"\n                      [yearColLimit]=\"yearColLimit\"\n                      (selectionDone)=\"onSelectionDone($event)\">\n      <daypicker tabindex=\"0\"></daypicker>\n      <monthpicker tabindex=\"0\"></monthpicker>\n      <yearpicker tabindex=\"0\"></yearpicker>\n    </datepicker-inner>\n    ",
+                    template: "\n    <datepicker-inner [activeDate]=\"activeDate\"\n                      (update)=\"onUpdate($event)\"\n                      [datepickerMode]=\"datepickerMode\"\n                      [initDate]=\"initDate\"\n                      [minDate]=\"minDate\"\n                      [maxDate]=\"maxDate\"\n                      [minMode]=\"minMode\"\n                      [maxMode]=\"maxMode\"\n                      [showWeeks]=\"showWeeks\"\n                      [formatDay]=\"formatDay\"\n                      [formatMonth]=\"formatMonth\"\n                      [formatYear]=\"formatYear\"\n                      [formatDayHeader]=\"formatDayHeader\"\n                      [formatDayTitle]=\"formatDayTitle\"\n                      [formatMonthTitle]=\"formatMonthTitle\"\n                      [startingDay]=\"startingDay\"\n                      [yearRange]=\"yearRange\"\n                      [customClass]=\"customClass\"\n                      [dateDisabled]=\"dateDisabled\"\n                      [onlyCurrentMonth]=\"onlyCurrentMonth\"\n                      [shortcutPropagation]=\"shortcutPropagation\"\n                      [monthColLimit]=\"monthColLimit\"\n                      [yearColLimit]=\"yearColLimit\"\n                      (selectionDone)=\"onSelectionDone($event)\"\n                      (activeDateChange)=\"onActiveDateChange($event)\">\n      <daypicker tabindex=\"0\"></daypicker>\n      <monthpicker tabindex=\"0\"></monthpicker>\n      <yearpicker tabindex=\"0\"></yearpicker>\n    </datepicker-inner>\n    ",
                     providers: [DATEPICKER_CONTROL_VALUE_ACCESSOR]
                 },] },
     ];
@@ -81391,6 +81399,7 @@ var DatePickerComponent = (function () {
         'dateDisabled': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] },],
         'activeDate': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] },],
         'selectionDone': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
+        'activeDateChange': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
         '_datePicker': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"], args: [__WEBPACK_IMPORTED_MODULE_2__datepicker_inner_component__["a" /* DatePickerInnerComponent */],] },],
     };
     return DatePickerComponent;
@@ -82808,6 +82817,7 @@ var PopoverDirective = (function () {
             placement: this.placement,
             title: this.popoverTitle
         });
+        this.isOpen = true;
     };
     /**
      * Closes an element’s popover. This is considered a “manual” triggering of
@@ -82816,6 +82826,7 @@ var PopoverDirective = (function () {
     PopoverDirective.prototype.hide = function () {
         if (this.isOpen) {
             this._popover.hide();
+            this.isOpen = false;
         }
     };
     /**

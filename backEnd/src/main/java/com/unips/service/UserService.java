@@ -43,7 +43,7 @@ public class UserService<T> {
 		}	
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
+	@PreAuthorize("#username == authentication.getName()")
 	public Response<User> getUser(String username) {
 		
 		try {
@@ -80,7 +80,7 @@ public class UserService<T> {
 			
 			// Send Email
 			try {
-				String url = "http://localhost:8080/userVerification?token=" + user.getToken();
+				String url = "http://localhost:8080/api/userVerification?token=" + user.getToken();
 				mailSender.sendUserVerificationEmail(user.getEmail(), url);
 			} catch (Exception e) {
 				// Let it go....
@@ -94,7 +94,7 @@ public class UserService<T> {
 	}
 	
 
-	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<User> updateUser(User user) {
 		
 		try {
@@ -110,7 +110,7 @@ public class UserService<T> {
 		}
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
+	@PreAuthorize("#username == authentication.getName()")
 	public Response<Integer> deleteUser(String username) {
 		try {
 			return Response.success(userDao.deleteUser(username));

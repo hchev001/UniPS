@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.entity.User;
-import com.unips.response.Response;
 
 public interface UserDao {
 
