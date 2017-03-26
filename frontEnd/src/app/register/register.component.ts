@@ -44,9 +44,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.businessAcountFields = false;
-    console.log(this.businessAcountFields);
     this.userAccountFields = false;
-    console.log(this.userAccountFields);
 
   }
 
@@ -58,16 +56,20 @@ export class RegisterComponent implements OnInit {
 
   businessFieldToggle () : boolean {
     this.businessAcountFields = !this.businessAcountFields;
-    this.businessAcountFields = true;
+    this.userAccountFields = false;
     return this.businessAcountFields;
   }
 
-  isUserField () : boolean {
+  isUserFieldActive () : boolean {
     return this.userAccountFields;
   }
 
-  isBusinessField () : boolean {
+  isBusinessFieldActive () : boolean {
     return this.businessAcountFields;
+  }
+
+  defaultFieldsViawable () : boolean {
+    return this.userAccountFields || this.businessAcountFields;
   }
 
 }

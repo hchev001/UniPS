@@ -15,7 +15,6 @@
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">Business Account</span>
             </label>
-            <p *ngIf="true">Hi</p>
         </div>
         <div class="col-md-6">
             <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
@@ -23,14 +22,14 @@
                 <!--First Name and Last Name -->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                        <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                             <label for="firstName">First Name</label>
                             <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />
                             <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                        <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                             <label for="lastName">Last Name</label>
                             <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
                             <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
@@ -38,52 +37,64 @@
                     </div>
                 </div>
                 <!-- Business Name -->
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                     <label for="businessName">Business Name</label>
                     <input type="text" class="form-control" name="businessName" [(ngModel)]="model.businessName" #businessName="ngModel" required />
                     <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
                 </div>
                 <!-- user name -->
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
                     <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
                 </div>
 
                 <!-- password -->
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
                     <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
                 </div>
 
                 <!-- email -->
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
                     <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
                 </div>
 
                 <!-- Business Name -- >
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                     <label for="businessName">Business Name</label>
                     <input type="text" class="form-control" name="businessName" [(ngModel)]="model.businessName" #businessName="ngModel" required />
                 </div>
 
                 <!-- category -->
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <!-- <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                     <label for="category">Category</label>
                     <input type="text" class="form-control" name="category" [(ngModel)]="model.category" #category="ngModel" required />
+                </div> -->
+
+                <div *ngIf="isBusinessFieldActive()" class="">
+                  <h5>Category</h5>
+                  <select class="form-control" [(ngModel)]="categoryValue" name="category">
+                    <option value="restaurant">Restaurants</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="health">Health and Medicine</option>
+                    <option value="education">Education</option>
+                    <option value="coffee">Coffee & Tea</option>
+                  </select>
+
                 </div>
 
                 <!-- Address -->
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                     <label for="address">Address</label>
                     <input type="text" class="form-control" name="address" [(ngModel)]="model.address" #address="ngModel" required />
                 </div>
 
                 <!-- Zip Code -->
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                     <label for="zipcode">Zip Code</label>
                     <input type="number" class="form-control" name="zipcode" [(ngModel)]="model.zipcode" #zipcode="ngModel" required />
                 </div>
@@ -93,19 +104,19 @@
         <div class="col-md-6">
 
             <!-- Personal Phone Number Field -->
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                 <label for="personalNumber">Personal Phone Number</label>
                 <input type="number" class="form-control" name="personalNumber" [(ngModel)]="model.personalNumber" #personalNumber="ngModel" required />
             </div>
 
             <!-- Business Phone Number Field -->
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                 <label for="businessNumber">Business Phone Number</label>
                 <input type="number" class="form-control" name="businessNumber" [(ngModel)]="model.businessNumber" #businessNumber="ngModel" required />
             </div>
 
-            <h4> Security Questions </h4>
-            <div class="">
+            <h4 *ngIf="defaultFieldsViawable()"> Security Questions </h4>
+            <div *ngIf="defaultFieldsViawable()" class="">
               <h5>Pick Security Question #1</h5>
               <select class="form-control">
                 <option value="q1.1">What is your favorite sports team?</option>
@@ -115,23 +126,23 @@
               </select>
             </div>
 
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                 <label for="answer1">Answer</label>
                 <input type="text" class="form-control" name="answer1" [(ngModel)]="model.answer1" #answer1="ngModel" required />
             </div>
 
 
-            <div class="">
+            <div *ngIf="defaultFieldsViawable()" class="">
                 <h5> Pick Security QUestion #2 </h5>
                 <select class="form-control">
                     <option value="q2.1">When is your anniversary?</option>
                     <option value="q2.2">What was your favorite place to visit as a child?</option>
                     <option value="q2.3">What streed did you grow up on?</option>
-                    <option value="q2.4">WHich is your favorite web browser?</option>
+                    <option value="q2.4">Which is your favorite web browser?</option>
                 </select>
             </div>
 
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                 <label for="answer2">Answer</label>
                 <input type="text" class="form-control" name="answer2" [(ngModel)]="model.answer2" #answer2="ngModel" required />
             </div>
