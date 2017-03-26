@@ -17,8 +17,8 @@ export class RegisterComponent implements OnInit {
   model: any = {};
   loading = false;
 
-  businessAcountFields: boolean;
-  userAccountFields: boolean;
+  private businessAcountFields: boolean;
+  private userAccountFields: boolean;
 
 
 
@@ -53,16 +53,20 @@ export class RegisterComponent implements OnInit {
   userFieldToggle () : boolean {
     this.userAccountFields = !this.userAccountFields;
     this.businessAcountFields = false;
-    console.log(this.userAccountFields);
-    console.log(this.businessAcountFields);
     return this.userAccountFields;
   }
 
   businessFieldToggle () : boolean {
     this.businessAcountFields = !this.businessAcountFields;
     this.businessAcountFields = true;
-    console.log(this.businessAcountFields);
-    console.log(this.userAccountFields);
+    return this.businessAcountFields;
+  }
+
+  isUserField () : boolean {
+    return this.userAccountFields;
+  }
+
+  isBusinessField () : boolean {
     return this.businessAcountFields;
   }
 
