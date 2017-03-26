@@ -31,10 +31,8 @@ WHERE u.role_id = 2 AND u.username='starbucks';
 (`username`, `password`, `email`, `name`, `phone`, `phone_business`, `question1`, `question2`, `status_id`, `role_id`, `business_category_id`, `token`)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
-
 -- Get businessName by token
 SELECT * FROM `unipsdb`.`user` WHERE token = 'toke' AND role_id = '2';
-
 
 -- Update business status by businessName
 UPDATE `unipsdb`.`user` 
