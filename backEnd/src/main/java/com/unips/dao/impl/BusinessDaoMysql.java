@@ -25,16 +25,11 @@ public class BusinessDaoMysql implements BusinessDao {
 	public List<Business> getAllBusiness() {
 		
 		String sql = "SELECT * FROM `unipsdb`.`user` AS u " +
-					 "LEFT JOIN `unipsdb`.`address` AS a " +
-					 "ON u.address_id = a.address_id " + 
-					 "LEFT JOIN `unipsdb`.`picture` AS p " +
-					 "ON u.user_id = p.user_id " + 
-					 "RIGHT JOIN `unipsdb`.`picture` AS p1 " +
-					 "ON u.user_id = p1.user_id " + 
-					 "LEFT JOIN `unipsdb`.`comment` AS c " +
-					 "ON u.user_id = c.business_id " + 
+					 "LEFT JOIN `unipsdb`.`address` AS a ON u.address_id = a.address_id " +
+					 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
+					 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
 					 "WHERE u.role_id = ?";
-		
+
 		int role = Roles.ROLE_BUSINESS.ordinal();
 		
 		List<Business> business = jdbcTemplate.query(sql, new BusinessResultSetExtractor(),
@@ -47,22 +42,20 @@ public class BusinessDaoMysql implements BusinessDao {
 	public Business getBusiness(String username) {
 
 		String sql = "SELECT * FROM `unipsdb`.`user` AS u " +
-					 "LEFT JOIN `unipsdb`.`address` AS a " +
-					 "ON u.address_id = a.address_id " + 
-					 "LEFT JOIN `unipsdb`.`picture` AS p " +
-					 "ON u.user_id = p.user_id " + 
-					 "RIGHT JOIN `unipsdb`.`picture` AS p1 " +
-					 "ON u.user_id = p1.user_id " + 
-					 "LEFT JOIN `unipsdb`.`comment` AS c " +
-					 "ON u.user_id = c.business_id " + 
-					 "WHERE u.role_id = ? " +
-					 "AND u.username = ?";
-		
-		Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username};
-		int[] types = new int[] {Types.INTEGER, Types.VARCHAR};
+				 "LEFT JOIN `unipsdb`.`address` AS a ON u.address_id = a.address_id " +
+				 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
+				 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
+				 "WHERE u.role_id = ? AND u.username=?";
 
-		List<Business> business = jdbcTemplate.query(sql, values, types, new BusinessResultSetExtractor());
-		return  business.get(0);
+		try {
+			Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username};
+			int[] types = new int[] {Types.INTEGER, Types.VARCHAR};
+
+			List<Business> business = jdbcTemplate.query(sql, values, types, new BusinessResultSetExtractor());
+			return  business.get(0);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 

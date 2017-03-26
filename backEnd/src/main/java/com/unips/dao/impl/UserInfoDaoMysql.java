@@ -19,7 +19,7 @@ public class UserInfoDaoMysql implements UserInfoDao{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private static class UserRowMapper implements RowMapper<UserInfo> {
+	public static class UserRowMapper implements RowMapper<UserInfo> {
 
 		@Override
 		public UserInfo mapRow(ResultSet rs, int i) throws SQLException {

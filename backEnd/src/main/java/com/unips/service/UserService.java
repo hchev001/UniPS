@@ -14,7 +14,6 @@ import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.User;
-import com.unips.entity.UserInfo;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
 
@@ -57,9 +56,9 @@ public class UserService<T> {
 	public Response<User> addUser(User user) {
 		
 		// Make sure the user does not exits
-		UserInfo userInfo = userInfoDao.getUserInfo(user.getUsername());
+		User userTest = userDao.getUser(user.getUsername());
 
-		if (userInfo != null)
+		if (userTest != null)
 			return Response.failure("User already exists");
 		
 		try {

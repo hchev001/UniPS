@@ -1,28 +1,18 @@
 -- Get information about all businesses. All needed to create an object
 SELECT * 
 FROM `unipsdb`.`user` AS u
-LEFT JOIN `unipsdb`.`address` AS a
-ON u.address_id = a.address_id
-LEFT JOIN `unipsdb`.`picture` AS p
-ON u.user_id = p.user_id
-RIGHT JOIN `unipsdb`.`picture` AS p1
-ON u.user_id = p1.user_id
-LEFT JOIN `unipsdb`.`comment` AS c
-ON u.user_id = c.business_id
+LEFT JOIN `unipsdb`.`address` AS a ON u.address_id = a.address_id
+LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id
+LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id
 WHERE u.role_id = 2;
 
 
 -- Get information from one business by businessName
 SELECT * 
 FROM `unipsdb`.`user` AS u
-LEFT JOIN `unipsdb`.`address` AS a
-ON u.address_id = a.address_id
-LEFT JOIN `unipsdb`.`picture` AS p
-ON u.user_id = p.user_id
-RIGHT JOIN `unipsdb`.`picture` AS p1
-ON u.user_id = p1.user_id
-LEFT JOIN `unipsdb`.`comment` AS c
-ON u.user_id = c.business_id
+LEFT JOIN `unipsdb`.`address` AS a ON u.address_id = a.address_id
+LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id
+LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id
 WHERE u.role_id = 2 AND u.username='starbucks';
 
 
