@@ -288,6 +288,7 @@ INSERT INTO `unipsdb`.`comment`
 VALUES
 	('Great service', 'The service I received was great.', 0, 1, 5),
     ('Too priecy', 'The service was great but the prices are too high', 0, 2, 8),
+    ('Tons of love', 'Never go to study wihtou it', 0, 3, 8),
     ('I hated it', 'People there are just fucking assholes', 1, 3, 9);
 
 

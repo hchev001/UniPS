@@ -4,20 +4,21 @@ import com.unips.constants.BusinessConstants.RatingValue;
 
 public class Rating {
 	
-	private User creator;
+	private int userId;
 	private RatingValue rate;
 	
 	
 	@Override
 	public String toString() {
-		return "Rating [creator=" + creator + ", rate=" + rate + "]";
+		return "Rating [userId=" + userId + ", rate=" + rate + "]";
 	}
 	
-	public User getCreator() {
-		return creator;
+	
+	public int getUserId() {
+		return userId;
 	}
-	public void setCreator(User creator) {
-		this.creator = creator;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public RatingValue getRate() {
 		return rate;
@@ -25,6 +26,4 @@ public class Rating {
 	public void setRate(RatingValue rate) {
 		this.rate = rate;
 	}
-
-	
 }
