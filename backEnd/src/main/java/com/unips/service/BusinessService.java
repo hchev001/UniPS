@@ -11,15 +11,17 @@ import org.springframework.stereotype.Service;
 
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
+import com.unips.dao.BusinessDao;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
+import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.entity.UserInfo;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
 
 @Service
-public class BusinessService<T> extends UserService<T>{
+public class BusinessService<T>{
 
 	private static final int VALID_MAX_COUNT_ONE = 1;
 
@@ -34,10 +36,10 @@ public class BusinessService<T> extends UserService<T>{
 	@Autowired
 	SmptMailSender mailSender;
 
-	@PreAuthorize("hasRole('ADMIN')")
-	public Response<List<User>> getAllUsers() {
+	@PreAuthorize("permitAll()")
+	public Response<List<Business>> getAllUsers() {
 		try {
-			return  Response.success(userDao.getAllUsers());
+			return  Response.success(businessDao.getAllBusiness());
 		} catch (Exception e) {
 			return Response.failure(e.getMessage());
 		}	
