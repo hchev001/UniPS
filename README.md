@@ -36,7 +36,13 @@ spring.mail.password=success2017
 	<pre>
 	localhost:8080
 	</pre>
-	
+
+## API with Swagger
+
+- Turn on the Back-end
+- Visit <pre>http://localhost:8080/swagger-ui.html</pre>
+
+
 # FrontEnd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.1.
