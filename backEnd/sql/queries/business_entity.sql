@@ -1,27 +1,4 @@
 -- Get information about all businesses. All needed to create an object
-(SELECT * 
-FROM `unipsdb`.`user` AS u
-LEFT JOIN `unipsdb`.`picture` AS p
-ON u.user_id = p.user_id
-WHERE u.role_id = '2')
-UNION
-(SELECT * 
-FROM `unipsdb`.`user` AS u
-RIGHT JOIN `unipsdb`.`picture` AS p
-ON u.user_id = p.user_id
-WHERE u.role_id = '2');
-
-
--- Get all the comments
-SELECT *
-FROM `unipsdb`.`comment`;
-
-
--- Get the address
-SELECT *
-FROM `unipsdb`.`address`;
-
-
 SELECT * 
 FROM `unipsdb`.`user` AS u
 LEFT JOIN `unipsdb`.`address` AS a

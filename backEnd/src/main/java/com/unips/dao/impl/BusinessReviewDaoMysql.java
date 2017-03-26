@@ -22,6 +22,7 @@ import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.BusinessDao;
 import com.unips.dao.BusinessReviewDao;
 import com.unips.dao.UserDao;
+import com.unips.dao.mapper.CommentRowMapper;
 import com.unips.entity.Address;
 import com.unips.entity.Business;
 import com.unips.entity.Comment;
@@ -32,25 +33,6 @@ public class BusinessReviewDaoMysql implements BusinessReviewDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	
-	private static class CommentRowMapper implements RowMapper<Comment> {
-
-		@Override
-		public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Comment comment = new Comment();
-			
-			comment.setId(rs.getInt("comment_id"));
-			comment.setCreatedDate(rs.getDate("created_date"));
-			comment.setSubject(rs.getString("subject"));
-			comment.setBody(rs.getString("body"));
-			comment.setFlag(CommentFlag.values()[rs.getInt("comment_flag_id")]);
-			comment.setUserId(rs.getInt("user_id"));
-			comment.setBussinessId(rs.getInt("business_id"));
-			return comment;
-		}
-	}
-	
 	
 	@Override
 	public List<Comment> getAllComments() {
