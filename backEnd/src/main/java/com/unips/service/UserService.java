@@ -14,7 +14,6 @@ import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.User;
-import com.unips.entity.UserInfo;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
 

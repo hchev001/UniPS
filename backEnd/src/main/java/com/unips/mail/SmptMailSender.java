@@ -4,7 +4,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unips.entity.Business;
-
-import java.util.Properties;
 
 @Component
 public class SmptMailSender {
@@ -81,7 +78,7 @@ public class SmptMailSender {
 		final String subject = "New Business signed up.";
 		final String body= "<h1>A new business has been signed up</h1>\n" +
 						 	"<p>The Business Entity bellow has registred and account:" +
-						 	data +
+						 	"<pre><code>" + data + "</code></pre>" +
 						 	"Flow the link bellow to approve the account.</p>\n" +
 						 	"<p><a href=\"" + link  +"\">" + link + "</a></p>\n" +
 						 	"<p>After verifying you email address we will check the provided information</p>" +

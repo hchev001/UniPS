@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scripting.bsh.BshScriptUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import com.unips.dao.BusinessDao;
 import com.unips.dao.BusinessReviewDao;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.Business;
-import com.unips.entity.UserInfo;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
 
@@ -137,7 +135,7 @@ public class BusinessService<T> {
 			// Send Email for verification and letting them know we will process it in time
 			Business business = businessDao.getBusiness(username);
 			
-			String url = "http://localhost:8080/api/businessApproval?token=" + business.getToken();
+			String url = "http://localhost:8080/api/businessApproval?token=" + business.getUsername();
 			mailSender.sendUserVerificationEmailToAdmins(business, url);
 
 		} catch (Exception e) {

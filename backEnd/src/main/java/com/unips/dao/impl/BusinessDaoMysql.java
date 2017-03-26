@@ -46,12 +46,16 @@ public class BusinessDaoMysql implements BusinessDao {
 				 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
 				 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
 				 "WHERE u.role_id = ? AND u.username=?";
-		
-		Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username};
-		int[] types = new int[] {Types.INTEGER, Types.VARCHAR};
 
-		List<Business> business = jdbcTemplate.query(sql, values, types, new BusinessResultSetExtractor());
-		return  business.get(0);
+		try {
+			Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username};
+			int[] types = new int[] {Types.INTEGER, Types.VARCHAR};
+
+			List<Business> business = jdbcTemplate.query(sql, values, types, new BusinessResultSetExtractor());
+			return  business.get(0);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 

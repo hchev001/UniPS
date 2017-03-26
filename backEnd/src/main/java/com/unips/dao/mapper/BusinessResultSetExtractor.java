@@ -19,8 +19,6 @@ import com.unips.entity.Address;
 import com.unips.entity.Business;
 import com.unips.entity.Comment;
 
-import javassist.bytecode.LineNumberAttribute.Pc;
-
 public class BusinessResultSetExtractor implements ResultSetExtractor<List<Business>> {
 
 	private Map<Long, Business> userMap = new HashMap<>();
