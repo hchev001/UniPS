@@ -26,7 +26,8 @@ public class BusinessResultSetExtractor implements ResultSetExtractor<List<Busin
 		
 		Map<Long, Business> userMap = new HashMap<>();
 		Map<Long, Boolean> processedComments = new HashMap<>();
-		
+		Map<String, Boolean> processedPictures = new HashMap<>();
+ 		
 		while(rs.next()) {
 			
 			Long id = rs.getLong("user_id");
@@ -65,6 +66,10 @@ public class BusinessResultSetExtractor implements ResultSetExtractor<List<Busin
 				pictures.add(rs.getString("picture"));
 				user.setPictures(pictures);
 				
+				// Update the picture map
+				processedPictures.put(rs.getString("picture"), true);
+				
+				
 				// Instantiate the comments.
 				List<Comment> comments = new LinkedList<>();
 				if (rs.getLong("comment_id") != 0) {
@@ -87,10 +92,17 @@ public class BusinessResultSetExtractor implements ResultSetExtractor<List<Busin
 				// Update in the map
 				userMap.put(id, user);
 			} else {
-				userMap.get(id).getPictures().add(rs.getString("picture"));
+				
+				List<String> pictures = userMap.get(id).getPictures();
+				String pic = rs.getString("picture");
+				if (!processedPictures.containsKey(pic)) {
+					userMap.get(id).getPictures().add(pic);
+					processedPictures.put(pic, true);
+				}
+				
+				
 				
 				List<Comment> comments = userMap.get(id).getComments();
-				
 				long commentId = rs.getLong("comment_id");
 				boolean processed = processedComments.containsKey(commentId);
 				
@@ -107,6 +119,7 @@ public class BusinessResultSetExtractor implements ResultSetExtractor<List<Busin
 					
 					comments.add(comment);
 					userMap.get(id).setComments(comments);
+					processedComments.put(commentId, true);
 				}
 			}
 		}
