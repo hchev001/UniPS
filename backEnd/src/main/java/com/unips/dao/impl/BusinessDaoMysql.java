@@ -19,7 +19,9 @@ import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.BusinessDao;
 import com.unips.dao.UserDao;
+import com.unips.entity.Address;
 import com.unips.entity.Business;
+import com.unips.entity.Comment;
 import com.unips.entity.User;
 
 @Repository("business.mysql")
@@ -50,6 +52,10 @@ public class BusinessDaoMysql implements BusinessDao {
 					user.setDescription(rs.getString("description"));
 					user.setStatus(Status.values() [rs.getInt("status_id")]);
 					user.setRole(Roles.values() [rs.getInt("role_id")]);
+					user.setName(rs.getString("name"));
+					user.setPhone(rs.getLong("phone"));
+					user.setPhoneBusiness(rs.getLong("phone_business"));
+					user.setHours(rs.getString("hours"));
 					
 					List<String> pictures = new LinkedList<>();
 					pictures.add(rs.getString("picture"));
@@ -72,13 +78,19 @@ public class BusinessDaoMysql implements BusinessDao {
 		
 		String sql = "(SELECT * FROM `unipsdb`.`user` AS u " +
 					 "LEFT JOIN `unipsdb`.`picture` AS p " +
-					 "ON u.user_id = p.user_id) " +
+					 "ON u.user_id = p.user_id " +
+					 "WHERE u.role_id=?) " +
 					 "UNION " +
 					 "(SELECT * FROM `unipsdb`.`user` AS u " +
 					 "RIGHT JOIN `unipsdb`.`picture` AS p " +
-					 "ON u.user_id = p.user_id);";
+					 "ON u.user_id = p.user_id " + 
+					 "WHERE u.role_id=?);";
 		
-		List<Business> business = jdbcTemplate.query(sql, new UserResultSetExtractor());
+		int role = Roles.ROLE_BUSINESS.ordinal();
+		
+		List<Business> business = jdbcTemplate.query(sql, new UserResultSetExtractor(),
+				new Object[] {role, role});
+	
 		return business;
 	}
 

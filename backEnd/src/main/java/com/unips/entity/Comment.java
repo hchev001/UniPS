@@ -6,25 +6,32 @@ import com.unips.constants.BusinessConstants.CommentFlag;
 
 public class Comment {
 	
-	private User creator;
+	private int id;
+	private Date createdDate;
 	private String subject;
 	private String body;
-	
-	private Date creationDate;
 	private CommentFlag flag;
+	private int userId;
+	private int bussinessId;
 	
 	
 	@Override
 	public String toString() {
-		return "Comment [creator=" + creator + ", subject=" + subject + ", body=" + body + ", creationDate="
-				+ creationDate + ", flag=" + flag + "]";
+		return "Comment [id=" + id + ", createdDate=" + createdDate + ", subject=" + subject + ", body=" + body
+				+ ", flag=" + flag + ", userId=" + userId + ", bussinessId=" + bussinessId + "]";
 	}
 	
-	public User getCreator() {
-		return creator;
+	public int getId() {
+		return id;
 	}
-	public void setCreator(User creator) {
-		this.creator = creator;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 	public String getSubject() {
 		return subject;
@@ -38,16 +45,23 @@ public class Comment {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	public Date getCreationDate() {
-		return creationDate;
-	}
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
 	public CommentFlag getFlag() {
 		return flag;
 	}
 	public void setFlag(CommentFlag flag) {
 		this.flag = flag;
-	}	
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getBussinessId() {
+		return bussinessId;
+	}
+	public void setBussinessId(int bussinessId) {
+		this.bussinessId = bussinessId;
+	}
+	
 }

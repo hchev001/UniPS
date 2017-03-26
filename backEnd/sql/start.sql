@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`user` (
     `user_id` INT(11) NOT NULL AUTO_INCREMENT,
     `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `username` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(50) NULL,
     `password` VARCHAR(50) NOT NULL,
     `phone` BIGINT(10) NULL,
     `phone_business` BIGINT(10) NULL,
@@ -246,14 +247,14 @@ VALUES
     
 -- and data for business
 INSERT INTO `unipsdb`.`user`
-	(`username`, `password`, `phone`, `phone_business`, `email`, `question1`, `question2`, `description`, `hours`, `address_id`, `status_id`, `role_id`, `business_category_id`)
+	(`username`, `password`, `name`, `phone`, `phone_business`, `email`, `question1`, `question2`, `description`, `hours`, `address_id`, `status_id`, `role_id`, `business_category_id`)
 VALUES
-	('chillis', '5b3a02c900752a8a70f157ce633d37561d6a89cb', 3053482668, 3053482668, 'chillis@chillis.com', 'chillis answer 1', 'chillis answer 2', 'I am Chillis', '11AM - 10PM', 1, 1, 2, 0), 
-	('barnes', 'd57410b6ec1a6a1fd8250a563433c29b3896bdca', 3053482691, 3053482691, 'barnes@barnes.com', 'barners answer 1', 'barners answer 2', 'I am Barnes  & Nobel', '8:30AM - 8PM', 2, 1, 2, 1), 
-	('health', '4a47d9047c7e15cbfd3e189ca28c9db6cdbaf764', 3053482401, 3053482401, 'health@health.com', 'health answer 1', 'health answer 2', 'I am Health', 'until - 8:00 PM', 3, 1, 2, 2), 
-	('advisor', '76af7efae0d034d1e3335ed1b90f24b6cadf2bf1', 3053487936, 3053487936, 'advisor@advisor.com', 'advisor answer 1', 'advisor answer 2', 'I am Advisor', 'Depends', 4, 1, 2, 3), 
-	('starbucks', '904752ad9c4ae4186c4b4897321c517de0618702', 3053483072, 3053483072, 'starbucks@starbucks.com', 'starbucks answer 1', 'starbucks answer 2', 'I am Starbucks', '7AM–11PM', 5, 1, 2, 4), 
-	('optics', '051823e651318e9768c181fd156c93d7d841bec7', 3053488439, 3053488439, 'optics@optics.com', 'optics answer 1', 'optics answer 2', 'I am Optics', '9AM–5PM', 6, 1, 2, 5);
+	('chillis', '5b3a02c900752a8a70f157ce633d37561d6a89cb', 'Chillis', 3053482668, 3053482668, 'chillis@chillis.com', 'chillis answer 1', 'chillis answer 2', 'I am Chillis', '11AM - 10PM', 1, 1, 2, 0), 
+	('barnes', 'd57410b6ec1a6a1fd8250a563433c29b3896bdca', 'Barnes & Noble', 3053482691, 3053482691, 'barnes@barnes.com', 'barners answer 1', 'barners answer 2', 'I am Barnes  & Nobel', '8:30AM - 8PM', 2, 1, 2, 1), 
+	('health', '4a47d9047c7e15cbfd3e189ca28c9db6cdbaf764', 'FIU Student Health', 3053482401, 3053482401, 'health@health.com', 'health answer 1', 'health answer 2', 'I am Health', 'until - 8:00 PM', 3, 1, 2, 2), 
+	('advisor', '76af7efae0d034d1e3335ed1b90f24b6cadf2bf1', 'ECS Advisor Department', 3053487936, 3053487936, 'advisor@advisor.com', 'advisor answer 1', 'advisor answer 2', 'I am Advisor', 'Depends', 4, 1, 2, 3), 
+	('starbucks', '904752ad9c4ae4186c4b4897321c517de0618702', 'StarBucks', 3053483072, 3053483072, 'starbucks@starbucks.com', 'starbucks answer 1', 'starbucks answer 2', 'I am Starbucks', '7AM–11PM', 5, 1, 2, 4), 
+	('optics', '051823e651318e9768c181fd156c93d7d841bec7', 'College Optical', 3053488439, 3053488439, 'optics@optics.com', 'optics answer 1', 'optics answer 2', 'I am Optics', '9AM–5PM', 6, 1, 2, 5);
 
     
 
