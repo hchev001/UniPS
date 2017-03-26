@@ -1,15 +1,10 @@
 package com.unips.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scripting.bsh.BshScriptUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,11 +13,8 @@ import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.BusinessDao;
 import com.unips.dao.BusinessReviewDao;
-import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.Business;
-import com.unips.entity.Comment;
-import com.unips.entity.User;
 import com.unips.entity.UserInfo;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
@@ -47,35 +39,10 @@ public class BusinessService<T>{
 	@Autowired
 	SmptMailSender mailSender;
 
-	@PreAuthorize("permitAll()")
+	
 	public Response<List<Business>> getAllBusiness() {
 		try {
-			
 			List<Business> business = businessDao.getAllBusiness();
-//			List<Comment> comments = businessReviewDao.getAllComments();
-//
-//			
-//			// Put all users in a map for quick access.
-//			// And instantiate the comments
-//			Map<Integer, Business> businessMap = new HashMap<>();
-//			for (Business b : business) {
-//				b.setComments(new LinkedList<Comment>());
-//				businessMap.put(new Integer(b.getId()), b);
-//			}
-//			
-//			// Add the comments
-//			for (Comment c : comments) {
-//				Business b = businessMap.get(c.getBussinessId());
-//				b.getComments().add(c);
-//				businessMap.put(new Integer(c.getUserId()), b);
-//			}
-//			
-//			
-//			// Add the address
-//			
-//			
-//			
-//			business = new ArrayList<>(businessMap.values());
 			return  Response.success(business);
 			
 		} catch (Exception e) {
@@ -83,8 +50,8 @@ public class BusinessService<T>{
 		}	
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN','USER') and #username == authentication.getName()")
-	public Response<User> getUser(String username) {
+	
+	public Response<Business> getBusiness(String username) {
 		
 		try {
 			return  Response.success(businessDao.getBusiness(username));
@@ -94,7 +61,7 @@ public class BusinessService<T>{
 	}
 
 	
-	public Response<Business> addUser(Business business) {
+	public Response<Business> addBusiness(Business business) {
 		
 		// Make sure the user does not exits
 		UserInfo userInfo = userInfoDao.getUserInfo(business.getUsername());
@@ -129,6 +96,7 @@ public class BusinessService<T>{
 			return Response.success(business);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.failure(e.getMessage());
 		}
 	}

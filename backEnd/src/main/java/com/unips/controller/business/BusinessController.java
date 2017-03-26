@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unips.entity.Business;
-import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.BusinessService;
-import com.unips.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,28 +36,28 @@ public class BusinessController {
 	@ApiOperation("Get business user by username")
 	@RequestMapping(value="{username}", method = RequestMethod.GET)
 	@ResponseBody
-	public Response<Business> geBusiness(@PathVariable("username") String username){
-		return Response.unimplemented();
+	public Response<Business> getBusiness(@PathVariable("username") String username){
+		return service.getBusiness(username);
 	}
 	
 	@ApiOperation("Add a new business entity.")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Response<Business> addUser(@RequestBody Business business) {
-		return Response.unimplemented();
+	public Response<Business> addBusiness(@RequestBody Business business) {
+		return service.addBusiness(business);
 	}
 	
 	@ApiOperation("Modify a business entity by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response<Business> updateUser(@RequestBody Business business){
-		return Response.unimplemented();
+	public Response<Business> updateBusiness(@RequestBody Business business){
+		return service.updateBusiness(business);
 	}
 	
 	@ApiOperation("Delete a business entity by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response<Integer> updateUser(@PathVariable("username") String username){
-		return Response.unimplemented();
+	public Response<Integer> deleteBusiness(@PathVariable("username") String username){
+		return service.deleteBusiness(username);
 	}
 }

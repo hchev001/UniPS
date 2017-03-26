@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unips.entity.Comment;
-import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.BusinessReviewService;
-import com.unips.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

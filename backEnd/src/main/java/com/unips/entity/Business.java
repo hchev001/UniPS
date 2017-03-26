@@ -1,10 +1,8 @@
 package com.unips.entity;
 
-import java.util.Date;
 import java.util.List;
 
-import com.unips.constants.BusinessConstants.Roles;
-import com.unips.constants.BusinessConstants.Status;
+import com.unips.constants.BusinessConstants.BusinessCategory;
 
 public class Business  extends User{
 	
@@ -21,19 +19,27 @@ public class Business  extends User{
 	private List<Rating> ratings;
 	private Address address;
 	
+	private BusinessCategory category;
+
 
 	@Override
 	public String toString() {
 		return "Business [name=" + name + ", phone=" + phone + ", phoneBusiness=" + phoneBusiness + ", hours=" + hours
 				+ ", rateAverage=" + rateAverage + ", comments=" + comments + ", ratings=" + ratings + ", address="
-				+ address + ", getToken()=" + getToken() + ", getId()=" + getId() + ", getCreatedDate()="
-				+ getCreatedDate() + ", getUsername()=" + getUsername() + ", getPassword()=" + getPassword()
-				+ ", getEmail()=" + getEmail() + ", getQuestion1()=" + getQuestion1() + ", getQuestion2()="
-				+ getQuestion2() + ", getPictureFeatured()=" + getPictureFeatured() + ", getPictures()=" + getPictures()
-				+ ", getDescription()=" + getDescription() + ", getStatus()=" + getStatus() + ", getRole()=" + getRole()
-				+ "]";
+				+ address + ", category=" + category + ", toString()=" + super.toString() + ", getToken()=" + getToken()
+				+ ", getId()=" + getId() + ", getCreatedDate()=" + getCreatedDate() + ", getUsername()=" + getUsername()
+				+ ", getPassword()=" + getPassword() + ", getEmail()=" + getEmail() + ", getQuestion1()="
+				+ getQuestion1() + ", getQuestion2()=" + getQuestion2() + ", getPictureFeatured()="
+				+ getPictureFeatured() + ", getPictures()=" + getPictures() + ", getDescription()=" + getDescription()
+				+ ", getStatus()=" + getStatus() + ", getRole()=" + getRole() + "]";
 	}
 	
+	public BusinessCategory getCategory() {
+		return category;
+	}
+	public void setCategory(BusinessCategory category) {
+		this.category = category;
+	}
 	public String getName() {
 		return name;
 	}

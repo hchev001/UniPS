@@ -6,8 +6,6 @@ import java.util.List;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 
-import io.swagger.annotations.ApiModel;
-
 public class User {
 
 	private int id;

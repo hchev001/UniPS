@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
+import com.unips.constants.BusinessConstants.BusinessCategory;
 import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
@@ -48,7 +49,7 @@ public class BusinessResultSetExtractor implements ResultSetExtractor<List<Busin
 				user.setPhone(rs.getLong("phone"));
 				user.setPhoneBusiness(rs.getLong("phone_business"));
 				user.setHours(rs.getString("hours"));
-				
+				user.setCategory(BusinessCategory.values()[rs.getInt("business_category_id")]);
 				
 				// Add the address
 				Address address = new Address();

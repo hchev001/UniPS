@@ -1,30 +1,17 @@
 package com.unips.dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
-import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.BusinessDao;
-import com.unips.dao.UserDao;
 import com.unips.dao.mapper.BusinessResultSetExtractor;
-import com.unips.entity.Address;
 import com.unips.entity.Business;
-import com.unips.entity.Comment;
-import com.unips.entity.User;
 
 @Repository("business.mysql")
 public class BusinessDaoMysql implements BusinessDao {
@@ -60,12 +47,21 @@ public class BusinessDaoMysql implements BusinessDao {
 	public Business getBusiness(String username) {
 
 		String sql = "SELECT * FROM `unipsdb`.`user` AS u " +
-					 "LEFT JOIN `unipsdb`.`picture` AS p "+
-					 "ON u.user_id=p.user_id " +
-					 "WHERE u.username=?";
+					 "LEFT JOIN `unipsdb`.`address` AS a " +
+					 "ON u.address_id = a.address_id " + 
+					 "LEFT JOIN `unipsdb`.`picture` AS p " +
+					 "ON u.user_id = p.user_id " + 
+					 "RIGHT JOIN `unipsdb`.`picture` AS p1 " +
+					 "ON u.user_id = p1.user_id " + 
+					 "LEFT JOIN `unipsdb`.`comment` AS c " +
+					 "ON u.user_id = c.business_id " + 
+					 "WHERE u.role_id = ? " +
+					 "AND u.username = ?";
 		
-		List<Business> business = jdbcTemplate.query(sql, new Object[]{username}, new int[]{Types.VARCHAR},
-				new BusinessResultSetExtractor());
+		Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username};
+		int[] types = new int[] {Types.INTEGER, Types.VARCHAR};
+
+		List<Business> business = jdbcTemplate.query(sql, values, types, new BusinessResultSetExtractor());
 		return  business.get(0);
 	}
 	
@@ -73,19 +69,27 @@ public class BusinessDaoMysql implements BusinessDao {
 	@Override
 	public int addBusiness(Business business) {
 		
-		String sql = "INSERT INTO `unipsdb`.`user` (`username`, `password`, `email`,`question1`, `question2`, `status_id`, `role_id`, `token`) " +
-					 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO `unipsdb`.`user` " + 
+					"(`username`, `password`, `email`, `name`, `phone`, `phone_business`, " +
+					" `question1`, `question2`, `status_id`, `role_id`, `business_category_id`, " +
+					" `token`) " +
+					 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		Object[] values = {
 				business.getUsername(),
 				business.getPassword(),
 				business.getEmail(),
+				business.getName(),
+				business.getPhone(),
+				business.getPhoneBusiness(),
 				business.getQuestion1(),
 				business.getQuestion2(),
 				business.getStatus().ordinal(),
 				business.getRole().ordinal(),
+				business.getCategory().ordinal(),
 				business.getToken()
 		};
+		
 		return jdbcTemplate.update(sql, values);
 	}
 
@@ -93,14 +97,24 @@ public class BusinessDaoMysql implements BusinessDao {
 	public Business updateBusiness(Business business) {
 		
 		String sql = "UPDATE `unipsdb`.`user` u " +
-					 "SET u.username = ?, u.password = ?, u.email = ?, u.question1 = ?, u.question2 = ? " +
+					 "SET u.username = ?, u.password = ?, u.name = ?, " +
+					 "u.phone = ?, u.phone_business = ?, u.email = ?, " +
+					 "u.question1 = ?, u.question2 = ?, u.description = ?, " +
+					 "u.hours = ?, u.business_category_id = ? " +
 					 "WHERE u.username = ?;";		
 		
-		Object[] values = {business.getUsername(),
+		Object[] values = {
+				business.getUsername(),
+				business.getName(),
 				business.getPassword(),
+				business.getPhone(),
+				business.getPhoneBusiness(),
 				business.getEmail(),
 				business.getQuestion1(),
 				business.getQuestion2(),
+				business.getDescription(),
+				business.getHours(),
+				business.getCategory().ordinal(),
 				business.getUsername()};
 		
 		jdbcTemplate.update(sql, values);
