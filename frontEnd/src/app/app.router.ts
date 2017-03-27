@@ -15,7 +15,7 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
 import { AdminProfileComponent }  from './admin-profile/admin-profile.component'
 import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.component'
 import { LeaveRateComponent } from './leave-rate/leave-rate.component';
-
+import { WriteReviewComponent } from './write-review/write-review.component';
 
 export const router: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -29,6 +29,7 @@ export const router: Routes = [
     { path: 'adminprofile', component: AdminProfileComponent},
     { path: 'editprofile', component: EditProfileViewComponent},
     { path: 'leaverate', component: LeaveRateComponent},
+    { path: 'writereview', component: WriteReviewComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 
