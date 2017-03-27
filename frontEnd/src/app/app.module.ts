@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { routes } from './app.router';
 import { AppComponent } from './app.component';
 
+import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
@@ -42,6 +43,7 @@ import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.
   declarations: [
     AppComponent,
     NavbarComponent,
+    FooterComponent,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
@@ -67,7 +69,7 @@ import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.
     FormsModule,
     HttpModule,
     routes,
-    
+
   ],
   providers: [
     AuthGuard,
