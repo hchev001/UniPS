@@ -1,0 +1,11 @@
+
+
+.footer {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 100px;
+  padding: 20px;
+  text-align: center;
+}
