@@ -11,6 +11,7 @@ import { HomeComponent } from './home/index';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchViewComponent } from './search-view/search-view.component'
 import { BusinessEntityComponent } from './business-entity/business-entity.component'
+import { BusinessProfileComponent } from './business-profile/business-profile.component'
 
 
 
@@ -23,6 +24,7 @@ export const router: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'search', component: SearchViewComponent },
     { path: 'businessentity', component: BusinessEntityComponent },
+    { path: 'businessprofile', component: BusinessProfileComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 

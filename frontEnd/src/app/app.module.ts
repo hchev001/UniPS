@@ -31,6 +31,7 @@ import { BusinessImageComponent } from './business-image/business-image.componen
 import { BusinessDescriptionComponent } from './business-description/business-description.component';
 import { BusinessRatingComponent } from './business-rating/business-rating.component';
 import { BusinessEntityComponent } from './business-entity/business-entity.component';
+import { BusinessProfileComponent } from './business-profile/business-profile.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { BusinessEntityComponent } from './business-entity/business-entity.compo
     BusinessDescriptionComponent,
     BusinessRatingComponent,
     BusinessEntityComponent,
+    BusinessProfileComponent,
   ],
   imports: [
     BrowserModule,
