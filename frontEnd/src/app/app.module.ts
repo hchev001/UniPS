@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/index';
 import { SearchFieldComponent } from './search-field/search-field.component';
+import { LeaveRateComponent } from './leave-rate/leave-rate.component';
 
 import { AlertModule } from 'ng2-bootstrap';
 import { AlertComponent } from './_directives/index';
@@ -56,6 +57,7 @@ import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.
     BusinessProfileComponent,
     AdminProfileComponent,
     EditProfileViewComponent,
+    LeaveRateComponent,
   ],
   imports: [
     BrowserModule,
