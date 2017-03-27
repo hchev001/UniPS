@@ -33,6 +33,7 @@ import { BusinessRatingComponent } from './business-rating/business-rating.compo
 import { BusinessEntityComponent } from './business-entity/business-entity.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     BusinessEntityComponent,
     BusinessProfileComponent,
     AdminProfileComponent,
+    EditProfileViewComponent,
   ],
   imports: [
     BrowserModule,

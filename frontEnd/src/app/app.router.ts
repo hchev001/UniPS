@@ -13,7 +13,7 @@ import { SearchViewComponent } from './search-view/search-view.component'
 import { BusinessEntityComponent } from './business-entity/business-entity.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component'
 import { AdminProfileComponent }  from './admin-profile/admin-profile.component'
-
+import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.component'
 
 
 
@@ -27,6 +27,7 @@ export const router: Routes = [
     { path: 'businessentity', component: BusinessEntityComponent },
     { path: 'businessprofile', component: BusinessProfileComponent},
     { path: 'adminprofile', component: AdminProfileComponent},
+    { path: 'editprofile', component: EditProfileViewComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 
