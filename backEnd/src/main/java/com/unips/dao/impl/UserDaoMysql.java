@@ -3,6 +3,7 @@ package com.unips.dao.impl;
 import java.sql.Types;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,9 +13,11 @@ import com.unips.dao.UserDao;
 import com.unips.dao.mapper.UserResultSetExtractor;
 import com.unips.entity.User;
 
+
 @Repository("user.mysql")
 public class UserDaoMysql implements UserDao {
 	
+	private static final Logger log = Logger.getLogger(UserDaoMysql.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -44,6 +47,10 @@ public class UserDaoMysql implements UserDao {
 		
 		List<User> user = jdbcTemplate.query(sql, new Object[]{username}, new int[]{Types.VARCHAR},
 				new UserResultSetExtractor());
+		
+		if (user.size() == 0) 
+				return null;
+		
 		return  user.get(0);
 	}
 	
@@ -117,4 +124,18 @@ public class UserDaoMysql implements UserDao {
 		return null;
 	}
 
+	@Override
+	public boolean exits(String username) {
+		
+		log.debug(username);
+		
+		final String sql = "SELECT u.username FROM `unipsdb`.`user`AS u WHERE u.username = ?";
+		
+		try {
+			String result = jdbcTemplate.queryForObject(sql, String.class, new Object[] {username});
+			return result != "";
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

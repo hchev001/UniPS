@@ -4,18 +4,18 @@ package com.unips;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableAsync
 @Controller
 public class UniPsApplication {
 
-	// Match everything without a suffix (so not a static resource)
 	@RequestMapping(value = "/{path:[^\\.]*}")
 	public String redirect() {
-		// Forward to home page so that route is preserved.
 		return "forward:/";
 	}
 	

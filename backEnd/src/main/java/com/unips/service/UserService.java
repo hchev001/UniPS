@@ -53,13 +53,12 @@ public class UserService<T> {
 	}
 
 	
+	@PreAuthorize("permitAll()")
 	public Response<User> addUser(User user) {
 		
 		// Make sure the user does not exits
-		User userTest = userDao.getUser(user.getUsername());
-
-		if (userTest != null)
-			return Response.failure("User already exists");
+		if (userDao.exits(user.getUsername()))
+			return Response.failure("Username already exists");
 		
 		try {
 			// Add created fields
@@ -118,7 +117,7 @@ public class UserService<T> {
 		}
 	}
 	
-	
+	@PreAuthorize("permitAll()")
 	public boolean verifyEmail(String candidateToken) {
 		
 		String username = userDao.verifyEmail(candidateToken);

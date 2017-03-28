@@ -40,3 +40,7 @@ WHERE u.username = ?;
 -- Delete user by username
 DELETE FROM `unipsdb`.`user`
 WHERE username = '?';
+
+-- Check if user Exists
+SELECT u.username FROM `unipsdb`.`user`AS u
+WHERE u.username = 'kathy'
