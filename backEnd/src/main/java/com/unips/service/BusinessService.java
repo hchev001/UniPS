@@ -57,13 +57,12 @@ public class BusinessService<T> {
 		}
 	}
 
+	@PreAuthorize("permitAll()")
 	public Response<Business> addBusiness(Business business) {
 
 		// Make sure the user does not exits
-		Business businessTest = businessDao.getBusiness(business.getUsername());
-		
-		if (businessTest != null)
-			return Response.failure("User already exists");
+		if (businessDao.exits(business.getUsername()))
+			return Response.failure("Username already exists");
 	
 		try {
 			// Add created fields

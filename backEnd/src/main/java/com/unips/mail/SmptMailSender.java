@@ -126,12 +126,12 @@ public class SmptMailSender {
 							 "       <p>Information:</p>  "  + 
 							 "       <table  cellpadding=\"5\">  "  + 
 							 "         <tbody>  "  + 
-							 "           <tr><td>username</td><td>" + business.getUsername() + "</td></tr>  "  + 
-							 "           <tr><td>email</td><td>" + business.getEmail() + "</td></tr>  "  + 
-							 "           <tr><td>name</td><td>" + business.getName() + "</td></tr>  "  + 
-							 "           <tr><td>category</td><td>" + business.getCategory() + "</td></tr>  "  + 
-							 "           <tr><td>phone</td><td>" + business.getPhone() + "</td></tr>  "  + 
-							 "           <tr><td>phone business</td><td>" + business.getPhoneBusiness() + "</td></tr>  "  + 
+							 "           <tr><td><b>username</b></td><td>" + business.getUsername() + "</td></tr>  "  + 
+							 "           <tr><td><b>email</b></td><td>" + business.getEmail() + "</td></tr>  "  + 
+							 "           <tr><td><b>name</b></td><td>" + business.getName() + "</td></tr>  "  + 
+							 "           <tr><td><b>category</b></td><td>" + business.getCategory() + "</td></tr>  "  + 
+							 "           <tr><td><b>phone</b></td><td>" + business.getPhone() + "</td></tr>  "  + 
+							 "           <tr><td><b>phone business</b></td><td>" + business.getPhoneBusiness() + "</td></tr>  "  + 
 							 "         </tbody>  "  + 
 							 "       </table>  "  + 
 							 "       <p>  "  + 

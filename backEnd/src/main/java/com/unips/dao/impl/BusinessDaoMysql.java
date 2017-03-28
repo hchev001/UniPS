@@ -3,6 +3,7 @@ package com.unips.dao.impl;
 import java.sql.Types;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ import com.unips.entity.Business;
 @Repository("business.mysql")
 public class BusinessDaoMysql implements BusinessDao {
 	
+	private static final Logger log = Logger.getLogger(BusinessDaoMysql.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -148,8 +150,16 @@ public class BusinessDaoMysql implements BusinessDao {
 
 	@Override
 	public boolean exits(String username) {
-		// TODO Auto-generated method stub
-		return false;
+		log.debug(username);
+		
+		final String sql = "SELECT u.username FROM `unipsdb`.`user`AS u WHERE u.username = ?";
+		
+		try {
+			String result = jdbcTemplate.queryForObject(sql, String.class, new Object[] {username});
+			return result != "";
+		} catch (Exception e) {
+			return false;
+		}		
 	}
 
 }
