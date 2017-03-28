@@ -53,6 +53,7 @@ public class UserService<T> {
 	}
 
 	
+	@PreAuthorize("permitAll()")
 	public Response<User> addUser(User user) {
 		
 		// Make sure the user does not exits
@@ -118,7 +119,7 @@ public class UserService<T> {
 		}
 	}
 	
-	
+	@PreAuthorize("permitAll()")
 	public boolean verifyEmail(String candidateToken) {
 		
 		String username = userDao.verifyEmail(candidateToken);

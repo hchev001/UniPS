@@ -146,4 +146,10 @@ public class BusinessDaoMysql implements BusinessDao {
 		return null;
 	}
 
+	@Override
+	public boolean exits(String username) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

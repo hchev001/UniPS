@@ -24,4 +24,6 @@ public interface BusinessDao {
 
 	public List<String> getQuestions(String username);
 	
+	public boolean exits(String username);
+	
 }

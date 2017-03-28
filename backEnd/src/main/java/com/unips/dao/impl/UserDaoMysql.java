@@ -117,4 +117,16 @@ public class UserDaoMysql implements UserDao {
 		return null;
 	}
 
+	@Override
+	public boolean exits(String username) {
+		
+		final String sql = "SELECT u.username FROM `unipsdb`.`user`AS u WHERE u.username = ?";
+		
+		try {
+			String usernameReturned = jdbcTemplate.queryForObject(sql, String.class, new Object[] {username});
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

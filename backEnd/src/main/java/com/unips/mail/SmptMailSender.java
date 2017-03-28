@@ -9,6 +9,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.context.Context;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +27,9 @@ public class SmptMailSender {
 	
 	@Autowired
 	private Environment env;
+	
+	@Autowired 
+	private SpringTemplateEngine templateEngine;
 	
 	
 	@Async
@@ -43,12 +48,19 @@ public class SmptMailSender {
 	@Async
 	public void sendUserVerificationEmail(String to, String link) throws MessagingException {
 		
+		final Context context = new Context();
+		
+		context.setVariable("link", link);
+		
+		
 		final String subject = "Welcome to UniPS";
-		final String body= "<h1>Welcome to UniPS</h1>\n" +
-						 	"<p>Thanks a lot for registering with us. " + 
-						 	"Flow the link bellow to activate your account.</p>\n" +
-						 	"<p><a href=\"" + link  +"\">" + link + "</a></p>\n" +
-						 	"<p>Enjoy!</p>";
+		final String body = templateEngine.process("mail/userVerificationEmail", context);
+		
+//		final String body= "<h1>Welcome to UniPS</h1>\n" +
+//						 	"<p>Thanks a lot for registering with us. " + 
+//						 	"Flow the link bellow to activate your account.</p>\n" +
+//						 	"<p><a href=\"" + link  +"\">" + link + "</a></p>\n" +
+//						 	"<p>Enjoy!</p>";
 		send(to, subject, body);
 	}
 	

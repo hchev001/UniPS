@@ -22,4 +22,6 @@ public interface UserDao {
 	public int updateUserStatus(String username, Status status);
 
 	public List<String> getQuestions(String username);
+	
+	public boolean exits(String username);
 }
