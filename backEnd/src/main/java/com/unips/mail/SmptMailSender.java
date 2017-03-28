@@ -4,18 +4,24 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.freemarker.SpringTemplateLoader;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.context.IWebContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unips.entity.Business;
 
+@SuppressWarnings("unused")
 @Component
 public class SmptMailSender {
 	
@@ -27,9 +33,6 @@ public class SmptMailSender {
 	
 	@Autowired
 	private Environment env;
-	
-	@Autowired 
-	private SpringTemplateEngine templateEngine;
 	
 	
 	@Async
@@ -47,20 +50,27 @@ public class SmptMailSender {
 	
 	@Async
 	public void sendUserVerificationEmail(String to, String link) throws MessagingException {
-		
-		final Context context = new Context();
-		
-		context.setVariable("link", link);
-		
-		
+	
 		final String subject = "Welcome to UniPS";
-		final String body = templateEngine.process("mail/userVerificationEmail", context);
 		
-//		final String body= "<h1>Welcome to UniPS</h1>\n" +
-//						 	"<p>Thanks a lot for registering with us. " + 
-//						 	"Flow the link bellow to activate your account.</p>\n" +
-//						 	"<p><a href=\"" + link  +"\">" + link + "</a></p>\n" +
-//						 	"<p>Enjoy!</p>";
+		final String body =  "   <!DOCTYPE html>  "  + 
+							 "   <html>  "  + 
+							 "     <body>  "  + 
+							 "       <h2>  "  + 
+							 "       Welcome to UniPS  "  + 
+							 "       </h2>  "  + 
+							 "       <p>  "  + 
+							 "         Your account has been created, please click on the URL below to activate it:  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         <a href=\"" + link + "\">" + link + "</a>  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         Enjoy!  "  + 
+							 "       </p>  "  + 
+							 "     </body>  "  + 
+							 "  </html>  ";
+		
 		send(to, subject, body);
 	}
 	
@@ -68,18 +78,33 @@ public class SmptMailSender {
 	public void sendUserVerificationEmailBusiness(String to, String link) throws MessagingException {
 		
 		final String subject = "Welcome to UniPS";
-		final String body= "<h1>Welcome to UniPS</h1>\n" +
-						 	"<p>Thanks a lot for registering with us. " + 
-						 	"Flow the link bellow to verify your account.</p>\n" +
-						 	"<p><a href=\"" + link  +"\">" + link + "</a></p>\n" +
-						 	"<p>After verifying you email address we will check the provided information</p>" +
-						 	" and will be sending you a 'Welcome Bussiness email soon." +
-						 	"<p>Thanks a lot for your patience</p>";
-		
-		
-		System.out.println("to: " + to);
-		System.out.println("subject: " + subject);
-		System.out.println("body: " + body);
+		final String body =  "   <!DOCTYPE html>  "  + 
+							 "   <html>  "  + 
+							 "     <body>  "  + 
+							 "       <h2>  "  + 
+							 "       Welcome to UniPS  "  + 
+							 "       </h2>  "  + 
+							 "       <p>  "  + 
+							 "         Your account has been created, please click on the URL below to activate it:  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         <a href=\"" + link + "\">" + link + "</a>  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "           After verifying your email address; we will check the provided business information. We will be sending you a \"Welcome Business\" as sooon as the process has been completed.  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "           If you feel there is something missing in the application that we should know about, please do not hesitate in contacting us.  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "           Thanks a lot for your patience.  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         Enjoy!  "  + 
+							 "       </p>  "  + 
+							 "     </body>  "  + 
+							 "  </html>  " ; 
+					
 		send(to, subject, body);
 	}
 	
@@ -88,20 +113,41 @@ public class SmptMailSender {
 		
 		final String data = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(business);
 		final String subject = "New Business signed up.";
-		final String body= "<h1>A new business has been signed up</h1>\n" +
-						 	"<p>The Business Entity bellow has registred and account:" +
-						 	"<pre><code>" + data + "</code></pre>" +
-						 	"Flow the link bellow to approve the account.</p>\n" +
-						 	"<p><a href=\"" + link  +"\">" + link + "</a></p>\n" +
-						 	"<p>After verifying you email address we will check the provided information</p>" +
-						 	" and will be sending you a 'Welcome Bussiness email soon." +
-						 	"<p>Thanks a lot for your patience</p>";
 		
+		final String body =  "   <!DOCTYPE html>  "  + 
+							 "   <html>  "  + 
+							 "     <body>  "  + 
+							 "       <h2>  "  + 
+							 "       New Business entity  "  + 
+							 "       </h2>  "  + 
+							 "       <p>  "  + 
+							 "         The business entity bellow has registered an account.  "  + 
+							 "       </p>  "  + 
+							 "       <p>Information:</p>  "  + 
+							 "       <table  cellpadding=\"5\">  "  + 
+							 "         <tbody>  "  + 
+							 "           <tr><td>username</td><td>" + business.getUsername() + "</td></tr>  "  + 
+							 "           <tr><td>email</td><td>" + business.getEmail() + "</td></tr>  "  + 
+							 "           <tr><td>name</td><td>" + business.getName() + "</td></tr>  "  + 
+							 "           <tr><td>category</td><td>" + business.getCategory() + "</td></tr>  "  + 
+							 "           <tr><td>phone</td><td>" + business.getPhone() + "</td></tr>  "  + 
+							 "           <tr><td>phone business</td><td>" + business.getPhoneBusiness() + "</td></tr>  "  + 
+							 "         </tbody>  "  + 
+							 "       </table>  "  + 
+							 "       <p>  "  + 
+							 "         After verifying the information, follow the link bellow to approve the account.  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         <a href=\"" + link + "\">" + link + "</a>  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         Thanks  "  + 
+							 "       </p>  "  + 
+							 "     </body>  "  + 
+							 "  </html>  "; 
+				
 		String to = env.getProperty("unips.mail");
 		 
-		System.out.println("to: " + to);
-		System.out.println("subject: " + subject);
-		System.out.println("body: " + body);
 		send(to, subject, body);
 	}
 }

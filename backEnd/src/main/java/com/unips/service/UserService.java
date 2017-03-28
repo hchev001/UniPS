@@ -57,10 +57,8 @@ public class UserService<T> {
 	public Response<User> addUser(User user) {
 		
 		// Make sure the user does not exits
-		User userTest = userDao.getUser(user.getUsername());
-
-		if (userTest != null)
-			return Response.failure("User already exists");
+		if (userDao.exits(user.getUsername()))
+			return Response.failure("Username already exists");
 		
 		try {
 			// Add created fields
