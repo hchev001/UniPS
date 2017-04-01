@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unips.entity.User;
+import com.unips.response.Response;
 import com.unips.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -21,8 +22,9 @@ public class UserVerificationController {
 	
 	@RequestMapping(value="api/userVerification", method=RequestMethod.GET)
 	@ResponseBody
-	public boolean verifyEmail(@RequestParam("token") String candidateToken) {
-		return service.verifyEmail(candidateToken);
+	public Response<Boolean> verifyEmail(@RequestParam("token") String candidateToken) {
+		boolean status = service.verifyEmail(candidateToken);
+		return Response.success(status);
 	}
 
 }
