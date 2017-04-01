@@ -1,4 +1,4 @@
-package com.unips.service;
+package com.unips.service.admin;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.AdminDao;
+import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
-import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
+import com.unips.service.UserService;
 
 @Service
 public class AdminService<T> {
@@ -24,7 +25,8 @@ public class AdminService<T> {
 	private static final int VALID_MAX_COUNT_ONE = 1;
 	private static final String ADMIN_VERIFICATION_API = "http://localhost:8080/api/adminVerification?token=";
 	private static final String ADMIN_APPROVAL_API = "http://localhost:8080/api/adminApproval?token=";
-	
+	private static final String HOME_URL = "http://localhost:8080/";
+			
 	@Autowired
 	@Qualifier("admin.mysql")
 	AdminDao adminDao;
@@ -35,7 +37,12 @@ public class AdminService<T> {
 	
 	@Autowired
 	SmptMailSender mailSender;
-
+	
+	
+	@Autowired
+	UserDao userDao;
+	
+	
 	@PreAuthorize("hasRole('ADMIN')")
 	public Response<List<User>> getAllAdmins() {
 		return  Response.success(adminDao.getAllAdmins());
@@ -116,5 +123,26 @@ public class AdminService<T> {
 		}
 
 		return true;
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public boolean approveAdmin(String candidateToken) {
+		
+		boolean result = adminDao.approveAdmin(candidateToken);
+		
+		User user = userDao.getUser(candidateToken);
+		
+		try {
+			mailSender.sendThankYouEmail(user.getEmail(), HOME_URL);
+		} catch (Exception e) {
+			// Let it go
+		}
+		
+		return result;
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public boolean approveBusiness(String candidateToken) {
+		return adminDao.approveBusiness(candidateToken);
 	}
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unips.entity.User;
 import com.unips.response.Response;
-import com.unips.service.AdminService;
+import com.unips.service.admin.AdminService;
 
 import io.swagger.annotations.Api;
 
@@ -26,4 +26,21 @@ public class AdminVerificationController {
 		boolean status = service.verifyEmail(candidateToken);
 		return Response.success(status);
 	}
+	
+	
+	@RequestMapping(value="api/adminApproval", method=RequestMethod.GET)
+	@ResponseBody
+	public Response<Boolean> adminApproval(@RequestParam("token") String candidateToken) {
+		boolean status = service.approveAdmin(candidateToken);
+		return Response.success(status);
+	}
+	
+	
+	@RequestMapping(value="api/businessApproval", method=RequestMethod.GET)
+	@ResponseBody
+	public Response<Boolean> businessApproval(@RequestParam("token") String candidateToken) {
+		boolean status = service.approveBusiness(candidateToken);
+		return Response.success(status);
+	}
+	
 }

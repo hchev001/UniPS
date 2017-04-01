@@ -5,13 +5,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unips.constants.BusinessConstants.Status;
 import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.response.Response;
-import com.unips.service.UserService;
+import com.unips.service.admin.AdminUserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,24 +25,27 @@ import io.swagger.annotations.ApiOperation;
 public class AdminUserController {
 
 	@Autowired
-	UserService<User> service;
+	AdminUserService<User> service;
 	
 	@ApiOperation("Get status of user with username by admin")
-	@RequestMapping(value="{userName}/status", method = RequestMethod.GET)
+	@RequestMapping(value="/status/{username}", method = RequestMethod.GET)
 	@ResponseBody
-	public Response<Business> getStatus(@PathVariable("username") String username){
-		return Response.unimplemented();
+	public Response<Status> getStatus(@PathVariable("username") String username){
+		return service.getStatus(username);
 	}
 	
 	
 	@ApiOperation("Update status of user with username by admin")
-	@RequestMapping(value="{userName}/status", method = RequestMethod.PUT)
+	@RequestMapping(value="/status/{userName}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response<Business> updateAdmin(@RequestBody Business business){
-		return Response.unimplemented();
+	public Response<Boolean> updateAdmin(
+			@PathVariable("userName") String username, 
+			@RequestParam("type") Status type){
+		
+		return service.updateStatus(username, type);
 	}
 	
-
+	
 	@ApiOperation("Upload data into the system")
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
 	@ResponseBody
