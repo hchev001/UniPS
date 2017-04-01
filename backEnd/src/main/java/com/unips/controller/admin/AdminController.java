@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.response.Response;
-import com.unips.service.UserService;
+import com.unips.service.AdminService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,40 +24,40 @@ import io.swagger.annotations.ApiOperation;
 public class AdminController {
 
 	@Autowired
-	UserService<User> service;
+	AdminService<User> service;
 	
 	@ApiOperation("Gets all the admins entities")
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Response<List<User>> getAllAdmin() {
-		return Response.unimplemented();
+		return service.getAllAdmins();
 	}
 	
 	@ApiOperation("Get admin user by username")
 	@RequestMapping(value="{username}", method = RequestMethod.GET)
 	@ResponseBody
-	public Response<Business> getAdmin(@PathVariable("username") String username){
-		return Response.unimplemented();
+	public Response<User> getAdmin(@PathVariable("username") String username){
+		return service.getAdmin(username);
 	}
 	
 	@ApiOperation("Add a new admin")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Response<Business> addAdmin(@RequestBody Business business) {
-		return Response.unimplemented();
+	public Response<User> addAdmin(@RequestBody User user) {
+		return service.addAdmin(user);
 	}
 	
 	@ApiOperation("Modify an admin by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response<Business> updateAdmin(@RequestBody Business business){
-		return Response.unimplemented();
+	public Response<User> updateAdmin(@RequestBody User user){
+		return service.updateAdmin(user);
 	}
 	
 	@ApiOperation("Delete an admin by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response<Integer> updateAdmin(@PathVariable("username") String username){
-		return Response.unimplemented();
+	public Response<Integer> deleteAdmin(@PathVariable("username") String username){
+		return service.deleteUser(username);
 	}
 }
