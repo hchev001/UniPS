@@ -13,6 +13,7 @@ import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.AdminDao;
 import com.unips.dao.UserInfoDao;
+import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
@@ -21,8 +22,9 @@ import com.unips.response.Response;
 public class AdminService<T> {
 
 	private static final int VALID_MAX_COUNT_ONE = 1;
-	private static final String USER_VERIFICATION_API = "http://localhost:8080/api/userVerification?token=";
-
+	private static final String ADMIN_VERIFICATION_API = "http://localhost:8080/api/adminVerification?token=";
+	private static final String ADMIN_APPROVAL_API = "http://localhost:8080/api/adminApproval?token=";
+	
 	@Autowired
 	@Qualifier("admin.mysql")
 	AdminDao adminDao;
@@ -59,7 +61,7 @@ public class AdminService<T> {
 		user.setPassword(encode.encodePassword(user.getPassword(), null));
 		user.setToken(UUID.randomUUID().toString());
 		user.setStatus(Status.DISABLED);
-		user.setRole(Roles.ROLE_USER);
+		user.setRole(Roles.ROLE_ADMIN);
 
 		updated_records = adminDao.addAdmin(user);
 
@@ -69,8 +71,8 @@ public class AdminService<T> {
 
 		// Send Email
 		try {
-			String url = USER_VERIFICATION_API + user.getToken();
-			mailSender.sendUserVerificationEmail(user.getEmail(), url);
+			String url = ADMIN_VERIFICATION_API + user.getToken();
+			mailSender.sendUserVerificationEmailAdmins(user.getEmail(), url);
 		} catch (Exception e) {
 			// Let it go....
 		}
@@ -98,11 +100,21 @@ public class AdminService<T> {
 	public boolean verifyEmail(String candidateToken) {
 		
 		String username = adminDao.verifyEmail(candidateToken);
-		
+
 		if (username == null)
 			return false;
-	
-		adminDao.updateAdminStatus(username, Status.ACTIVE);	
+		
+		try {
+			// Send Email for verification and letting them know we will process it in time
+			User user = adminDao.getAdmin(username);
+			
+			String url = ADMIN_APPROVAL_API + user.getUsername();
+			mailSender.sendAdminVerificationEmailToAdmins(user, url);
+
+		} catch (Exception e) {
+			// Let it go....
+		}
+
 		return true;
 	}
 }

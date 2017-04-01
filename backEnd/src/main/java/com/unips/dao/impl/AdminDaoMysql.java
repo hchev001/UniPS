@@ -49,10 +49,13 @@ public class AdminDaoMysql implements AdminDao {
 		String sql = "SELECT * FROM `unipsdb`.`user` AS u " +
 					 "LEFT JOIN `unipsdb`.`picture` AS p "+
 					 "ON u.user_id=p.user_id " +
-					 "WHERE u.username=?";
+					 "WHERE u.username = ? " +
+					 "AND u.role_id = ?";
 		
-		List<User> user = jdbcTemplate.query(sql, new Object[]{username}, new int[]{Types.VARCHAR},
-				new UserResultSetExtractor());
+		Object[] values = new Object[] {username,Roles.ROLE_ADMIN.ordinal()};
+		int[] types = new int[] {Types.VARCHAR, Types.TINYINT};
+		
+		List<User> user = jdbcTemplate.query(sql, values, types, new UserResultSetExtractor());
 		
 		if (user.size() == 0) 
 				return null;
@@ -135,10 +138,13 @@ public class AdminDaoMysql implements AdminDao {
 		
 		log.debug(username);
 		
-		final String sql = "SELECT u.username FROM `unipsdb`.`user`AS u WHERE u.username = ?";
-		
+		final String sql = "SELECT u.username FROM `unipsdb`.`user`AS u WHERE u.username = ? AND u.role_id = ?";
+	
 		try {
-			String result = jdbcTemplate.queryForObject(sql, String.class, new Object[] {username});
+			Object[] values = new Object[] {username, Roles.ROLE_ADMIN.ordinal()};
+			int[] types = new int[] {Types.VARCHAR, Types.TINYINT};
+			
+			String result = jdbcTemplate.queryForObject(sql, String.class, values, types);
 			return result != "";
 		} catch (Exception e) {
 			return false;
