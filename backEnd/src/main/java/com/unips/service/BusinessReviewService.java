@@ -23,10 +23,6 @@ public class BusinessReviewService<T>{
 	
 	@PreAuthorize("permitAll()")
 	public Response<List<Comment>> getAllReviews() {
-		try {
-			return  Response.success(businessReviewDao.getAllComments());
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}	
+		return  Response.success(businessReviewDao.getAllComments());	
 	}
 }

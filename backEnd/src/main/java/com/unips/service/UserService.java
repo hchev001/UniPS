@@ -21,6 +21,7 @@ import com.unips.response.Response;
 public class UserService<T> {
 
 	private static final int VALID_MAX_COUNT_ONE = 1;
+	private static final String USER_VERIFICATION_API = "http://localhost:8080/api/userVerification?token=";
 
 	@Autowired
 	@Qualifier("user.mysql")
@@ -35,21 +36,12 @@ public class UserService<T> {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	public Response<List<User>> getAllUsers() {
-		try {
-			return  Response.success(userDao.getAllUsers());
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}	
+		return  Response.success(userDao.getAllUsers());
 	}
 
 	@PreAuthorize("#username == authentication.getName()")
 	public Response<User> getUser(String username) {
-		
-		try {
-			return  Response.success(userDao.getUser(username));
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}
+		return  Response.success(userDao.getUser(username));
 	}
 
 	
@@ -60,61 +52,46 @@ public class UserService<T> {
 		if (userDao.exits(user.getUsername()))
 			return Response.failure("Username already exists");
 		
+		// Add created fields
+		int updated_records = 0;
+
+		ShaPasswordEncoder encode = new ShaPasswordEncoder();
+		user.setPassword(encode.encodePassword(user.getPassword(), null));
+		user.setToken(UUID.randomUUID().toString());
+		user.setStatus(Status.DISABLED);
+		user.setRole(Roles.ROLE_USER);
+
+		updated_records = userDao.addUser(user);
+
+		// Check updated records and send email
+		if (updated_records != VALID_MAX_COUNT_ONE)
+			return Response.failure("More than one record updated in the database");
+
+		// Send Email
 		try {
-			// Add created fields
-			int updated_records = 0;
-			
-			ShaPasswordEncoder encode = new ShaPasswordEncoder();
-			user.setPassword(encode.encodePassword(user.getPassword(), null));
-			user.setToken(UUID.randomUUID().toString());
-			user.setStatus(Status.DISABLED);
-			user.setRole(Roles.ROLE_USER);
-			
-			updated_records = userDao.addUser(user);
-	
-			// Check updated records and send email
-			if (updated_records != VALID_MAX_COUNT_ONE)
-				return Response.failure("More than one record updated in the database");
-			
-			// Send Email
-			try {
-				String url = "http://localhost:8080/api/userVerification?token=" + user.getToken();
-				mailSender.sendUserVerificationEmail(user.getEmail(), url);
-			} catch (Exception e) {
-				// Let it go....
-			}
-			
-			return Response.success(user);
-			
+			String url = USER_VERIFICATION_API + user.getToken();
+			mailSender.sendUserVerificationEmail(user.getEmail(), url);
 		} catch (Exception e) {
-			return Response.failure(e.getMessage());
+			// Let it go....
 		}
+
+		return Response.success(user);
 	}
 	
 
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<User> updateUser(User user) {
-		
-		try {
-		
-			// Encode the password
-			ShaPasswordEncoder encode = new ShaPasswordEncoder();
-			user.setPassword(encode.encodePassword(user.getPassword(), null));
-			
-			return Response.success(userDao.updateUser(user));
-			
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}
+
+		// Encode the password
+		ShaPasswordEncoder encode = new ShaPasswordEncoder();
+		user.setPassword(encode.encodePassword(user.getPassword(), null));
+
+		return Response.success(userDao.updateUser(user));
 	}
 	
 	@PreAuthorize("#username == authentication.getName()")
 	public Response<Integer> deleteUser(String username) {
-		try {
-			return Response.success(userDao.deleteUser(username));
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}
+		return Response.success(userDao.deleteUser(username));
 	}
 	
 	@PreAuthorize("permitAll()")

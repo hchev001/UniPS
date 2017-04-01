@@ -22,6 +22,8 @@ import com.unips.response.Response;
 public class BusinessService<T> {
 
 	private static final int VALID_MAX_COUNT_ONE = 1;
+	private static final String BUSINESS_VERICATION_API = "http://localhost:8080/api/businessVerification?token=";
+	private static final String BUSINESS_APPROVAL_API = "http://localhost:8080/api/businessApproval?token=";
 
 	@Autowired
 	@Qualifier("business.mysql")
@@ -39,22 +41,12 @@ public class BusinessService<T> {
 	SmptMailSender mailSender;
 
 	public Response<List<Business>> getAllBusiness() {
-		try {
-			List<Business> business = businessDao.getAllBusiness();
-			return Response.success(business);
-
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}
+		List<Business> business = businessDao.getAllBusiness();
+		return Response.success(business);
 	}
 
 	public Response<Business> getBusiness(String username) {
-
-		try {
-			return Response.success(businessDao.getBusiness(username));
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}
+		return Response.success(businessDao.getBusiness(username));
 	}
 
 	@PreAuthorize("permitAll()")
@@ -63,64 +55,48 @@ public class BusinessService<T> {
 		// Make sure the user does not exits
 		if (businessDao.exits(business.getUsername()))
 			return Response.failure("Username already exists");
-	
+
+		// Add created fields
+		int updated_records = 0;
+
+		ShaPasswordEncoder encode = new ShaPasswordEncoder();
+		business.setPassword(encode.encodePassword(business.getPassword(), null));
+		business.setToken(UUID.randomUUID().toString());
+		business.setStatus(Status.DISABLED);
+		business.setRole(Roles.ROLE_BUSINESS);
+
+		updated_records = businessDao.addBusiness(business);
+
+		// Check updated records and send email
+		if (updated_records != VALID_MAX_COUNT_ONE)
+			return Response.failure("More than one record updated in the database");
+
+		// Send Email for verification and letting them know we will process
+		// it in time.
 		try {
-			// Add created fields
-			int updated_records = 0;
-
-			ShaPasswordEncoder encode = new ShaPasswordEncoder();
-			business.setPassword(encode.encodePassword(business.getPassword(), null));
-			business.setToken(UUID.randomUUID().toString());
-			business.setStatus(Status.DISABLED);
-			business.setRole(Roles.ROLE_BUSINESS);
-
-			updated_records = businessDao.addBusiness(business);
-
-			// Check updated records and send email
-			if (updated_records != VALID_MAX_COUNT_ONE)
-				return Response.failure("More than one record updated in the database");
-
-			// Send Email for verification and letting them know we will process
-			// it in time.
-			try {
-				String url = "http://localhost:8080/api/businessVerification?token=" + business.getToken();
-				mailSender.sendUserVerificationEmailBusiness(business.getEmail(), url);
-
-			} catch (Exception e) {
-				// Let it go....
-			}
-
-			return Response.success(business);
+			String url = BUSINESS_VERICATION_API + business.getToken();
+			mailSender.sendUserVerificationEmailBusiness(business.getEmail(), url);
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.failure(e.getMessage());
+			// Let it go....
 		}
+
+		return Response.success(business);
 	}
 
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<Business> updateBusiness(Business business) {
 
-		try {
+		// Encode the password
+		ShaPasswordEncoder encode = new ShaPasswordEncoder();
+		business.setPassword(encode.encodePassword(business.getPassword(), null));
 
-			// Encode the password
-			ShaPasswordEncoder encode = new ShaPasswordEncoder();
-			business.setPassword(encode.encodePassword(business.getPassword(), null));
-
-			return Response.success(businessDao.updateBusiness(business));
-
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}
+		return Response.success(businessDao.updateBusiness(business));
 	}
 
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<Integer> deleteBusiness(String username) {
-		try {
-			return Response.success(businessDao.deleteBusiness(username));
-		} catch (Exception e) {
-			return Response.failure(e.getMessage());
-		}
+		return Response.success(businessDao.deleteBusiness(username));
 	}
 
 	public boolean verifyEmail(String candidateToken) {
@@ -134,7 +110,7 @@ public class BusinessService<T> {
 			// Send Email for verification and letting them know we will process it in time
 			Business business = businessDao.getBusiness(username);
 			
-			String url = "http://localhost:8080/api/businessApproval?token=" + business.getUsername();
+			String url = BUSINESS_APPROVAL_API + business.getUsername();
 			mailSender.sendUserVerificationEmailToAdmins(business, url);
 
 		} catch (Exception e) {
