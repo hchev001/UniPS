@@ -46,4 +46,25 @@ WHERE username = '?';
 
 -- Check if user Exists
 SELECT u.username FROM `unipsdb`.`user`AS u
-WHERE u.username = 'kathy'
+WHERE u.username = 'kathy';
+
+-- ----------------------------------------
+-- Admin Users and business interacttions
+-- ----------------------------------------
+
+-- Get user status
+SELECT u.status_id FROM `unipsdb`.`user` AS u WHERE u.username = 'kathy';
+
+
+-- Update status for user
+
+UPDATE `unipsdb`.`user` AS u
+SET u.status_id = 2
+WHERE u.username = 'kathy';
+
+
+
+
+
+
+

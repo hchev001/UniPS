@@ -103,6 +103,14 @@ public class UserService<T> {
 			return false;
 	
 		userDao.updateUserStatus(username, Status.ACTIVE);	
+		
+		try {
+			final String link = "http://localhost:8080/";
+			mailSender.sendThankYouEmail(username, link);
+		} catch (Exception e) {
+			// Let it go....
+		}
+		
 		return true;
 	}
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.unips.entity.User;
 import com.unips.response.Response;
-import com.unips.service.AdminService;
+import com.unips.service.admin.AdminService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

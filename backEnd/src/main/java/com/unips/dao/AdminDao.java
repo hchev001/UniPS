@@ -24,4 +24,14 @@ public interface AdminDao {
 	public List<String> getQuestions(String username);
 	
 	public boolean exits(String username);
+	
+	
+	//Interaction with users and business
+	public Status getStatus(String username);
+	
+	public boolean updateStatus(String username, Status status);
+	
+	public boolean approveBusiness(String username);
+	
+	public boolean approveAdmin(String username);
 }

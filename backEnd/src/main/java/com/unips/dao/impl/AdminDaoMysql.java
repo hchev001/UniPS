@@ -14,6 +14,8 @@ import com.unips.dao.AdminDao;
 import com.unips.dao.mapper.UserResultSetExtractor;
 import com.unips.entity.User;
 
+import ch.qos.logback.core.subst.Token.Type;
+
 
 @Repository("admin.mysql")
 public class AdminDaoMysql implements AdminDao {
@@ -149,5 +151,40 @@ public class AdminDaoMysql implements AdminDao {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public Status getStatus(String username) {
+		
+		final String sql = "SELECT u.status_id FROM `unipsdb`.`user` AS u WHERE u.username = ?";
+		
+		int value = jdbcTemplate.queryForObject(sql, Integer.class, new Object[] {username});
+		
+		return Status.values()[value];
+	}
+
+	@Override
+	public boolean updateStatus(String username, Status status) {
+		
+		final String sql = "UPDATE `unipsdb`.`user` AS u " +
+						   "SET u.status_id = ? " +
+						   "WHERE u.username = ?";
+		
+		Object[] values = new Object[] {status.ordinal(), username};
+		int[] types = new int[] {Types.TINYINT, Types.VARCHAR};
+		
+		int affectedRows = jdbcTemplate.update(sql, values, types);
+		
+		return affectedRows == 1;
+	}
+
+	@Override
+	public boolean approveBusiness(String username) {
+		return updateStatus(username, Status.ACTIVE);
+	}
+
+	@Override
+	public boolean approveAdmin(String username) {
+		return updateStatus(username, Status.ACTIVE);
 	}
 }

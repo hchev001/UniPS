@@ -189,7 +189,7 @@ public class SmptMailSender {
 	public void sendAdminVerificationEmailToAdmins(User user, String link) throws MessagingException, JsonProcessingException {
 		
 		final String data = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
-		final String subject = "New Business signed up.";
+		final String subject = "New Admin signed up.";
 		
 		final String body =  "   <!DOCTYPE html>  "  + 
 							 "   <html>  "  + 
@@ -221,6 +221,32 @@ public class SmptMailSender {
 				
 		String to = env.getProperty("unips.mail");
 		 
+		send(to, subject, body);
+	}
+	
+	@Async
+	public void sendThankYouEmail(String to, String link) throws MessagingException {
+	
+		final String subject = "Welcome to UniPS";
+		
+		final String body =  "   <!DOCTYPE html>  "  + 
+							 "   <html>  "  + 
+							 "     <body>  "  + 
+							 "       <h2>  "  + 
+							 "       Welcome to UniPS  "  + 
+							 "       </h2>  "  + 
+							 "       <p>  "  + 
+							 "         Your account has been activated, you can login now using the link bellow:  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         <a href=\"" + link + "\">" + link + "</a>  "  + 
+							 "       </p>  "  + 
+							 "       <p>  "  + 
+							 "         Enjoy!  "  + 
+							 "       </p>  "  + 
+							 "     </body>  "  + 
+							 "  </html>  ";
+		
 		send(to, subject, body);
 	}
 }
