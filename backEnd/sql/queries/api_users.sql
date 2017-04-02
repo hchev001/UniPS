@@ -9,6 +9,7 @@ FROM `unipsdb`.`user` AS u
 RIGHT JOIN `unipsdb`.`picture` AS p
 ON u.user_id = p.user_id);
 
+
 -- Get information from one user by username
 SELECT * 
 FROM `unipsdb`.`user` AS u

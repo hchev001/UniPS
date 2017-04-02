@@ -32,16 +32,15 @@ public class BusinessDaoMysql implements BusinessDao {
 					 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
 					 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
 					 "LEFT JOIN ( " +	
-					 "	SELECT *, AVG(rt.rating_value_id) AS rating_average " +
+					 "	SELECT rt.business_id, AVG(rt.rating_value_id) AS rating_average " +
 					 "    FROM `unipsdb`.`rating` AS rt " +
 					 "    GROUP BY rt.business_id " +
 					 "    ) AS r ON u.user_id = r.business_id " +
-					 "WHERE u.role_id = ?";
+					 "WHERE u.role_id = ? AND u.status_id = ?";
 
-		int role = Roles.ROLE_BUSINESS.ordinal();
+		Object[] values = new Object[] { Roles.ROLE_BUSINESS.ordinal(), Status.ACTIVE.ordinal()};
 		
-		List<Business> business = jdbcTemplate.query(sql, new BusinessResultSetExtractor(),
-				new Object[] {role});
+		List<Business> business = jdbcTemplate.query(sql, new BusinessResultSetExtractor(), values);
 	
 		return business;
 	}
@@ -55,15 +54,15 @@ public class BusinessDaoMysql implements BusinessDao {
 					 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
 					 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
 					 "LEFT JOIN ( " +	
-					 "	SELECT *, AVG(rt.rating_value_id) AS rating_average " +
+					 "	SELECT rt.business_id, AVG(rt.rating_value_id) AS rating_average " +
 					 "    FROM `unipsdb`.`rating` AS rt " +
 					 "    GROUP BY rt.business_id " +
 					 "    ) AS r ON u.user_id = r.business_id " +
-					 "WHERE u.role_id = ? AND u.username = ?";
+					 "WHERE u.role_id = ? AND u.username = ? AND u.status_id = ?";
 
 		try {
-			Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username};
-			int[] types = new int[] {Types.INTEGER, Types.VARCHAR};
+			Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username, Status.ACTIVE.ordinal()};
+			int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.TINYINT};
 
 			List<Business> business = jdbcTemplate.query(sql, values, types, new BusinessResultSetExtractor());
 			return  business.get(0);
