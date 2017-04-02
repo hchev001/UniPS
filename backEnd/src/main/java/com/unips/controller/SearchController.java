@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unips.constants.BusinessConstants.BusinessCategory;
 import com.unips.entity.Business;
 import com.unips.entity.User;
 import com.unips.response.Response;
+import com.unips.service.SearchService;
 import com.unips.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -23,13 +26,21 @@ import io.swagger.annotations.ApiOperation;
 public class SearchController {
 
 	@Autowired
-	UserService<User> service;
+	SearchService<List<Business>> service;
 	
 	@ApiOperation("Search for business entities")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Response<List<Business>> search() {
-		return Response.unimplemented();
-		//Accepts "?{keyword},{filter},{rating}"
+	public Response<List<Business>> search(
+			@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="category", required=false) BusinessCategory category,
+			@RequestParam(value="rating", required=false) Double rating
+			) {
+		
+		System.out.println(keyword);
+		System.out.println(category);
+		System.out.println(rating);
+		
+		return service.Search(keyword, category, rating);
 	}
 }
