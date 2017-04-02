@@ -25,4 +25,14 @@ public class BusinessReviewDaoMysql implements BusinessReviewDao {
 	
 		return comments;
 	}
+
+	@Override
+	public Comment getComment(Integer commentid) {
+		
+		String sql = "SELECT * FROM `unipsdb`.`comment` AS c WHERE c.comment_id = ?";
+		
+		return jdbcTemplate.queryForObject(sql, new CommentRowMapper(), new Object[] {commentid});
+	}
+	
+	
 }

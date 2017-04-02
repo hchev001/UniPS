@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
+import com.unips.dao.BusinessReviewDao;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
+import com.unips.entity.Comment;
 import com.unips.entity.User;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
@@ -31,6 +33,10 @@ public class UserService<T> {
 	@Autowired
 	@Qualifier("userInfo.mysql")
 	UserInfoDao userInfoDao;
+	
+	@Autowired
+	@Qualifier("businessReview.mysql")
+	BusinessReviewDao businessReview;
 	
 	@Autowired
 	SmptMailSender mailSender;
@@ -118,8 +124,16 @@ public class UserService<T> {
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<CommentFlag> updateFlag(Integer commentId) {
 		
-		CommentFlag currentFlag = userDao.getFlag(commentId);
+		Comment comment = businessReview.getComment(commentId);
 		
-		return Response.success(userDao.updateFlag(commentId, currentFlag.toggle()));
+		// This means that the comment went from ok to flagged.
+		if (comment.getFlag() == CommentFlag.OK) {
+			try {
+				mailSender.sendCommentFlagNotificationToAdmins(comment);
+			} catch (Exception e) {
+				//let it go like all other e-mails ...
+			}
+		}
+		return Response.success(userDao.updateFlag(commentId, comment.getFlag().toggle()));
 	}
 }
