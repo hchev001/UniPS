@@ -130,5 +130,6 @@ public class BusinessResultSetExtractor implements ResultSetExtractor<List<Busin
 		user.setPhoneBusiness(rs.getLong("phone_business"));
 		user.setHours(rs.getString("hours"));
 		user.setCategory(BusinessCategory.values()[rs.getInt("business_category_id")]);
+		user.setRateAverage(rs.getInt("rating_average"));
 	}
 }

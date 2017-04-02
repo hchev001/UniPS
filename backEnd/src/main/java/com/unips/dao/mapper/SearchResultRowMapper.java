@@ -34,7 +34,7 @@ public class SearchResultRowMapper implements RowMapper<Business> {
 		business.setPhoneBusiness(rs.getLong("phone_business"));
 		business.setHours(rs.getString("hours"));
 		business.setCategory(BusinessCategory.values()[rs.getInt("business_category_id")]);
-		
+		business.setRateAverage(rs.getInt("rating_average"));
 		return business;
 	}
 }

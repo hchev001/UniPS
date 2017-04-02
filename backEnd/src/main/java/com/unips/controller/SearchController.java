@@ -34,7 +34,7 @@ public class SearchController {
 	public Response<List<Business>> search(
 			@RequestParam(value="keyword", required=false) String keyword,
 			@RequestParam(value="category", required=false) BusinessCategory category,
-			@RequestParam(value="rating", required=false) Double rating
+			@RequestParam(value="rating", required=false) Integer rating
 			) {
 		
 		return service.Search(keyword, category, rating);

@@ -297,5 +297,6 @@ INSERT INTO `unipsdb`.`rating`
 	(`rating_value_id`, `user_id`, `business_id`)
 VALUES
 	(0, 3, 9),
+    (3, 3, 8),
     (4, 1, 8);
 

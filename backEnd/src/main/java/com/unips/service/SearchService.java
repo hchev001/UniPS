@@ -18,12 +18,12 @@ public class SearchService<T> {
 	@Qualifier("search.mysql")
 	SearchDao searchDao;
 
-	public Response<List<Business>> Search(String keyword, BusinessCategory category, Double rating) {
+	public Response<List<Business>> Search(String keyword, BusinessCategory category, Integer rating) {
 		
 		// Check the values
 		String keywordParam = (keyword != null) ? "%" + keyword + "%" : "%";
 		String categoryParam = (category != null) ? String.valueOf(category.ordinal()) : "%";
-		String ratingParam = (rating != null) ? rating.toString() : "0.0";
+		Integer ratingParam = (rating != null) ? rating : 0;
 		
 		return Response.success(searchDao.search(keywordParam, categoryParam, ratingParam));
 	}

@@ -4,7 +4,13 @@ FROM `unipsdb`.`user` AS u
 LEFT JOIN `unipsdb`.`address` AS a ON u.address_id = a.address_id
 LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id
 LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id
+LEFT JOIN (
+	SELECT *, AVG(rt.rating_value_id) AS rating_average 
+    FROM `unipsdb`.`rating` AS rt 
+    GROUP BY rt.business_id
+    ) AS r ON u.user_id = r.business_id
 WHERE u.role_id = 2;
+
 
 
 -- Get information from one business by businessName
@@ -13,7 +19,13 @@ FROM `unipsdb`.`user` AS u
 LEFT JOIN `unipsdb`.`address` AS a ON u.address_id = a.address_id
 LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id
 LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id
-WHERE u.role_id = 2 AND u.username='starbucks';
+LEFT JOIN (
+	SELECT *, AVG(rt.rating_value_id) AS rating_average 
+    FROM `unipsdb`.`rating` AS rt 
+    GROUP BY rt.business_id
+    ) AS r ON u.user_id = r.business_id
+WHERE u.role_id = 2 AND u.username = 'starbucks';
+
 
 
 -- Insert a new business
