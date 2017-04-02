@@ -9,7 +9,7 @@ LEFT JOIN (
     FROM `unipsdb`.`rating` AS rt 
     GROUP BY rt.business_id
     ) AS r ON u.user_id = r.business_id
-WHERE u.role_id = 2;
+WHERE u.role_id = 2 AND u.status_id = 1;
 
 
 
@@ -24,8 +24,7 @@ LEFT JOIN (
     FROM `unipsdb`.`rating` AS rt 
     GROUP BY rt.business_id
     ) AS r ON u.user_id = r.business_id
-WHERE u.role_id = 2 AND u.username = 'starbucks';
-
+WHERE u.role_id = 2 AND u.status_id = 1 AND u.username = 'starbucks';
 
 
 -- Insert a new business
