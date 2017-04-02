@@ -28,7 +28,7 @@ public class SearchDaoMysql implements SearchDao {
 		final String sql = "SELECT * " +
 							"FROM `unipsdb`.`user` AS u " +
 							"LEFT JOIN ( " +
-							"	SELECT *, AVG(rt.rating_value_id) AS rating_average " +
+							"    SELECT rt.business_id, AVG(rt.rating_value_id) AS rating_average " +
 							"    FROM `unipsdb`.`rating` AS rt " + 
 							"    GROUP BY rt.business_id " +
 							"    ) AS r ON u.user_id = r.business_id " +

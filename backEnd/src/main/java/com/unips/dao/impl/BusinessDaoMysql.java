@@ -32,7 +32,7 @@ public class BusinessDaoMysql implements BusinessDao {
 					 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
 					 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
 					 "LEFT JOIN ( " +	
-					 "	SELECT *, AVG(rt.rating_value_id) AS rating_average " +
+					 "	SELECT rt.business_id, AVG(rt.rating_value_id) AS rating_average " +
 					 "    FROM `unipsdb`.`rating` AS rt " +
 					 "    GROUP BY rt.business_id " +
 					 "    ) AS r ON u.user_id = r.business_id " +
@@ -55,7 +55,7 @@ public class BusinessDaoMysql implements BusinessDao {
 					 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
 					 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
 					 "LEFT JOIN ( " +	
-					 "	SELECT *, AVG(rt.rating_value_id) AS rating_average " +
+					 "	SELECT rt.business_id, AVG(rt.rating_value_id) AS rating_average " +
 					 "    FROM `unipsdb`.`rating` AS rt " +
 					 "    GROUP BY rt.business_id " +
 					 "    ) AS r ON u.user_id = r.business_id " +
