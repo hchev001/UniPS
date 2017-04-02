@@ -17,7 +17,6 @@ import com.unips.dao.UserInfoDao;
 import com.unips.entity.User;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
-import com.unips.service.UserService;
 
 @Service
 public class AdminService<T> {

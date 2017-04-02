@@ -2,6 +2,7 @@ package com.unips.dao;
 
 import java.util.List;
 
+import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.entity.User;
 
@@ -24,4 +25,11 @@ public interface UserDao {
 	public List<String> getQuestions(String username);
 	
 	public boolean exits(String username);
+	
+	
+	// Flag interaction
+	public CommentFlag getFlag(Integer commentId);
+	
+	public CommentFlag updateFlag(Integer commentId, CommentFlag flag);
+
 }

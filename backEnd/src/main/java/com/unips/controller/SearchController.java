@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.unips.constants.BusinessConstants.BusinessCategory;
 import com.unips.entity.Business;
 import com.unips.entity.BusinessSearchResult;
-import com.unips.entity.User;
 import com.unips.response.Response;
 import com.unips.service.SearchService;
-import com.unips.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 
 @RestController

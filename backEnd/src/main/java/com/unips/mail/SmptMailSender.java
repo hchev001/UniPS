@@ -1,25 +1,22 @@
 package com.unips.mail;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.freemarker.SpringTemplateLoader;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.context.IWebContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unips.entity.Business;
+import com.unips.entity.Comment;
 import com.unips.entity.User;
 
 @SuppressWarnings("unused")
@@ -145,7 +142,6 @@ public class SmptMailSender {
 	@Async
 	public void sendUserVerificationEmailToAdmins(Business business, String link) throws MessagingException, JsonProcessingException {
 		
-		final String data = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(business);
 		final String subject = "New Business signed up.";
 		
 		final String body =  "   <!DOCTYPE html>  "  + 
@@ -248,5 +244,66 @@ public class SmptMailSender {
 							 "  </html>  ";
 		
 		send(to, subject, body);
+	}
+	
+	@Async
+	public void sendCommentFlagNotificationToAdmins(Comment comment) throws MessagingException {
+	
+		final String subject = "New comment has been flagged.";
+		final String body =  "   <!DOCTYPE html>  "  + 
+							 "   <html>  "  + 
+							 "     <body>  "  + 
+							 "       <h2>  "  + 
+							 "       New comment flag  "  + 
+							 "       </h2>  "  + 
+							 "       <p>  "  + 
+							 "         The comment bellow has been flagged  "  + 
+							 "       </p>  "  + 
+							 "       <p>Information:</p>  "  + getTableFromObject(comment) +
+							 "       <p>  "  + 
+							 "         Log into your acccount to resolve.  "  + 
+							 "       </p>  "  +
+							 "       <p>  "  + 
+							 "         Thanks  "  + 
+							 "       </p>  "  + 
+							 "     </body>  "  + 
+							 "  </html>  "; 
+				
+		String to = env.getProperty("unips.mail");
+		 
+		send(to, subject, body);
+	}
+	
+	private String getTableFromObject(Object object){
+		
+		final String tableStart = "<table  cellpadding=\"5\">\n<tbody>\n";
+		final String tableEnd = "</tbody> \n </table> \n";
+		final String rowStart = "<tr><td><b>";
+		final String rowMiddle = "</b></td><td>";
+		final String rowEnd = "</td></tr>\n";
+		
+		Method[] methods = object.getClass().getDeclaredMethods();
+		
+		String table = tableStart;
+		
+		for (Method method : methods) {
+			if ( method.getName().startsWith("get")) {
+				String field = method.getName().substring(3);
+				field = Character.toUpperCase(field.charAt(0)) + field.substring(1);
+				
+				String value;
+				try {
+					Object result = method.invoke(object, new Object[0]);
+					value = result.toString();
+				} catch (Exception e) {
+					value = "";
+				}
+				table += (rowStart + field + rowMiddle + value + rowEnd); 
+			}
+		}
+		
+		table += tableEnd;
+		System.out.println(table);
+		return table;
 	}
 }

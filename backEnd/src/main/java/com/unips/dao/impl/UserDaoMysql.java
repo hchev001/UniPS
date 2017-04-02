@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserDao;
 import com.unips.dao.mapper.UserResultSetExtractor;
@@ -138,4 +139,32 @@ public class UserDaoMysql implements UserDao {
 			return false;
 		}
 	}
+
+	
+	
+	@Override
+	public CommentFlag getFlag(Integer commentId) {
+		
+		final String sql = "SELECT c.comment_flag_id " +
+				   		   "FROM `unipsdb`.`comment` AS c " +
+				   		   "WHERE c.comment_id = ?";
+		
+		return CommentFlag.values()[jdbcTemplate.queryForObject(sql, Integer.class, new Object[] {commentId})];
+	}
+
+	@Override
+	public CommentFlag updateFlag(Integer commentId, CommentFlag flag) {
+		
+		final String sql = "UPDATE `unipsdb`.`comment` AS c " +
+							"SET c.comment_flag_id = ? " +
+							"WHERE c.comment_id = ?";
+		
+		Object[] values = new Object[] {flag.ordinal(), commentId};
+		int[] types = new int[] {Types.TINYINT, Types.INTEGER};
+		
+		jdbcTemplate.update(sql, values, types);
+		
+		return getFlag(commentId);
+	}
+
 }

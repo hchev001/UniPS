@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`comment` (
     `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `subject` VARCHAR(50) NULL,
     `body` TEXT(200) NULL,
-    `comment_flag_id` TINYINT(1) NULL,
+    `comment_flag_id` TINYINT(1) NOT NULL DEFAULT 0,
     `user_id` INT(11) NULL,
     `business_id` INT(11) NULL,
     PRIMARY KEY (`comment_id`),

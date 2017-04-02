@@ -14,8 +14,6 @@ import com.unips.dao.AdminDao;
 import com.unips.dao.mapper.UserResultSetExtractor;
 import com.unips.entity.User;
 
-import ch.qos.logback.core.subst.Token.Type;
-
 
 @Repository("admin.mysql")
 public class AdminDaoMysql implements AdminDao {

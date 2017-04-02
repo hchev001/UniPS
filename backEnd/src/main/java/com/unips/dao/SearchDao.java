@@ -2,7 +2,6 @@ package com.unips.dao;
 
 import java.util.List;
 
-import com.unips.entity.Business;
 import com.unips.entity.BusinessSearchResult;
 
 public interface SearchDao {

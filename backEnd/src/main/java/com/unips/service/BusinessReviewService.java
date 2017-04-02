@@ -14,8 +14,6 @@ import com.unips.response.Response;
 @Service
 public class BusinessReviewService<T>{
 
-	private static final int VALID_MAX_COUNT_ONE = 1;
-
 	@Autowired
 	@Qualifier("businessReview.mysql")
 	BusinessReviewDao businessReviewDao;
