@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `unipsdb`.`user` (
     `email` VARCHAR(50) NOT NULL,
     `question1` VARCHAR(50) NOT NULL,
     `question2` VARCHAR(50) NOT NULL,
-    `picture_featured` VARCHAR(100) NULL,
+    `picture_featured` VARCHAR(100) NOT NULL DEFAULT 'DefaultPicture',
     `description` TEXT(400) NULL,
     `hours` TEXT(200) NULL,
     `address_id` INT(11) NULL,

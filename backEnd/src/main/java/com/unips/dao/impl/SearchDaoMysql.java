@@ -13,6 +13,7 @@ import com.unips.dao.SearchDao;
 import com.unips.dao.mapper.BusinessResultSetExtractor;
 import com.unips.dao.mapper.SearchResultRowMapper;
 import com.unips.entity.Business;
+import com.unips.entity.BusinessSearchResult;
 
 @Repository("search.mysql")
 public class SearchDaoMysql implements SearchDao {
@@ -21,7 +22,7 @@ public class SearchDaoMysql implements SearchDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<Business> search(String keyword, String category, Integer rating) {
+	public List<BusinessSearchResult> search(String keyword, String category, Integer rating) {
 		
 		 //TODO: Add the rating.
 		
