@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.unips.constants.BusinessConstants.BusinessCategory;
-import com.unips.constants.BusinessConstants.Roles;
-import com.unips.constants.BusinessConstants.Status;
-import com.unips.entity.Business;
 import com.unips.entity.BusinessSearchResult;
 
 

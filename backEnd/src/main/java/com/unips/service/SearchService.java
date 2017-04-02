@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.unips.constants.BusinessConstants.BusinessCategory;
 import com.unips.dao.SearchDao;
-import com.unips.entity.Business;
 import com.unips.entity.BusinessSearchResult;
 import com.unips.response.Response;
 

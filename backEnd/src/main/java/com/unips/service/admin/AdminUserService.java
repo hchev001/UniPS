@@ -2,7 +2,6 @@ package com.unips.service.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.unips.constants.BusinessConstants.Status;

@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserDao;
@@ -112,5 +113,13 @@ public class UserService<T> {
 		}
 		
 		return true;
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	public Response<CommentFlag> updateFlag(Integer commentId) {
+		
+		CommentFlag currentFlag = userDao.getFlag(commentId);
+		
+		return Response.success(userDao.updateFlag(commentId, currentFlag.toggle()));
 	}
 }

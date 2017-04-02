@@ -1,11 +1,6 @@
 package com.unips.entity;
 
-import java.util.Date;
-import java.util.List;
-
 import com.unips.constants.BusinessConstants.BusinessCategory;
-import com.unips.constants.BusinessConstants.Roles;
-import com.unips.constants.BusinessConstants.Status;
 
 public class BusinessSearchResult {
 	
