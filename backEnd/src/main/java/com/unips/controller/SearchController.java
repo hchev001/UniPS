@@ -37,10 +37,6 @@ public class SearchController {
 			@RequestParam(value="rating", required=false) Double rating
 			) {
 		
-		System.out.println(keyword);
-		System.out.println(category);
-		System.out.println(rating);
-		
 		return service.Search(keyword, category, rating);
 	}
 }

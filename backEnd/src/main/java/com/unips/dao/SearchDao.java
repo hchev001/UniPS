@@ -7,6 +7,5 @@ import com.unips.entity.Business;
 
 public interface SearchDao {
 	
-	List<Business> search(String keyword, BusinessCategory category, Double rating);
-	
+	List<Business> search(String keyword, String category, String rating);
 }

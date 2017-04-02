@@ -13,7 +13,6 @@ import com.unips.dao.mapper.BusinessResultSetExtractor;
 import com.unips.dao.mapper.SearchResultRowMapper;
 import com.unips.entity.Business;
 
-
 @Repository("search.mysql")
 public class SearchDaoMysql implements SearchDao {
 	
@@ -21,29 +20,17 @@ public class SearchDaoMysql implements SearchDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<Business> search(String keyword, BusinessCategory category, Double rating) {
+	public List<Business> search(String keyword, String category, String rating) {
 		
-		String keywordParam;
-		String categoryParam;
+		 //TODO: Add the rating.
 		
-		// Check the values
-		if (keyword != null)
-			keywordParam = "%" + keyword + "%";
-		else
-			keywordParam = "%";
-		
-		if (category != null )
-			categoryParam = category.toString();
-		else
-			categoryParam = "%";
-			
 		final String sql = "SELECT * " +
 							"FROM `unipsdb`.`user` AS u " +
 							"WHERE u.role_id = 2 " +
 							"AND u.name like ? " +
 							"AND u.business_category_id like ?";
 									
-		Object[] values = new Object[] {keywordParam, categoryParam };
+		Object[] values = new Object[] {keyword, category };
 		
 		return jdbcTemplate.query(sql, new SearchResultRowMapper(), values);
 	}

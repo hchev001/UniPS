@@ -20,7 +20,12 @@ public class SearchService<T> {
 
 	public Response<List<Business>> Search(String keyword, BusinessCategory category, Double rating) {
 		
-		return Response.success(searchDao.search(keyword, category, rating));
+		// Check the values
+		String keywordParam = (keyword != null) ? "%" + keyword + "%" : "%";
+		String categoryParam = (category != null) ? String.valueOf(category.ordinal()) : "%";
+		String ratingParam = (rating != null) ? rating.toString() : "0.0";
+		
+		return Response.success(searchDao.search(keywordParam, categoryParam, ratingParam));
 	}
 
 }
