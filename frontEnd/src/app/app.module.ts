@@ -38,6 +38,9 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.component';
 
+// Services Imports
+
+import { BusinessService } from './_services';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,7 @@ import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.
     AlertService,
     AuthenticationService,
     UserService,
+    BusinessService,
 
     // providers used to create fake backend
     /*
