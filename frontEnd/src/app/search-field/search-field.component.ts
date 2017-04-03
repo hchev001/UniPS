@@ -5,26 +5,42 @@ import { BusinessEntity} from '../_models/businessEntity.model';
 @Component({
   selector: 'app-search-field',
   templateUrl: './search-field.component.html',
-  styleUrls: ['./search-field.component.css']
+  styleUrls: ['./search-field.component.css'],
 })
 export class SearchFieldComponent implements OnInit {
 
-  constructor(private bizService: BusinessService) {}
+  constructor(private bizService: BusinessService) {
+    this.getAllBiz();
+  }
 
-businessList: BusinessEntity[] = [];
-bizList = {}
+  businessList: BusinessEntity[];
 
-getAllBiz() {
+  bizList: Array<Object>;
+
+  getAllBiz() {
   this.bizService.getBusinesses()
-                  .subscribe(data => this.businessList = data);
+                  .subscribe(response => this.bizList = response.data);
   console.log(this.bizList);
-
-  // this.bizService.getBusinessesNew()
-  //                 .subscribe(data => this.biz = data);
-  // console.log(this.businessList);
-  // console.log(this.biz);
-}
+  }
   ngOnInit() {
   }
 
+  // add special functions for when we also instantiate the array of comments, ratings,
+  // and address
+  static toInstance<T>(obj: T, json: string) : T {
+    var jsonObj = JSON.parse(json);
+
+    if (typeof["fromJSON"] === "function") {
+      obj["fromJSON"](jsonObj);
+    }
+    else {
+      for (var propName in jsonObj) {
+        if (jsonObj[propName] == 'comments') {
+
+        }
+        obj[propName] = jsonObj[propName] == undefined ? undefined : jsonObj[propName];
+      }
+    }
+    return obj;
+  }
 }

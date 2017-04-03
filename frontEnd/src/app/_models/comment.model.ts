@@ -2,7 +2,6 @@
  * Provides a comment object
  */
 
-import { User } from './user.model';
 
 export class Comment {
     constructor(
@@ -15,5 +14,5 @@ export class Comment {
         userId: number
     ) {}
 
-    
+
 }

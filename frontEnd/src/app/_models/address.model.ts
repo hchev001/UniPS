@@ -4,9 +4,9 @@
 
 export class Address {
     constructor (
-        city: string,
         line1: string,
         line2: string,
+        city: string,
         state: string,
         zip: number
     ) {}

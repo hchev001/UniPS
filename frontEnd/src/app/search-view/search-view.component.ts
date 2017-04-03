@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BusinessService } from '../_services/index';
 
 @Component({
   selector: 'app-search-view',
@@ -9,12 +10,20 @@ export class SearchViewComponent implements OnInit {
 
   isDropDownMenu: boolean;
   classesObj: Object;
+  businessList: Array<Object>;
 
-  constructor() { }
+  constructor(private bsnService: BusinessService) { }
+
 
   ngOnInit() {
     this.isDropDownMenu = false;
     this.toggleDropDown(event);
+    this.getAllBusinesses();
+  }
+
+  getAllBusinesses() {
+    this.bsnService.getBusinesses()
+                    .subscribe(response => this.businessList = response.data);
   }
 
   toggleDropDown(event): void {
