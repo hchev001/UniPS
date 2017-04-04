@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BusinessService } from '../_services/index'
 
 @Component({
   selector: 'app-business-profile',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BusinessProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private bsnService: BusinessService) { }
+
 
   ngOnInit() {
+
   }
 
+  business = {};
+  getBusinessInfo(username:string){
+      return this.bsnService.getBusiness(username)
+                            .subscribe(response => this.business = response.data);
+  }
 }

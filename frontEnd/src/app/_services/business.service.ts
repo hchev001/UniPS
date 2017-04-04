@@ -22,4 +22,10 @@ export class BusinessService {
                       .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
   }
 
+  getBusiness(username:string) {
+      var requestUrl:string = this.businessUrl + "/" + username;
+      return this._http.get(requestUrl)
+                        .map((res:Response) => res.json())
+                        .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+    }
 }
