@@ -6,7 +6,6 @@
 	<groupId>com.unips</groupId>
 	<artifactId>UnitPS</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 
 	<name>UniPS</name>
 	<description>Revier software for University</description>
