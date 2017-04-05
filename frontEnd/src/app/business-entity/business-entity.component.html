@@ -17,10 +17,10 @@
 		<div class="col-md-5 rating">
 			<app-business-rating></app-business-rating>
 			<address>
-				<strong>Chili's</strong><br> 11200 SW 8th St<br> Miami, FL 33199<br>
-				<abbr title="Phone">P:</abbr> (305) 348-2668
+				<strong>{{business?.name}}</strong><br>{{business?.address.line1}}<br> {{business?.address.city}}, {{business?.address.state}} {{business?.address.zip}}<br>
+				<abbr title="Phone">P:</abbr> {{business?.phoneBusiness}}
 			</address>
-			<br>Family-friendly chain serving classic Tex-Mex & American fare in a Southwestern-sytle setting<br>
+			<br>{{business?.description}}<br>
 		</div>
 		<div class="col-md-4 text-center">
 			<div class="row">
