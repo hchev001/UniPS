@@ -9,4 +9,6 @@ public interface BusinessReviewDao {
 	
 	public List<Comment> getAllComments();
 	
+	public Comment getComment(Integer commentid);
+	
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.unips.constants.BusinessConstants.BusinessCategory;
 import com.unips.entity.Business;
+import com.unips.entity.BusinessSearchResult;
 import com.unips.response.Response;
 import com.unips.service.SearchService;
 
@@ -29,7 +30,7 @@ public class SearchController {
 	@ApiOperation("Search for business entities")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Response<List<Business>> search(
+	public Response<List<BusinessSearchResult>> search(
 			@RequestParam(value="keyword", required=false) String keyword,
 			@RequestParam(value="category", required=false) BusinessCategory category,
 			@RequestParam(value="rating", required=false ) Integer rating

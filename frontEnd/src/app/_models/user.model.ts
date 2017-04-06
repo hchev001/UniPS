@@ -48,5 +48,5 @@ export class User {
 	public get $username(): String {
 		return this.username;
 	}
-    
+
 }

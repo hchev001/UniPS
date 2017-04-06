@@ -41,7 +41,14 @@ public class BusinessConstants {
 	 * Reflects the status of a comment
 	 */
 	public enum CommentFlag{
-		OK, FLAG
+		OK, FLAG;
+		
+		public CommentFlag toggle() {
+			if(this.equals(OK))
+				return FLAG;
+			else
+				return OK;
+		}
 	}
 	
 }
