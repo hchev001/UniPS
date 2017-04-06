@@ -27,4 +27,25 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
+
+    login2() {
+        var headers = {authorization : "Basic" + btoa("kathy:null")};
+        return this.http.get('/api/userInfo', headers )
+                        .map(this.extractData);
+    }
+
+    login3() {
+        var headers = {authorization : "Basic" + btoa("kathy:k123")};
+        return this.http.get('/api/userInfo', headers )
+                        .map(response => response.json());
+    }
+
+    private extractData(res: Response) {
+        let body;
+        if(res.text()) {
+            body = res.json();
+        }
+
+        return body || {};
+    }
 }

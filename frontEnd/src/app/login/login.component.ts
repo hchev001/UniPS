@@ -1,5 +1,5 @@
-/*The login component uses the authentication service to login and logout of the application. 
-//It automatically logs the user out when it initializes (ngOnInit) so the login page can 
+/*The login component uses the authentication service to login and logout of the application.
+//It automatically logs the user out when it initializes (ngOnInit) so the login page can
 also be used to logout.*/
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,6 +17,9 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
+    model2: any = {};
+    model3;
+    authenticated: boolean;
 
     constructor(
         private route: ActivatedRoute,
@@ -30,6 +33,12 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+        this.alfredoLogin();
+        if (this.authenticated)
+            console.log("we've beeb authenticated")
+        else
+            console.log("we weren't authenticated")
     }
 
     login() {
@@ -44,4 +53,18 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+    alfredoLogin() {
+        // this.loading = true;
+        this.authenticationService.login3()
+            .subscribe(data => {
+                if(data.name) {
+                    this.authenticated = true;
+                } else {
+                    this.authenticated = false;
+                }
+            });
+    }
+
+
 }
