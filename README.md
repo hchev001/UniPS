@@ -1,5 +1,6 @@
 # Install After Git
 After a fresh clone from Github make sure to run the start scripts.
+
 For windows run
 <pre>start.cmd</pre>
 
