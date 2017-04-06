@@ -3,7 +3,7 @@
 //if there is one it means authentication was successful so the user details including the
 //token are added to local storage.
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
@@ -34,9 +34,21 @@ export class AuthenticationService {
                         .map(this.extractData);
     }
 
-    login3() {
-        var headers = {authorization : "Basic" + btoa("kathy:k123")};
-        return this.http.get('/api/userInfo', headers )
+    login3(username:string, password:string) {
+        // var headers = {authorization : "Basic" + btoa("kathy:k123
+        username = "kathy";
+        password = "k123";
+        var encodedCredentials: string = btoa('Basic '+username+':'+password);
+
+        let headers: Headers = new Headers
+        headers.append('X-XSRF-TOKEN', 'ff56ba5e-eb39-4999f-bcb8-e5a6b0dac267');
+        headers.append('X-Requested-With', 'XMLHttpRequest');
+        headers.append('authorization', encodedCredentials);
+
+        let opts: RequestOptions = new RequestOptions
+        opts.headers = headers;
+
+        return this.http.get('/api/userInfo', opts )
                         .map(response => response.json());
     }
 
