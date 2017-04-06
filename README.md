@@ -1,3 +1,14 @@
+# Install After Git
+After a fresh clone from Github make sure to run the start scripts.
+For windows run
+<pre>start.cmd</pre>
+
+For Mac/Linux run
+<pre>
+chmod +x start.sh
+./start.sh
+</pre>
+
 # BackEnd
 
 UniPS will allow university employees and students to inquire about businesses/services and review them.  It will consist of four roles: Administrators, Business Entities, Registered Users, and Guests. Department and businesses can voluntarily register in the UniPS web service so they can provide better access to information and services.
@@ -18,7 +29,7 @@ spring.datasource.password=root
 **Note: You will need to have MySql Configured in your computer and make sure the MySql Server is running.
 
 ### Traceability and Version Control
-Place all queries necessary to restore / replicate database state in the /sql folder. 
+Place all queries necessary to restore / replicate database state in the /sql folder.
 
 ## Mail
 
@@ -59,7 +70,7 @@ https://v4-alpha.getbootstrap.com/
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ### Bootstrap Dependency
-We are using version 4.X of Bootstrap. If you are receiving bootstrap dependency errors after calling ng serve or ng build. Please follow the instructions in the following link to install Bootstrap 4 as a global reference. 
+We are using version 4.X of Bootstrap. If you are receiving bootstrap dependency errors after calling ng serve or ng build. Please follow the instructions in the following link to install Bootstrap 4 as a global reference.
 https://github.com/angular/angular-cli/wiki/stories-include-bootstrap
 
 For Bootstrap 4 documenation, please visit:
@@ -74,7 +85,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ### Build
 
-Run `ng build --output-path ../static` to build the project. The build artifacts will be stored in the `static/` directory. Use the `-prod` flag for a production build. 
+Run `ng build --output-path ../static` to build the project. The build artifacts will be stored in the `static/` directory. Use the `-prod` flag for a production build.
 
 ### Running unit tests
 
