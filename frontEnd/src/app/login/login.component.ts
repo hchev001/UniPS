@@ -71,10 +71,10 @@ export class LoginComponent implements OnInit {
     // }
     alfredoLogin() {
         // this.loading = true;
-        var encodedCredentials: string = btoa('Basic '+'kathy'+':'+'k123');
+        var encodedCredentials: string = 'Basic ' + btoa('kathy:k123');
 
         let headers: Headers = new Headers();
-        headers.append('X-XSRF-TOKEN', 'ff56ba5e-eb39-4999f-bcb8-e5a6b0dac267');
+        // headers.append('X-XSRF-TOKEN', 'ff56ba5e-eb39-4999f-bcb8-e5a6b0dac267');
         headers.append('X-Requested-With', 'XMLHttpRequest');
         headers.append('authorization', encodedCredentials);
 
