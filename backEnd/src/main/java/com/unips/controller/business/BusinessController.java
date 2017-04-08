@@ -40,12 +40,6 @@ public class BusinessController {
 		return service.getBusiness(username);
 	}
 	
-	@ApiOperation("Add a new business entity.")
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseBody
-	public Response<Business> addBusiness(@RequestBody Business business) {
-		return service.addBusiness(business);
-	}
 	
 	@ApiOperation("Modify a business entity by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.PUT)

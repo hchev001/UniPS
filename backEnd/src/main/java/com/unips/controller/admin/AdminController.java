@@ -40,13 +40,6 @@ public class AdminController {
 		return service.getAdmin(username);
 	}
 	
-	@ApiOperation("Add a new admin")
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseBody
-	public Response<User> addAdmin(@RequestBody User user) {
-		return service.addAdmin(user);
-	}
-	
 	@ApiOperation("Modify an admin by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.PUT)
 	@ResponseBody
