@@ -43,6 +43,15 @@
                     <input type="email" class="form-control" name="email" ngModel [(ngModel)]="model.email" required />
                 </div>
 
+<<<<<<< 4bc7063d1498441404d412e3000857db3ea26555
+=======
+                <!-- Business Name -- >
+                <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                    <label for="businessName">Business Name</label>
+                    <input type="text" class="form-control" name="businessName" [(ngModel)]="model.businessName" #businessName="ngModel" required />
+                </div>
+
+>>>>>>> removed multiple options for security questions
 
                 <!-- Category -->
                 <div *ngIf="isBusinessFieldActive()" class="">
@@ -130,5 +139,49 @@
                 <a [routerLink]="['/home']" class="btn btn-link center-block">Cancel</a>
             </form>
         </div>
+<<<<<<< 4bc7063d1498441404d412e3000857db3ea26555
+=======
+        <div class="col-md-6">
+
+            <!-- Personal Phone Number Field -->
+            <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="personalNumber">Personal Phone Number</label>
+                <input type="number" class="form-control" name="personalNumber" [(ngModel)]="model.personalNumber" #personalNumber="ngModel" required />
+            </div>
+
+            <!-- Business Phone Number Field -->
+            <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="businessNumber">Business Phone Number</label>
+                <input type="number" class="form-control" name="businessNumber" [(ngModel)]="model.businessNumber" #businessNumber="ngModel" required />
+            </div>
+
+            <h4 *ngIf="defaultFieldsViawable()"> Security Questions </h4>
+            <div *ngIf="defaultFieldsViawable()" class="form-group">
+              <label for="securityQuestion1"><h5>What is your mother's maiden name?</h5></label>
+            </div>
+
+            <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="answer1">Answer</label>
+                <input type="text" class="form-control" name="answer1" [(ngModel)]="model.answer1" #answer1="ngModel" required />
+            </div>
+
+
+            <div *ngIf="defaultFieldsViawable()" class="form-group">
+                <label for="securityQuestion2"><h5>What is your favorite place to visit as a child?</h5></label>
+            </div>
+
+            <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="answer2">Answer</label>
+                <input type="text" class="form-control" name="answer2" [(ngModel)]="model.answer2" #answer2="ngModel" required />
+            </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <button [disabled]="loading" class="btn btn-success center-block">Register</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a [routerLink]="['/home']" class="btn btn-link center-block">Cancel</a>
+          </div>
+        </div>
+>>>>>>> removed multiple options for security questions
     </div>
 </div>
