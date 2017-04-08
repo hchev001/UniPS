@@ -39,8 +39,9 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (res:Response) => {
             this.data = res;
-            this.authenticated = true;
-            console.log("Authenticated woot woot");
+            this.authenticationService.setUserName(this.model.username);
+            this.authenticationService.setAuthenticationStatus(true);
+            console.log(this.model.username + 'has been succesfully authenticated');
           },
           (err: any) => {
             console.log(err);
