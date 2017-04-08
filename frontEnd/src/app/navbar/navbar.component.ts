@@ -18,11 +18,15 @@ export class NavbarComponent implements OnInit {
 
     }
 
+    // Retrieves the status of the current user browsing the website
+    // Returns true if the user has previously logged in
+    // else false
     loggedIn(): boolean {
 
         return this.authentication.isAuthenticated();
     }
 
+    // calls authentication service logout function to clear credentials
     logout(event): void {
         this.authentication.logout();
     }
