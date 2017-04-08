@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { Response } from '@angular/http';
 import { AlertService, UserService } from '../_services/index';
 
 @Component({
@@ -16,6 +16,7 @@ import { AlertService, UserService } from '../_services/index';
 })
 export class RegisterComponent implements OnInit {
   model: any = {};
+  private responseModel: any = {};
   loading = false;
 
   private businessAcountFields: boolean;
@@ -43,17 +44,42 @@ export class RegisterComponent implements OnInit {
   //               });
   //   }
 
-    register() {
-        this.loading = true;
-        console.log(this.model.username);
-        console.log(this.model.firstName);
-        console.log(this.model.lastName);
-        console.log(this.model.password);
-        console.log(this.model.email);
+    register(value: any) {
+        if(this.businessAcountFields)
+            this.userService.createBusiness(value)
+            .subscribe(
+                (res:Response) => {
+                    this.responseModel = res;
+                    if (this.responseModel.status === "success")
+                        console.log("Succesful creation of business");
+                },
+                (err: any) => {
+                  console.log(err);
+                },
+                () => {
+                  console.log('no error and we are complete');
+                }
+            );
+        else
+            this.userService.createUser(value)
+            .subscribe(
+                (res:Response) => {
+                    this.responseModel = res;
+                    if (this.responseModel.status === 'success')
+                        console.log("Succesful creation of business");
+                },
+                (err: any) => {
+                    console.log(err);
+                },
+                () => {
+                    console.log('no error and we are complete');
+                }
+            );
     }
 
     onSubmit(value: any) {
-        console.log(value);
+        console.log(value.answer1);
+
     }
 
   ngOnInit() {

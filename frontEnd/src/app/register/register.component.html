@@ -17,27 +17,13 @@
             </label>
         </div>
         <div class="col-md-12">
-            <form name="form" (ngSubmit)="onSubmit(f.value)" #f="ngForm" novalidate>
+            <form name="form" (ngSubmit)="register(f.value)" #f="ngForm" novalidate>
 
-                <!--First Name and Last Name -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div *ngIf="defaultFieldsViawable()" class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" name="firstName" ngModel [(ngModel)]="model.firstName"  required />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div *ngIf="defaultFieldsViawable()" class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" name="lastName" ngModel [(ngModel)]="model.lastName"  required />
-                        </div>
-                    </div>
-                </div>
                 <!-- Business Name -->
+                <h4 *ngIf="defaultFieldsViawable()">Account Information</h4>
                 <div *ngIf="isBusinessFieldActive()" class="form-group">
                     <label for="businessName">Business Name</label>
-                    <input type="text" class="form-control" name="businessName" ngModel [(ngModel)]="model.businessName" />
+                    <input type="text" class="form-control" name="name" ngModel [(ngModel)]="model.businessName" required/>
                 </div>
                 <!-- user name -->
                 <div *ngIf="defaultFieldsViawable()" class="form-group" >
@@ -57,40 +43,53 @@
                     <input type="email" class="form-control" name="email" ngModel [(ngModel)]="model.email" required />
                 </div>
 
-                <!-- Business Name -- >
-                <div *ngIf="isBusinessFieldActive()" class="form-group">
-                    <label for="businessName">Business Name</label>
-                    <input type="text" class="form-control" name="businessName" [(ngModel)]="model.businessName" #businessName="ngModel" />
-                </div>
 
-
+                <!-- Category -->
                 <div *ngIf="isBusinessFieldActive()" class="">
-                  <h5>Category</h5>
+                  <h4>Category</h4>
                   <select class="form-control" [(ngModel)]="model.categoryValue" name="category">
-                    <option value="restaurant">Restaurants</option>
-                    <option value="shopping">Shopping</option>
-                    <option value="health">Health and Medicine</option>
-                    <option value="education">Education</option>
-                    <option value="coffee">Coffee & Tea</option>
+                    <option value="RESTAURANT">Restaurants</option>
+                    <option value="SHOPPING">Shopping</option>
+                    <option value="HEALT">Health and Medicine</option>
+                    <option value="EDUCATION">Education</option>
+                    <option value="COFFEE">Coffee & Tea</option>
+                    <option value="OTHER">Other</option>
                   </select>
 
                 </div>
 
-                <!-- Address -->
-                <div *ngIf="isBusinessFieldActive()" class="form-group">
-                    <label for="address"> Street Address</label>
-                    <input type="text" class="form-control" name="street" ngModel [(ngModel)]="model.street" />
-                </div>
+                <!-- Address Group -->
+                <div ngModelGroup="address">
 
-                <div *ngIf="isBusinessFieldActive()" class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" name="city" ngModel [(ngModel)]="model.city" />
-                </div>
+                    <!-- Line 1 -->
+                    <div *ngIf="isBusinessFieldActive()" class="form-group">
+                        <h4>Address</h4>
+                        <label for="address"> Address Line 1</label>
+                        <input type="text" class="form-control" name="line1" ngModel [(ngModel)]="model.line1" />
+                    </div>
 
-                <!-- Zip Code -->
-                <div *ngIf="isBusinessFieldActive()" class="form-group">
-                    <label for="zipcode">Zip Code</label>
-                    <input type="number" class="form-control" name="zipcode" ngModel [(ngModel)]="model.zipcode"  />
+                    <!-- Line 2 -->
+                    <div *ngIf="isBusinessFieldActive()" class="form-group">
+                        <label for="address"> Address Line 2</label>
+                        <input type="text" class="form-control" name="line2" ngModel [(ngModel)]="model.line2" />
+                    </div>
+                    <!-- City  -->
+                    <div *ngIf="isBusinessFieldActive()" class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" name="city" ngModel [(ngModel)]="model.city" />
+                    </div>
+
+                    <!-- State  -->
+                    <div *ngIf="isBusinessFieldActive()" class="form-group">
+                        <label for="city">State</label>
+                        <input type="text" class="form-control" name="state" ngModel [(ngModel)]="model.state" />
+                    </div>
+
+                    <!-- Zip Code -->
+                    <div *ngIf="isBusinessFieldActive()" class="form-group">
+                        <label for="zipcode">Zip Code</label>
+                        <input type="number" class="form-control" name="zipcode" ngModel [(ngModel)]="model.zipcode"  />
+                    </div>
                 </div>
 
 
