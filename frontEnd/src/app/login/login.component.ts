@@ -1,10 +1,8 @@
-/*The login component uses the authentication service to login and logout of the application. 
-//It automatically logs the user out when it initializes (ngOnInit) so the login page can 
-also be used to logout.*/
+
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService, AuthenticationService } from '../_services/index'
-
+import { AlertService, AuthenticationService } from '../_services/index';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 
 
 @Component({
@@ -17,31 +15,44 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
+    data: Object;
+    authenticated: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        private http: Http) { }
 
     ngOnInit() {
         // reset login status
-        this.authenticationService.logout();
+        this.authenticationService.logout;
+        console.log("we just logged out, my username is " + this.authenticationService.getUsername() + "and authenticated status is " + this.authenticationService.isAuthenticated().toString());
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    login() {
+        login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+        this.authenticationService.authenticate( this.model.username, this.model.password)
+        .subscribe(
+          (res:Response) => {
+            this.data = res;
+            this.authenticationService.setUserName(this.model.username);
+            this.authenticationService.setAuthenticationStatus(true);
+            console.log(this.model.username + 'has been succesfully authenticated');
+            this.router.navigate([this.returnUrl]);
+          },
+          (err: any) => {
+            console.log(err);
+          },
+          () => {
+            console.log('no error and we are complete');
+          }
+        );
     }
+
+
 }
