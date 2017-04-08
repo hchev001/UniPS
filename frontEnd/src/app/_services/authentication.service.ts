@@ -7,6 +7,93 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
+  // Instance variables
+  private authenticated:boolean = false;
+  private authority:string = '';
+  private username: string = '';
+  private accountNonLocked: boolean;
+  private accountNonExpired: boolean;
+  private credentialsNonExpired:boolean;
+  private enabled:boolean;
+
+  // Getters
+  isAuthenticated(): boolean {
+    return this.authenticated;
+  }
+
+  getAuthority(): string {
+    return this.authority;
+  }
+
+  getUsername(): string {
+    return this.username;
+  }
+
+  isAccountNonLocked():boolean {
+    return this.accountNonLocked;
+  }
+
+  isAccountNonExpired(): boolean {
+    return this.accountNonExpired;
+  }
+
+  isCredentialsNonExpired(): boolean {
+    return this.credentialsNonExpired;
+  }
+  isEnbaled(): boolean {
+    return this.enabled;
+  }
+
+
+  // Setters
+
+  setAuthenticationStatus(status:boolean):void{
+    this.authenticated = status;
+  }
+
+  setAuthority( authority: string): void {
+    this.authority = authority;
+  }
+
+  setUserName( name: string): void {
+    this.username = name;
+  }
+
+  setLockAccountStatus(status: string): boolean {
+    if (status === 'true')
+      this.accountNonLocked = true;
+    else
+      this.accountNonLocked = false;
+    return this.accountNonLocked;
+  }
+
+
+  setExpirationForAccount(status: string): boolean {
+    if (status === "true")
+        this.accountNonExpired = true;
+    else
+        this.accountNonExpired = false;
+    return this.accountNonExpired
+  }
+
+  setExpirationForCredentialStatus( status: string) : boolean {
+    if (status === 'true')
+        this.credentialsNonExpired = true;
+    else
+        this.credentialsNonExpired = false;
+
+    return this.credentialsNonExpired;
+  }
+
+  setEnableStatus( status: string): boolean {
+    if (status === 'true')
+        this.enabled = true;
+    else
+        this.enabled = false;
+
+    return this.enabled;
+  }
+
     constructor(private http: Http) { }
 
 
