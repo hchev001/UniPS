@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         // reset login status
-
+        this.authenticationService.logout;
+        console.log("we just logged out, my username is " + this.authenticationService.getUsername() + "and authenticated status is " + this.authenticationService.isAuthenticated().toString());
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
             this.authenticationService.setUserName(this.model.username);
             this.authenticationService.setAuthenticationStatus(true);
             console.log(this.model.username + 'has been succesfully authenticated');
+            this.router.navigate([this.returnUrl]);
           },
           (err: any) => {
             console.log(err);

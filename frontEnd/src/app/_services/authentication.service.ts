@@ -112,4 +112,9 @@ export class AuthenticationService {
         return this.http.get('/api/userInfo', opts )
                         .map(response => response.json());
     }
+
+    logout(): void {
+        this.authenticated = false;
+        this.username = '';
+    }
 }
