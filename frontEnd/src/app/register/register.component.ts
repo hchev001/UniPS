@@ -52,9 +52,13 @@ export class RegisterComponent implements OnInit {
                     this.responseModel = res;
                     if (this.responseModel.status === "success")
                         console.log("Succesful creation of business");
+
+                    this.alertService.success('Registration Succesful', true);
+                    this.router.navigate(['/login']);
                 },
                 (err: any) => {
-                  console.log(err);
+                    this.alertService.error(err);
+                    console.log(err);
                 },
                 () => {
                   console.log('no error and we are complete');
@@ -67,8 +71,12 @@ export class RegisterComponent implements OnInit {
                     this.responseModel = res;
                     if (this.responseModel.status === 'success')
                         console.log("Succesful creation of user");
+
+                    this.alertService.success('Registration Succesful', true);
+                    this.router.navigate(['/login']);
                 },
                 (err: any) => {
+                    this.alertService.error(err);
                     console.log(err);
                 },
                 () => {

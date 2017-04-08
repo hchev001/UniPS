@@ -30,9 +30,17 @@ export class UserService {
         .map((response: Response) => response.json());
     }
 
-    // update(user: User) {
-    //     return this.http.put('/api/users/' + user.id, user, this.jwt())
-    //     .map((response: Response) => response.json());
-    // }
+    // To be tested
+    createAdmin(admin:any) {
+        let headers: Headers = new Headers();
+        headers.append('content-type', 'application/json');
+        let opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+
+        return this.http.post('/api/signupAdmin', admin, opts)
+        .map((response: Response) => response.json());
+
+    }
+
 
 }
