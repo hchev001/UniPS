@@ -119,7 +119,7 @@
 
                 <div *ngIf="defaultFieldsViawable()" class="form-group" >
                     <label for="answer1">Answer</label>
-                    <input type="text" class="form-control" name="answer1" ngModel [(ngModel)]="model.answer1" required />
+                    <input type="text" class="form-control" name="question1" ngModel [(ngModel)]="model.answer1" required />
                 </div>
 
 
@@ -129,7 +129,7 @@
 
                 <div *ngIf="defaultFieldsViawable()" class="form-group" >
                     <label for="answer2">Answer</label>
-                    <input type="text" class="form-control" name="answer2" [(ngModel)]="model.answer2" #answer2="ngModel" required />
+                    <input type="text" class="form-control" name="question2" [(ngModel)]="model.answer2" #answer2="ngModel" required />
                 </div>
 
                 <button type="submit" class="btn btn-success center-block">Register</button>

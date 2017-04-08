@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
                 (res:Response) => {
                     this.responseModel = res;
                     if (this.responseModel.status === 'success')
-                        console.log("Succesful creation of business");
+                        console.log("Succesful creation of user");
                 },
                 (err: any) => {
                     console.log(err);
@@ -90,13 +90,13 @@ export class RegisterComponent implements OnInit {
   }
 
   userFieldToggle () : boolean {
-    this.userAccountFields = !this.userAccountFields;
+    this.userAccountFields = true;
     this.businessAcountFields = false;
     return this.userAccountFields;
   }
 
   businessFieldToggle () : boolean {
-    this.businessAcountFields = !this.businessAcountFields;
+    this.businessAcountFields = true;
     this.userAccountFields = false;
     return this.businessAcountFields;
   }

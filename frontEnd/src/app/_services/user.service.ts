@@ -16,7 +16,7 @@ export class UserService {
         let opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
-        return this.http.post('/api/users', user, opts)
+        return this.http.post('/api/signupUser', user, opts)
         .map((response: Response) => response.json());
     }
 
@@ -26,7 +26,7 @@ export class UserService {
         let opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
-        return this.http.post('/api/business', business, opts)
+        return this.http.post('/api/signupBusiness', business, opts)
         .map((response: Response) => response.json());
     }
 
