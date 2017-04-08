@@ -69,11 +69,6 @@
                     <input type="text" class="form-control" name="businessName" [(ngModel)]="model.businessName" #businessName="ngModel" required />
                 </div>
 
-                <!-- category -->
-                <!-- <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                    <label for="category">Category</label>
-                    <input type="text" class="form-control" name="category" [(ngModel)]="model.category" #category="ngModel" required />
-                </div> -->
 
                 <div *ngIf="isBusinessFieldActive()" class="">
                   <h5>Category</h5>
@@ -116,14 +111,8 @@
             </div>
 
             <h4 *ngIf="defaultFieldsViawable()"> Security Questions </h4>
-            <div *ngIf="defaultFieldsViawable()" class="">
-              <h5>Pick Security Question #1</h5>
-              <select class="form-control">
-                <option value="q1.1">What is your favorite sports team?</option>
-                <option value="q1.2">What is your mother's maiden name?</option>
-                <option value="q1.3">What Elementary School did you attend?</option>
-                <option value="q1.4">Where did you meet your spouse?</option>
-              </select>
+            <div *ngIf="defaultFieldsViawable()" class="form-group">
+              <label for="securityQuestion1"><h5>What is your mother's maiden name?</h5></label>
             </div>
 
             <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
@@ -132,14 +121,8 @@
             </div>
 
 
-            <div *ngIf="defaultFieldsViawable()" class="">
-                <h5> Pick Security QUestion #2 </h5>
-                <select class="form-control">
-                    <option value="q2.1">When is your anniversary?</option>
-                    <option value="q2.2">What was your favorite place to visit as a child?</option>
-                    <option value="q2.3">What streed did you grow up on?</option>
-                    <option value="q2.4">Which is your favorite web browser?</option>
-                </select>
+            <div *ngIf="defaultFieldsViawable()" class="form-group">
+                <label for="securityQuestion2"><h5>What is your favorite place to visit as a child?</h5></label>
             </div>
 
             <div *ngIf="defaultFieldsViawable()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
