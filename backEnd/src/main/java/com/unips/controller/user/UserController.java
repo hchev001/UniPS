@@ -40,12 +40,6 @@ public class UserController {
 		return service.getUser(username);
 	}
 	
-	@ApiOperation("Add a new user.")
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseBody
-	public Response<User> addUser(@RequestBody User user) {
-		return service.addUser(user);
-	}
 	
 	@ApiOperation("Modify a user by username.")
 	@RequestMapping(value="{username}", method = RequestMethod.PUT)
