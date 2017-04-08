@@ -4,6 +4,7 @@
  a new user with the user service when the register form is submitted.*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AlertService, UserService } from '../_services/index';
 
@@ -28,18 +29,31 @@ export class RegisterComponent implements OnInit {
         private alertService: AlertService) { }
 
 
-  register() {
+  // register() {
+  //       this.loading = true;
+  //       this.userService.create(this.model)
+  //           .subscribe(
+  //               data => {
+  //                   this.alertService.success('Registration successful', true);
+  //                   this.router.navigate(['/login']);
+  //               },
+  //               error => {
+  //                   this.alertService.error(error);
+  //                   this.loading = false;
+  //               });
+  //   }
+
+    register() {
         this.loading = true;
-        this.userService.create(this.model)
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+        console.log(this.model.username);
+        console.log(this.model.firstName);
+        console.log(this.model.lastName);
+        console.log(this.model.password);
+        console.log(this.model.email);
+    }
+
+    onSubmit(value: any) {
+        console.log(value);
     }
 
   ngOnInit() {
