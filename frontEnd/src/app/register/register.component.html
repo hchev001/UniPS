@@ -43,15 +43,12 @@
                     <input type="email" class="form-control" name="email" ngModel [(ngModel)]="model.email" required />
                 </div>
 
-<<<<<<< 4bc7063d1498441404d412e3000857db3ea26555
-=======
                 <!-- Business Name -- >
                 <div *ngIf="isBusinessFieldActive()" class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                     <label for="businessName">Business Name</label>
                     <input type="text" class="form-control" name="businessName" [(ngModel)]="model.businessName" #businessName="ngModel" required />
                 </div>
 
->>>>>>> removed multiple options for security questions
 
                 <!-- Category -->
                 <div *ngIf="isBusinessFieldActive()" class="">
@@ -139,8 +136,6 @@
                 <a [routerLink]="['/home']" class="btn btn-link center-block">Cancel</a>
             </form>
         </div>
-<<<<<<< 4bc7063d1498441404d412e3000857db3ea26555
-=======
         <div class="col-md-6">
 
             <!-- Personal Phone Number Field -->
@@ -182,6 +177,5 @@
             <a [routerLink]="['/home']" class="btn btn-link center-block">Cancel</a>
           </div>
         </div>
->>>>>>> removed multiple options for security questions
     </div>
 </div>

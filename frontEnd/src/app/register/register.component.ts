@@ -5,7 +5,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+<<<<<<< 28a304dbb46558aaf9d345569cd43f71c5a190de
 import { Response } from '@angular/http';
+=======
+
+>>>>>>> removed tutorial content from register.html form and left bare minimum
 import { AlertService, UserService } from '../_services/index';
 
 @Component({
@@ -44,6 +48,7 @@ export class RegisterComponent implements OnInit {
   //               });
   //   }
 
+<<<<<<< 28a304dbb46558aaf9d345569cd43f71c5a190de
     register(value: any) {
         if(this.businessAcountFields)
             this.userService.createBusiness(value)
@@ -80,6 +85,19 @@ export class RegisterComponent implements OnInit {
     onSubmit(value: any) {
         console.log(value.answer1);
 
+=======
+    register() {
+        this.loading = true;
+        console.log(this.model.username);
+        console.log(this.model.firstName);
+        console.log(this.model.lastName);
+        console.log(this.model.password);
+        console.log(this.model.email);
+    }
+
+    onSubmit(value: any) {
+        console.log(value);
+>>>>>>> removed tutorial content from register.html form and left bare minimum
     }
 
   ngOnInit() {
