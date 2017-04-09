@@ -36,7 +36,8 @@ public class BusinessDaoMysql implements BusinessDao {
 					 "    FROM `unipsdb`.`rating` AS rt " +
 					 "    GROUP BY rt.business_id " +
 					 "    ) AS r ON u.user_id = r.business_id " +
-					 "WHERE u.role_id = ? AND u.status_id = ?";
+					 "WHERE u.role_id = ? AND u.status_id = ? " +
+					 "ORDER BY c.created_date DESC";
 
 		Object[] values = new Object[] { Roles.ROLE_BUSINESS.ordinal(), Status.ACTIVE.ordinal()};
 		
@@ -58,7 +59,8 @@ public class BusinessDaoMysql implements BusinessDao {
 					 "    FROM `unipsdb`.`rating` AS rt " +
 					 "    GROUP BY rt.business_id " +
 					 "    ) AS r ON u.user_id = r.business_id " +
-					 "WHERE u.role_id = ? AND u.username = ? AND u.status_id = ?";
+					 "WHERE u.role_id = ? AND u.username = ? AND u.status_id = ? " + 
+					 "ORDER BY c.created_date DESC";
 
 		try {
 			Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username, Status.ACTIVE.ordinal()};
@@ -85,7 +87,8 @@ public class BusinessDaoMysql implements BusinessDao {
 					 "    FROM `unipsdb`.`rating` AS rt " +
 					 "    GROUP BY rt.business_id " +
 					 "    ) AS r ON u.user_id = r.business_id " +
-					 "WHERE u.role_id = ? AND u.username = ? AND u.status_id = ?";
+					 "WHERE u.role_id = ? AND u.username = ? AND u.status_id = ? " + 
+					 "ORDER BY c.created_date DESC";
 
 		try {
 			Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username, Status.DISABLED.ordinal()};
