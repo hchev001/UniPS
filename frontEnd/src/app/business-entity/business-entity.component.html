@@ -17,10 +17,10 @@
 		<div class="col-md-5 rating">
 			<app-business-rating></app-business-rating>
 			<address>
-				<strong>Chili's</strong><br> 11200 SW 8th St<br> Miami, FL 33199<br>
-				<abbr title="Phone">P:</abbr> (305) 348-2668
+				<strong>{{business?.name}}</strong><br>{{address?.line1}}<br>{{address?.line2}}<br> {{address?.city}}, {{address?.state}} {{address?.zip}}<br>
+				<abbr title="Phone">P:</abbr> {{business?.phoneBusiness}}
 			</address>
-			<br>Family-friendly chain serving classic Tex-Mex & American fare in a Southwestern-sytle setting<br>
+			<br>{{business?.description}}<br>
 		</div>
 		<div class="col-md-4 text-center">
 			<div class="row">
@@ -50,53 +50,42 @@
 				<table>
 					<tr>
 						<th>Monday</th>
-						<td>9am - 8pm</td>
+						<td>{{business?.hours}}</td>
 					</tr>
 					<tr>
 						<th>Tuesday</th>
-						<td>9am - 8pm</td>
+						<td>{{business?.hours}}</td>
 					</tr>
 					<tr>
 						<th>Wednesday</th>
-						<td>9am - 8pm</td>
+						<td>{{business?.hours}}</td>
 					</tr>
 					<tr>
 						<th>Thursday</th>
-						<td>9am - 8pm</td>
+						<td>{{business?.hours}}</td>
 					</tr>
 					<tr>
 						<th>Friday</th>
-						<td>9am - 10pm</td>
+						<td>{{business?.hours}}</td>
 					</tr>
 					<tr>
 						<th>Saturday</th>
-						<td>9am - 10pm</td>
+						<td>{{business?.hours}}</td>
 					</tr>
 					<tr>
 						<th>Sunday</th>
-						<td>9am - 8pm</td>
+						<td>{{business?.hours}}</td>
 					</tr>
 				</table>
 			</div>
 			<div class="col-md-9">
-				<div class="row">
+				<div class="row" *ngFor="let comment of business.comments">
 					<div class="col-md-2">
 						<img src="http://brandonmathis.com/projects/fancy-avatars/demo/images/avatar_male_dark_on_clear_200x200.png" alt="Mountain View"
 							style="width:75px;height:75px; border: #000000 3px outset; display: block;">
 					</div>
 					<div class="col-md-7">
-						<p>I have ordered a few times, but i must say they definitely rocked this most recent time.</p>
+						<p>{{comment.body}}</p>
 					</div>
 				</div>
-				<hr>
-				<div class="row">
-					<div class="col-md-2">
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYEpY0dW6pa9rOCKWJ1MZJgGTyH4J-tb4R-wYuLD8q6Nws_566PMISGg"
-							alt="Mountain View" style="width:75px;height:75px; border: #000000 3px outset; display: block;">
-					</div>
-					<div class="col-md-7">
-						<p>I have ordered a few times, but i must say they definitely rocked this most recent time.</p>
-					</div>
-				</div>
-				<hr>
 			</div>
