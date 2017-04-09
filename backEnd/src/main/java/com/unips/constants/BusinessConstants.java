@@ -26,7 +26,7 @@ public class BusinessConstants {
 	 * Reflects for the business categories
 	 */
 	public enum BusinessCategory {
-		RESTAURANT, SHOPING, HEATH, EDUCATION, COFFEE, OTHER
+		RESTAURANT, SHOPPING, HEALTH, EDUCATION, COFFEE, OTHER
 	}
 	
 	

@@ -198,8 +198,8 @@ INSERT INTO `unipsdb`.`business_category`
 	(`business_category_id`, `category`) 
 VALUES
 	(0, 'RESTAURANT'), 
-	(1, 'SHOPING'), 
-	(2, 'HEATH'), 
+	(1, 'SHOPPING'), 
+	(2, 'HEALTH'), 
 	(3, 'EDUCATION'), 
 	(4, 'COFFEE'), 
 	(5, 'OTHER');
