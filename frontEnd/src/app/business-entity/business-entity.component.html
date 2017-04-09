@@ -78,25 +78,14 @@
 					</tr>
 				</table>
 			</div>
-			<div class="col-md-9" *ngFor="let comment of business.comments">
-				<div class="row">
+			<div class="col-md-9">
+				<div class="row" *ngFor="let comment of business.comments">
 					<div class="col-md-2">
 						<img src="http://brandonmathis.com/projects/fancy-avatars/demo/images/avatar_male_dark_on_clear_200x200.png" alt="Mountain View"
 							style="width:75px;height:75px; border: #000000 3px outset; display: block;">
 					</div>
 					<div class="col-md-7">
-						<p>{{comment.body}}
+						<p>{{comment.body}}</p>
 					</div>
 				</div>
-				<hr>
-				<!-- <div class="row">
-					<div class="col-md-2">
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYEpY0dW6pa9rOCKWJ1MZJgGTyH4J-tb4R-wYuLD8q6Nws_566PMISGg"
-							alt="Mountain View" style="width:75px;height:75px; border: #000000 3px outset; display: block;">
-					</div>
-					<div class="col-md-7">
-						<p>I have ordered a few times, but i must say they definitely rocked this most recent time.</p>
-					</div>
-				</div>
-				<hr> -->
 			</div>
