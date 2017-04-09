@@ -14,7 +14,7 @@ export class BusinessEntityComponent implements OnInit {
         private alertService: AlertService) { }
 
   ngOnInit() {
-      this.getBusinessInfo("chillis");
+      this.getBusinessInfo("starbucks");
   }
 
   // Component Variables
@@ -22,6 +22,7 @@ export class BusinessEntityComponent implements OnInit {
   // into the html
     private business: any = {};
     private address: any = {};
+    private comments: any = [];
 
   // used to fetch just the account information of the username paramater
   getBusinessInfo(username:string){
@@ -30,6 +31,7 @@ export class BusinessEntityComponent implements OnInit {
                 (res ) => {
                     this.business = res.data;
                     this.address = this.business.address;
+                    this.comments = this.business.comments;
                 },
                 (err:any) => {
                     this.alertService.error(err);
