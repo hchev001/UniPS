@@ -11,21 +11,19 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class BusinessService {
+    constructor(private _http: Http) { }
 
 
-  private businessUrl = '/api/business'; // URL to web api
+    private businessUrl = '/api/business'; // URL to web api
 
-  constructor(private _http: Http) { }
-  getBusinesses() {
-    return this._http.get(this.businessUrl)
-                      .map((res:Response) => res.json())
-                      .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+    getBusinesses() {
+        return this._http.get(this.businessUrl)
+                        .map((res:Response) => res.json());
   }
 
-  getBusiness(username:string) {
-      var requestUrl:string = this.businessUrl + "/" + username;
-      return this._http.get(requestUrl)
-                        .map((res:Response) => res.json())
-                        .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+    getBusiness(username:string) {
+        var requestUrl:string = this.businessUrl + "/" + username;
+        return this._http.get(requestUrl)
+                        .map((res:Response) => res.json());
     }
 }

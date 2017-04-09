@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BusinessService } from '../_services/index'
+import { BusinessService, AlertService } from '../_services/index'
+import { Response } from '@angular/http';
+
 @Component({
   selector: 'app-business-entity',
   templateUrl: './business-entity.component.html',
@@ -7,7 +9,9 @@ import { BusinessService } from '../_services/index'
 })
 export class BusinessEntityComponent implements OnInit {
 
-  constructor(private bsnService: BusinessService) { }
+  constructor(
+        private bsnService: BusinessService,
+        private alertService: AlertService) { }
 
   ngOnInit() {
       this.getBusinessInfo("chillis");
@@ -16,12 +20,24 @@ export class BusinessEntityComponent implements OnInit {
   // Component Variables
   // business - Used to map the json object and interpolate its content
   // into the html
-  business = {};
+    private business: any = {};
+    private address: any = {};
 
   // used to fetch just the account information of the username paramater
   getBusinessInfo(username:string){
       return this.bsnService.getBusiness(username)
-                            .subscribe(response => this.business = response.data);
+            .subscribe(
+                (res ) => {
+                    this.business = res.data;
+                    this.address = this.business.address;
+                },
+                (err:any) => {
+                    this.alertService.error(err);
+                },
+                () => {
+                    console.log("no error and we are complete")
+                }
+        );
 
     }
 }

@@ -17,10 +17,10 @@
 		<div class="col-md-5 rating">
 			<app-business-rating></app-business-rating>
 			<address>
-				<strong>{{business.name}}</strong><br> 11200 SW 8th St<br> {{business.address.city}}, FL 33199<br>
+				<strong>{{business?.name}}</strong><br>{{address?.line1}}<br>{{address?.line2}}<br> {{address?.city}}, {{address?.state}} {{address?.zip}}<br>
 				<abbr title="Phone">P:</abbr> (305) 348-2668
 			</address>
-			<br>Family-friendly chain serving classic Tex-Mex & American fare in a Southwestern-sytle setting<br>
+			<br>{{business?.description}}<br>
 		</div>
 		<div class="col-md-4 text-center">
 			<div class="row">
