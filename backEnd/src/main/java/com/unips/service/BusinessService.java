@@ -78,7 +78,7 @@ public class BusinessService<T> {
 			mailSender.sendUserVerificationEmailBusiness(business.getEmail(), url);
 
 		} catch (Exception e) {
-			// Let it go....
+			e.printStackTrace();
 		}
 
 		return Response.success(business);
@@ -108,13 +108,13 @@ public class BusinessService<T> {
 		
 		try {
 			// Send Email for verification and letting them know we will process it in time
-			Business business = businessDao.getBusiness(username);
+			Business business = businessDao.getBusinessPendingAuthorization(username);
 			
 			String url = BUSINESS_APPROVAL_API + business.getUsername();
 			mailSender.sendUserVerificationEmailToAdmins(business, url);
 
 		} catch (Exception e) {
-			// Let it go....
+			e.printStackTrace();
 		}
 
 		return true;

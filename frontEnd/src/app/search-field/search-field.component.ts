@@ -20,7 +20,7 @@ export class SearchFieldComponent implements OnInit {
   getAllBiz() {
   this.bizService.getBusinesses()
                   .subscribe(response => this.bizList = response.data);
-  console.log(this.bizList);
+  // console.log(this.bizList);
   }
   ngOnInit() {
   }

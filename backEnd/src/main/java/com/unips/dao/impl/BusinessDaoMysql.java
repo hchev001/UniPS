@@ -71,6 +71,32 @@ public class BusinessDaoMysql implements BusinessDao {
 		}
 	}
 	
+	
+	@Override
+	public Business getBusinessPendingAuthorization(String username) {
+
+		String sql = "SELECT * " +
+					 "FROM `unipsdb`.`user` AS u " +
+					 "LEFT JOIN `unipsdb`.`address` AS a ON u.address_id = a.address_id " +
+					 "LEFT JOIN `unipsdb`.`picture` AS p ON u.user_id = p.user_id " +
+					 "LEFT JOIN `unipsdb`.`comment` AS c ON u.user_id = c.business_id " +
+					 "LEFT JOIN ( " +	
+					 "	SELECT rt.business_id, AVG(rt.rating_value_id) AS rating_average " +
+					 "    FROM `unipsdb`.`rating` AS rt " +
+					 "    GROUP BY rt.business_id " +
+					 "    ) AS r ON u.user_id = r.business_id " +
+					 "WHERE u.role_id = ? AND u.username = ? AND u.status_id = ?";
+
+		try {
+			Object[] values = new Object[] {Roles.ROLE_BUSINESS.ordinal(), username, Status.DISABLED.ordinal()};
+			int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.TINYINT};
+
+			List<Business> business = jdbcTemplate.query(sql, values, types, new BusinessResultSetExtractor());
+			return  business.get(0);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	@Override
 	public int addBusiness(Business business) {

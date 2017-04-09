@@ -1,30 +1,120 @@
-﻿//The authentication service is used to login and logout of the application,
-//to login it posts the users credentials to the api and checks the response for a token,
-//if there is one it means authentication was successful so the user details including the
-//token are added to local storage.
+﻿// The Authentication serivce is used to GET the user's login information credentials based
+﻿// on their username and password
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
+  // Instance variables
+  private authenticated:boolean = false;
+  private authority:string = '';
+  private username: string = '';
+  private accountNonLocked: boolean;
+  private accountNonExpired: boolean;
+  private credentialsNonExpired:boolean;
+  private enabled:boolean;
+
+  // Getters
+  isAuthenticated(): boolean {
+    return this.authenticated;
+  }
+
+  getAuthority(): string {
+    return this.authority;
+  }
+
+  getUsername(): string {
+    return this.username;
+  }
+
+  isAccountNonLocked():boolean {
+    return this.accountNonLocked;
+  }
+
+  isAccountNonExpired(): boolean {
+    return this.accountNonExpired;
+  }
+
+  isCredentialsNonExpired(): boolean {
+    return this.credentialsNonExpired;
+  }
+  isEnbaled(): boolean {
+    return this.enabled;
+  }
+
+
+  // Setters
+
+  setAuthenticationStatus(status:boolean):void{
+    this.authenticated = status;
+  }
+
+  setAuthority( authority: string): void {
+    this.authority = authority;
+  }
+
+  setUserName( name: string): void {
+    this.username = name;
+  }
+
+  setLockAccountStatus(status: string): boolean {
+    if (status === 'true')
+      this.accountNonLocked = true;
+    else
+      this.accountNonLocked = false;
+    return this.accountNonLocked;
+  }
+
+
+  setExpirationForAccount(status: string): boolean {
+    if (status === "true")
+        this.accountNonExpired = true;
+    else
+        this.accountNonExpired = false;
+    return this.accountNonExpired
+  }
+
+  setExpirationForCredentialStatus( status: string) : boolean {
+    if (status === 'true')
+        this.credentialsNonExpired = true;
+    else
+        this.credentialsNonExpired = false;
+
+    return this.credentialsNonExpired;
+  }
+
+  setEnableStatus( status: string): boolean {
+    if (status === 'true')
+        this.enabled = true;
+    else
+        this.enabled = false;
+
+    return this.enabled;
+  }
+
     constructor(private http: Http) { }
 
-    login(username: string, password: string) {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let user = response.json();
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-            });
+
+    authenticate(username:string, password:string) {
+
+        var encodedCredentials: string = 'Basic ' + btoa(username+':'+password);
+
+        let headers: Headers = new Headers
+
+        headers.append('X-Requested-With', 'XMLHttpRequest');
+        headers.append('authorization', encodedCredentials);
+
+        let opts: RequestOptions = new RequestOptions
+        opts.headers = headers;
+
+        return this.http.get('/api/userInfo', opts )
+                        .map(response => response.json());
     }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+    logout(): void {
+        this.authenticated = false;
+        this.username = '';
     }
 }

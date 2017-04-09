@@ -4,7 +4,8 @@
  a new user with the user service when the register form is submitted.*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Response } from '@angular/http';
 import { AlertService, UserService } from '../_services/index';
 
 @Component({
@@ -15,6 +16,7 @@ import { AlertService, UserService } from '../_services/index';
 })
 export class RegisterComponent implements OnInit {
   model: any = {};
+  private responseModel: any = {};
   loading = false;
 
   private businessAcountFields: boolean;
@@ -28,18 +30,65 @@ export class RegisterComponent implements OnInit {
         private alertService: AlertService) { }
 
 
-  register() {
-        this.loading = true;
-        this.userService.create(this.model)
+  // register() {
+  //       this.loading = true;
+  //       this.userService.create(this.model)
+  //           .subscribe(
+  //               data => {
+  //                   this.alertService.success('Registration successful', true);
+  //                   this.router.navigate(['/login']);
+  //               },
+  //               error => {
+  //                   this.alertService.error(error);
+  //                   this.loading = false;
+  //               });
+  //   }
+
+    register(value: any) {
+        if(this.businessAcountFields)
+            this.userService.createBusiness(value)
             .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
+                (res:Response) => {
+                    this.responseModel = res;
+                    if (this.responseModel.status === "success")
+                        console.log("Succesful creation of business");
+
+                    this.alertService.success('Registration Succesful', true);
                     this.router.navigate(['/login']);
                 },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                (err: any) => {
+                    this.alertService.error(err);
+                    console.log(err);
+                },
+                () => {
+                  console.log('no error and we are complete');
+                }
+            );
+        else
+            this.userService.createUser(value)
+            .subscribe(
+                (res:Response) => {
+                    this.responseModel = res;
+                    if (this.responseModel.status === 'success')
+                        console.log("Succesful creation of user");
+
+                    this.alertService.success('Registration Succesful', true);
+                    this.router.navigate(['/login']);
+                },
+                (err: any) => {
+                    this.alertService.error(err);
+                    console.log(err);
+                },
+                () => {
+                    console.log('no error and we are complete');
+                }
+            );
+    }
+
+    onSubmit(value: any) {
+        console.log(value.answer1);
+
+
     }
 
   ngOnInit() {
@@ -49,13 +98,13 @@ export class RegisterComponent implements OnInit {
   }
 
   userFieldToggle () : boolean {
-    this.userAccountFields = !this.userAccountFields;
+    this.userAccountFields = true;
     this.businessAcountFields = false;
     return this.userAccountFields;
   }
 
   businessFieldToggle () : boolean {
-    this.businessAcountFields = !this.businessAcountFields;
+    this.businessAcountFields = true;
     this.userAccountFields = false;
     return this.businessAcountFields;
   }
