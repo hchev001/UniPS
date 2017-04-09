@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.unips.entity.User;
+import com.unips.entity.Business;
 import com.unips.response.Response;
-import com.unips.service.admin.AdminService;
+import com.unips.service.BusinessService;
 
 import io.swagger.annotations.Api;
 
@@ -18,7 +18,7 @@ import io.swagger.annotations.Api;
 public class BusinessVerificationController {
 	
 	@Autowired
-	AdminService<User> service;
+	BusinessService<Business> service;
 	
 	@RequestMapping(value="api/businessVerification", method=RequestMethod.GET)
 	@ResponseBody

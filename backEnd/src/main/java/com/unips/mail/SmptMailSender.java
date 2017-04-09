@@ -153,17 +153,7 @@ public class SmptMailSender {
 							 "       <p>  "  + 
 							 "         The business entity bellow has registered an account.  "  + 
 							 "       </p>  "  + 
-							 "       <p>Information:</p>  "  + 
-							 "       <table  cellpadding=\"5\">  "  + 
-							 "         <tbody>  "  + 
-							 "           <tr><td><b>username</b></td><td>" + business.getUsername() + "</td></tr>  "  + 
-							 "           <tr><td><b>email</b></td><td>" + business.getEmail() + "</td></tr>  "  + 
-							 "           <tr><td><b>name</b></td><td>" + business.getName() + "</td></tr>  "  + 
-							 "           <tr><td><b>category</b></td><td>" + business.getCategory() + "</td></tr>  "  + 
-							 "           <tr><td><b>phone</b></td><td>" + business.getPhone() + "</td></tr>  "  + 
-							 "           <tr><td><b>phone business</b></td><td>" + business.getPhoneBusiness() + "</td></tr>  "  + 
-							 "         </tbody>  "  + 
-							 "       </table>  "  + 
+							 "       <p>Information:</p>  "  + getTableFromObject(business) +
 							 "       <p>  "  + 
 							 "         After verifying the information, follow the link bellow to approve the account.  "  + 
 							 "       </p>  "  + 
@@ -177,7 +167,7 @@ public class SmptMailSender {
 							 "  </html>  "; 
 				
 		String to = env.getProperty("unips.mail");
-		 
+		
 		send(to, subject, body);
 	}
 	
@@ -196,13 +186,7 @@ public class SmptMailSender {
 							 "       <p>  "  + 
 							 "         The user  bellow has registered an account to be an admin account "  + 
 							 "       </p>  "  + 
-							 "       <p>Information:</p>  "  + 
-							 "       <table  cellpadding=\"5\">  "  + 
-							 "         <tbody>  "  + 
-							 "           <tr><td><b>username</b></td><td>" + user.getUsername() + "</td></tr>  "  + 
-							 "           <tr><td><b>email</b></td><td>" + user.getEmail() + "</td></tr>  " + 
-							 "         </tbody>  "  + 
-							 "       </table>  "  + 
+							 "       <p>Information:</p>  "  + getTableFromObject(user) +
 							 "       <p>  "  + 
 							 "         After verifying the information, follow the link bellow to approve the account.  "  + 
 							 "       </p>  "  + 
