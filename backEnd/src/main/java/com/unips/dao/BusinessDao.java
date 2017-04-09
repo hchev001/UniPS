@@ -26,4 +26,6 @@ public interface BusinessDao {
 	
 	public boolean exits(String username);
 	
+	public Business getBusinessPendingAuthorization(String username);
+	
 }

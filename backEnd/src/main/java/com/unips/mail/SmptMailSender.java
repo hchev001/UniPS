@@ -177,7 +177,7 @@ public class SmptMailSender {
 							 "  </html>  "; 
 				
 		String to = env.getProperty("unips.mail");
-		 
+		
 		send(to, subject, body);
 	}
 	
