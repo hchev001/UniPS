@@ -13,6 +13,7 @@ import 'rxjs/add/operator/catch';
 export class BusinessService {
     constructor(private _http: Http) { }
 
+    private businessUserToRedirectTo:any;
 
     private businessUrl = '/api/business'; // URL to web api
 
@@ -25,5 +26,9 @@ export class BusinessService {
         var requestUrl:string = this.businessUrl + "/" + username;
         return this._http.get(requestUrl)
                         .map((res:Response) => res.json());
+    }
+
+    setBusinessUserToRedirectTo(username: string){
+        this.businessUserToRedirectTo = username;
     }
 }

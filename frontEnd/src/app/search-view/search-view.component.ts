@@ -34,4 +34,8 @@ export class SearchViewComponent implements OnInit {
       'dropdown-menu': this.isDropDownMenu
     };
   }
+
+  redirectTo(bsn:any): void {
+
+  }
 }
