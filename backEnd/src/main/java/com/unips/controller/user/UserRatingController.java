@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unips.constants.BusinessConstants.RatingValue;
 import com.unips.entity.Rating;
 import com.unips.entity.User;
 import com.unips.response.Response;
@@ -33,18 +34,19 @@ public class UserRatingController {
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Response<Rating> getRating(
-			@RequestParam("userName") String userName,
-			@RequestParam("businessName") String businessName) {
-		return service.getRating(userName, userName);
+			@PathVariable("userName") String userName,
+			@PathVariable("businessName") String businessName) {
+		return service.getRating(userName, businessName);
 	}
 	
 	@ApiOperation("Add rating for business")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public Response<Rating> addReview(
-			@RequestParam("userName") String userName,
-			@RequestParam("businessName") String businessName){
-		return service.addRating(userName, businessName);
+			@PathVariable("userName") String userName,
+			@PathVariable("businessName") String businessName,
+			@RequestParam(value="rate", required=true) RatingValue rate){
+		return service.addRating(userName, businessName, rate);
 	}
 	
 	
@@ -52,8 +54,9 @@ public class UserRatingController {
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseBody
 	public Response<Rating> updateReview(
-			@RequestParam("userName") String userName,
-			@RequestParam("businessName") String businessName){
-		return service.updateRating(userName, businessName);
+			@PathVariable("userName") String userName,
+			@PathVariable("businessName") String businessName,
+			@RequestParam(value="rate", required=true) RatingValue rate){
+		return service.updateRating(userName, businessName, rate);
 	}
 }

@@ -3,7 +3,9 @@ package com.unips.dao;
 import java.util.List;
 
 import com.unips.constants.BusinessConstants.CommentFlag;
+import com.unips.constants.BusinessConstants.RatingValue;
 import com.unips.constants.BusinessConstants.Status;
+import com.unips.entity.Rating;
 import com.unips.entity.User;
 
 public interface UserDao {
@@ -32,4 +34,12 @@ public interface UserDao {
 	
 	public CommentFlag updateFlag(Integer commentId, CommentFlag flag);
 
+	
+	// Rating interaction
+	
+	public Rating getRating(String userName, String businessName);
+	
+	public Rating addRating(String userName, String businessName, RatingValue rate);
+	
+	public Rating updateRating(String userName, String businessName, RatingValue rate);
 }

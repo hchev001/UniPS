@@ -10,6 +10,7 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.unips.constants.BusinessConstants.CommentFlag;
+import com.unips.constants.BusinessConstants.RatingValue;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.BusinessReviewDao;
@@ -141,18 +142,18 @@ public class UserService<T> {
 	
 	// User ratings Interaction
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
-	public Response<Rating> getRating(String userName, String userBusiness) {
+	public Response<Rating> getRating(String userName, String businessName) {
 		return Response.success(userDao.getRating(userName, businessName));
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
-	public Response<Rating> addRating(String userName, String userBusiness) {
-		return Response.success(userDao.getRating(userName, businessName));
+	public Response<Rating> addRating(String userName, String businessName, RatingValue rate) {
+		return Response.success(userDao.addRating(userName, businessName, rate));
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
-	public Response<Rating> updateRating(String userName, String userBusiness) {
-		return Response.success(userDao.getRating(userName, businessName));
+	public Response<Rating> updateRating(String userName, String businessName, RatingValue rate) {
+		return Response.success(userDao.updateRating(userName, businessName, rate));
 	}
 	
 }

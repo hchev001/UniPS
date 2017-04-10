@@ -9,9 +9,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.unips.constants.BusinessConstants.CommentFlag;
+import com.unips.constants.BusinessConstants.RatingValue;
 import com.unips.constants.BusinessConstants.Status;
 import com.unips.dao.UserDao;
+import com.unips.dao.mapper.RatingRowMapper;
 import com.unips.dao.mapper.UserResultSetExtractor;
+import com.unips.entity.Rating;
 import com.unips.entity.User;
 
 
@@ -165,6 +168,66 @@ public class UserDaoMysql implements UserDao {
 		jdbcTemplate.update(sql, values, types);
 		
 		return getFlag(commentId);
+	}
+	
+	// Interaction with ratings
+
+	@Override
+	public Rating getRating(String userName, String businessName) {
+		
+		final String sql = "SELECT * FROM " +
+							"(SELECT r.*, u.username AS 'user', b.username AS 'business' " +
+							"FROM `unipsdb`.`rating` AS r " +
+							"LEFT JOIN `unipsdb`.`user` AS u ON u.user_id=r.user_id " +
+							"LEFT JOIN `unipsdb`.`user` AS b ON b.user_id=r.business_id) AS res " +
+							"WHERE res.user=? AND res.business=?";
+		
+		Object[] values = new Object[] {userName, businessName};
+		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR};
+		
+		List<Rating> list = jdbcTemplate.query(sql, values, types, new RatingRowMapper());
+		
+		if (list.isEmpty())
+			return null;
+		
+		return list.get(0);
+	}
+
+	
+	@Override
+	public Rating addRating(String userName, String businessName, RatingValue rate) {
+
+		final String sql = "INSERT INTO `unipsdb`.`rating` " +
+							"(`rating_value_id`, `user_id`, `business_id`) " +
+							" VALUES " +
+							"(?, " + 
+							"(SELECT u.user_id FROM `unipsdb`.`user` AS u WHERE u.username=?), " + 
+							"(SELECT b.user_id FROM `unipsdb`.`user` AS b WHERE b.username=?))";
+		
+		Object[] values = new Object[] {rate.ordinal(), userName, businessName};
+		int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.VARCHAR};
+		
+		System.out.println(sql);
+		jdbcTemplate.update(sql, values, types);
+		
+		return getRating(userName, businessName);
+	}
+
+	
+	@Override
+	public Rating updateRating(String userName, String businessName, RatingValue rate) {
+		
+		final String sql = "UPDATE `unipsdb`.`rating` AS r " +
+							"SET r.rating_value_id = ? " + 
+							"WHERE r.user_id = (SELECT u.user_id FROM `unipsdb`.`user` AS u WHERE u.username=?) " +
+							"AND r.business_id = (SELECT b.user_id FROM `unipsdb`.`user` AS b WHERE b.username=?)";		
+		
+		Object[] values = new Object[] {rate.ordinal(), userName, businessName};
+		int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.VARCHAR};
+		
+		jdbcTemplate.update(sql, values, types);
+		
+		return getRating(userName, businessName);
 	}
 
 }
