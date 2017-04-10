@@ -16,6 +16,7 @@ import com.unips.dao.BusinessReviewDao;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
 import com.unips.entity.Comment;
+import com.unips.entity.Rating;
 import com.unips.entity.User;
 import com.unips.mail.SmptMailSender;
 import com.unips.response.Response;
@@ -115,7 +116,7 @@ public class UserService<T> {
 			final String link = "http://localhost:8080/";
 			mailSender.sendThankYouEmail(username, link);
 		} catch (Exception e) {
-			// Let it go....
+			e.printStackTrace();
 		}
 		
 		return true;
@@ -131,9 +132,27 @@ public class UserService<T> {
 			try {
 				mailSender.sendCommentFlagNotificationToAdmins(comment);
 			} catch (Exception e) {
-				//let it go like all other e-mails ...
+				e.printStackTrace();
 			}
 		}
 		return Response.success(userDao.updateFlag(commentId, comment.getFlag().toggle()));
 	}
+	
+	
+	// User ratings Interaction
+	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	public Response<Rating> getRating(String userName, String userBusiness) {
+		return Response.success(userDao.getRating(userName, businessName));
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	public Response<Rating> addRating(String userName, String userBusiness) {
+		return Response.success(userDao.getRating(userName, businessName));
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	public Response<Rating> updateRating(String userName, String userBusiness) {
+		return Response.success(userDao.getRating(userName, businessName));
+	}
+	
 }
