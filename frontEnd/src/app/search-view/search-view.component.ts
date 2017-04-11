@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessService } from '../_services/index';
 import { Router } from '@angular/router';
+import {RatingModule} from "ngx-rating";
 
 
 @Component({
@@ -13,6 +14,8 @@ export class SearchViewComponent implements OnInit {
   isDropDownMenu: boolean;
   classesObj: Object;
   businessList: Array<Object>;
+  starsCount: number;
+  starsCounts: number[] = [];
 
   constructor(
         private bsnService: BusinessService,

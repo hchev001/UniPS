@@ -24,7 +24,8 @@
       <div>
 
         <h3>Rating</h3>
-        <app-business-rating></app-business-rating>
+        <rating [(ngModel)]="starsCount"></rating>
+        <br/><br/>
       </div>
       <div class="btn-group-vertical" data-toggle="buttons">
         <h3>Extra</h3>
@@ -51,7 +52,7 @@
           <div class="col-md-8">
             <!-- <h4 routerLink="/businessentity">{{business.name}}</h4> -->
             <span class="name" (click)="redirectTo(business.username)">{{business.name}}</span>
-            <app-business-rating></app-business-rating>
+            <rating [(ngModel)]="business.rateAverage" [float]="true" [readonly]="true"></rating>
             <p>{{business.description}}</p>
           </div>
         </div>

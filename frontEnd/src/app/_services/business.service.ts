@@ -61,4 +61,16 @@ export class BusinessService {
     getBusinessUserToRedirectTo(): string {
         return this.businessUserToRedirectTo;
     }
+
+    postNewRating(userName:string, businessName:string, rating:string){
+        var requestUrl: string = '/api/users/'+userName+'/'+businessName+'/ratings'+'?rate='+rating;
+        var headers = new Headers();
+        headers.append('userName', userName);
+        headers.append('businessName', businessName);
+        headers.append('rate', rating);
+        var opts = new RequestOptions();
+        opts.headers = headers;
+        return this._http.post(requestUrl,'', opts)
+                        .map((res:Response) => res.json());
+    }
 }
