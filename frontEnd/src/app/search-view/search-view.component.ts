@@ -22,7 +22,8 @@ export class SearchViewComponent implements OnInit {
   ngOnInit() {
     this.isDropDownMenu = false;
     this.toggleDropDown(event);
-    this.getAllBusinesses();
+    // this.getAllBusinesses();
+    this.newSearchQuery();
   }
 
   getAllBusinesses() {
@@ -42,5 +43,12 @@ export class SearchViewComponent implements OnInit {
       this.bsnService.setBusinessUserToRedirectTo(bsn);
       this.router.navigate(['/businessentity'])
 
+  }
+
+  public newSearchQuery() {
+      var text:string = this.bsnService.getQueryString();
+      console.log('The text of the new search: '+text);
+      this.bsnService.searchBusiness(text)
+        .subscribe(response => this.businessList = response.data);
   }
 }

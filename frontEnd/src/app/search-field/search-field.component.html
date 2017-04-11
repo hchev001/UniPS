@@ -2,10 +2,10 @@
   <form>
     <div class="form-group row">
       <div class="col-sm-10">
-        <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="searchField" placeholder="Business Name">
+        <input #text type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="searchField" placeholder="Business Name">
       </div>
       <div class="col-sm-2">
-        <button type="submit" class="btn btn-danger" routerLink = "/search">Search</button>
+        <button type="submit" class="btn btn-danger" (click)='newSearch(text.value)'>Search</button>
       </div>
     </div>
   </form>
