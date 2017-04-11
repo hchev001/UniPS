@@ -37,11 +37,17 @@ export class NavbarComponent implements OnInit {
     }
 
     viewProfile() {
-        if (this.authentication.getAuthority() == '"ROLE_ADMIN"')
+        if (this.authentication.getAuthority() == '"ROLE_ADMIN"'){
             console.log("visit admin profile");
-        if (this.authentication.getAuthority() == '"ROLE_USER"')
+            this.router.navigate(['/adminprofile'])
+        }
+        if (this.authentication.getAuthority() == '"ROLE_USER"'){
             console.log("visit user profile");
-        if (this.authentication.getAuthority() == '"ROLE_BUSINESS"')
+            this.router.navigate(['/profile'])
+        }
+        if (this.authentication.getAuthority() == '"ROLE_BUSINESS"'){
             console.log("visit business profile");
+            this.router.navigate(['/businessprofile'])
+        }
     }
 }
