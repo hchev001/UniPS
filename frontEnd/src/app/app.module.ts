@@ -20,6 +20,7 @@ import { AlertModule } from 'ng2-bootstrap';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService } from './_services/index';
+import {RatingModule} from "ngx-rating";
 
 // used to create fake backend
 /*
@@ -73,6 +74,7 @@ import { BusinessService } from './_services';
     ReactiveFormsModule,
     HttpModule,
     routes,
+    RatingModule
 
   ],
   providers: [
