@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services';
+import { Router } from '@angular/router';
 
 
 
@@ -11,13 +12,16 @@ import { AuthenticationService } from '../_services';
 export class NavbarComponent implements OnInit {
 
     constructor(
-        private authentication: AuthenticationService) {
+        private authentication: AuthenticationService,
+        private router: Router) {
 
     }
 
     ngOnInit() {
 
     }
+
+    private authorities: any = [];
 
     // Retrieves the status of the current user browsing the website
     // Returns true if the user has previously logged in
@@ -32,4 +36,12 @@ export class NavbarComponent implements OnInit {
         this.authentication.logout();
     }
 
+    viewProfile() {
+        if (this.authentication.getAuthority() == '"ROLE_ADMIN"')
+            console.log("visit admin profile");
+        if (this.authentication.getAuthority() == '"ROLE_USER"')
+            console.log("visit user profile");
+        if (this.authentication.getAuthority() == '"ROLE_BUSINESS"')
+            console.log("visit business profile");
+    }
 }
