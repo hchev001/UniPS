@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BusinessService, AlertService } from '../_services/index'
+import { BusinessService, AlertService, AuthenticationService } from '../_services/index'
 import { Response } from '@angular/http';
 import {RatingModule} from "ngx-rating";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-business-entity',
@@ -12,7 +13,9 @@ export class BusinessEntityComponent implements OnInit {
 
   constructor(
         private bsnService: BusinessService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        private authService: AuthenticationService,
+        private router: Router) { }
 
   ngOnInit() {
       var bsnUserName:string = this.bsnService.getBusinessUserToRedirectTo();
@@ -27,7 +30,7 @@ export class BusinessEntityComponent implements OnInit {
     private comments: any = [];
 
   // used to fetch just the account information of the username paramater
-  getBusinessInfo(username:string){
+    getBusinessInfo(username:string){
       return this.bsnService.getBusiness(username)
             .subscribe(
                 (res ) => {
@@ -43,5 +46,13 @@ export class BusinessEntityComponent implements OnInit {
                 }
         );
 
+    }
+
+    rate() {
+        if (this.authService.isAuthenticated()) {
+            this.router.navigate(['/leaverate']);
+        } else {
+            this.alertService.error("Please log in first.");
+        }
     }
 }
