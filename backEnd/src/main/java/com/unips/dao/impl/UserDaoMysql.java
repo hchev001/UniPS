@@ -193,17 +193,13 @@ public class UserDaoMysql implements UserDao {
 	@Override
 	public Rating addRating(int userId, int businessId, RatingValue rate) {
 
-		final String sql = "INSERT INTO `unipsdb`.`rating` " +
+		final String sql = "INSERT INTO `unipsdb`.`rating` " + 
 							"(`rating_value_id`, `user_id`, `business_id`) " +
-							" VALUES " +
-							"(?, " + 
-							"(SELECT u.user_id FROM `unipsdb`.`user` AS u WHERE u.username=?), " + 
-							"(SELECT b.user_id FROM `unipsdb`.`user` AS b WHERE b.username=?))";
-		
+							"VALUES (?, ?, ?)";
+									
 		Object[] values = new Object[] {rate.ordinal(), userId, businessId};
 		int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.VARCHAR};
 		
-		System.out.println(sql);
 		jdbcTemplate.update(sql, values, types);
 		
 		return getRating(userId, businessId);
@@ -214,9 +210,8 @@ public class UserDaoMysql implements UserDao {
 	public Rating updateRating(int userId, int businessId, RatingValue rate) {
 		
 		final String sql = "UPDATE `unipsdb`.`rating` AS r " +
-							"SET r.rating_value_id = ? " + 
-							"WHERE r.user_id = (SELECT u.user_id FROM `unipsdb`.`user` AS u WHERE u.username=?) " +
-							"AND r.business_id = (SELECT b.user_id FROM `unipsdb`.`user` AS b WHERE b.username=?)";		
+							"SET `rating_value_id` = ? " +
+							"WHERE r.user_id=? AND r.business_id=?";		
 		
 		Object[] values = new Object[] {rate.ordinal(), userId, businessId};
 		int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.VARCHAR};

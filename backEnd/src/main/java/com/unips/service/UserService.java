@@ -173,6 +173,11 @@ public class UserService<T> {
 		if (business == null)
 			return Response.failure("Business could not be found");
 		
+		// If rating exists then just update it; otherwise add a new one.
+		Rating rating = userDao.getRating(user.getId(), business.getId());
+		if (rating != null)
+			return Response.success(userDao.updateRating(user.getId(), business.getId(), rate));
+		
 		return Response.success(userDao.addRating(user.getId(), business.getId(), rate));
 	}
 	
@@ -186,6 +191,10 @@ public class UserService<T> {
 		Business business = businessDao.getBusiness(businessName);
 		if (business == null)
 			return Response.failure("Business could not be found");
+		
+		Rating rating = userDao.getRating(user.getId(), business.getId());
+		if (rating == null)
+			return Response.success(userDao.addRating(user.getId(), business.getId(), rate));
 		
 		return Response.success(userDao.updateRating(user.getId(), business.getId(), rate));
 	}
