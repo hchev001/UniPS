@@ -173,17 +173,13 @@ public class UserDaoMysql implements UserDao {
 	// Interaction with ratings
 
 	@Override
-	public Rating getRating(String userName, String businessName) {
+	public Rating getRating(int userId, int businessId) {
 		
-		final String sql = "SELECT * FROM " +
-							"(SELECT r.*, u.username AS 'user', b.username AS 'business' " +
-							"FROM `unipsdb`.`rating` AS r " +
-							"LEFT JOIN `unipsdb`.`user` AS u ON u.user_id=r.user_id " +
-							"LEFT JOIN `unipsdb`.`user` AS b ON b.user_id=r.business_id) AS res " +
-							"WHERE res.user=? AND res.business=?";
+		final String sql = "SELECT * FROM `unipsdb`.`rating` AS r " +
+							"WHERE r.user_id=? AND r.business_id=?";
 		
-		Object[] values = new Object[] {userName, businessName};
-		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR};
+		Object[] values = new Object[] {userId, businessId};
+		int[] types = new int[] {Types.INTEGER, Types.INTEGER};
 		
 		List<Rating> list = jdbcTemplate.query(sql, values, types, new RatingRowMapper());
 		
@@ -195,7 +191,7 @@ public class UserDaoMysql implements UserDao {
 
 	
 	@Override
-	public Rating addRating(String userName, String businessName, RatingValue rate) {
+	public Rating addRating(int userId, int businessId, RatingValue rate) {
 
 		final String sql = "INSERT INTO `unipsdb`.`rating` " +
 							"(`rating_value_id`, `user_id`, `business_id`) " +
@@ -204,30 +200,30 @@ public class UserDaoMysql implements UserDao {
 							"(SELECT u.user_id FROM `unipsdb`.`user` AS u WHERE u.username=?), " + 
 							"(SELECT b.user_id FROM `unipsdb`.`user` AS b WHERE b.username=?))";
 		
-		Object[] values = new Object[] {rate.ordinal(), userName, businessName};
+		Object[] values = new Object[] {rate.ordinal(), userId, businessId};
 		int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.VARCHAR};
 		
 		System.out.println(sql);
 		jdbcTemplate.update(sql, values, types);
 		
-		return getRating(userName, businessName);
+		return getRating(userId, businessId);
 	}
 
 	
 	@Override
-	public Rating updateRating(String userName, String businessName, RatingValue rate) {
+	public Rating updateRating(int userId, int businessId, RatingValue rate) {
 		
 		final String sql = "UPDATE `unipsdb`.`rating` AS r " +
 							"SET r.rating_value_id = ? " + 
 							"WHERE r.user_id = (SELECT u.user_id FROM `unipsdb`.`user` AS u WHERE u.username=?) " +
 							"AND r.business_id = (SELECT b.user_id FROM `unipsdb`.`user` AS b WHERE b.username=?)";		
 		
-		Object[] values = new Object[] {rate.ordinal(), userName, businessName};
+		Object[] values = new Object[] {rate.ordinal(), userId, businessId};
 		int[] types = new int[] {Types.TINYINT, Types.VARCHAR, Types.VARCHAR};
 		
 		jdbcTemplate.update(sql, values, types);
 		
-		return getRating(userName, businessName);
+		return getRating(userId, businessId);
 	}
 
 }

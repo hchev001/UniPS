@@ -1,10 +1,14 @@
 -- Get a rating
-SELECT * FROM 
-	(SELECT r.*, u.username AS 'user', b.username AS 'business' 
-	FROM `unipsdb`.`rating` AS r
-	LEFT JOIN `unipsdb`.`user` AS u ON u.user_id=r.user_id
-	LEFT JOIN `unipsdb`.`user` AS b ON b.user_id=r.business_id) AS res
-WHERE res.user='kathy' AND res.business='starbucks';
+SELECT * FROM `unipsdb`.`rating` AS r
+WHERE r.user_id=1 AND r.business_id=8
+
+
+SELECT `rating`.`rating_id`,
+    `rating`.`created_date`,
+    `rating`.`rating_value_id`,
+    `rating`.`user_id`,
+    `rating`.`business_id`
+FROM `unipsdb`.`rating`;
 
 
 -- Add a new comment

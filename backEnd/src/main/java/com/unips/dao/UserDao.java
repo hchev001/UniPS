@@ -37,9 +37,9 @@ public interface UserDao {
 	
 	// Rating interaction
 	
-	public Rating getRating(String userName, String businessName);
+	public Rating getRating(int userId, int businessId);
 	
-	public Rating addRating(String userName, String businessName, RatingValue rate);
+	public Rating addRating(int userId, int businessId, RatingValue rate);
 	
-	public Rating updateRating(String userName, String businessName, RatingValue rate);
+	public Rating updateRating(int userId, int businessId, RatingValue rate);
 }

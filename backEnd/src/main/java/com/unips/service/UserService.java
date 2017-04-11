@@ -13,9 +13,11 @@ import com.unips.constants.BusinessConstants.CommentFlag;
 import com.unips.constants.BusinessConstants.RatingValue;
 import com.unips.constants.BusinessConstants.Roles;
 import com.unips.constants.BusinessConstants.Status;
+import com.unips.dao.BusinessDao;
 import com.unips.dao.BusinessReviewDao;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserInfoDao;
+import com.unips.entity.Business;
 import com.unips.entity.Comment;
 import com.unips.entity.Rating;
 import com.unips.entity.User;
@@ -35,6 +37,10 @@ public class UserService<T> {
 	@Autowired
 	@Qualifier("userInfo.mysql")
 	UserInfoDao userInfoDao;
+	
+	@Autowired
+	@Qualifier("business.mysql")
+	BusinessDao businessDao;
 	
 	@Autowired
 	@Qualifier("businessReview.mysql")
@@ -143,17 +149,45 @@ public class UserService<T> {
 	// User ratings Interaction
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<Rating> getRating(String userName, String businessName) {
-		return Response.success(userDao.getRating(userName, businessName));
+		
+		User user = userDao.getUser(userName);
+		if (user == null)
+			return Response.failure("User could not be found");
+		
+		Business business = businessDao.getBusiness(businessName);
+		if (business == null)
+			return Response.failure("Business could not be found");
+		
+		
+		return Response.success(userDao.getRating(user.getId(), business.getId()));
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<Rating> addRating(String userName, String businessName, RatingValue rate) {
-		return Response.success(userDao.addRating(userName, businessName, rate));
+		
+		User user = userDao.getUser(userName);
+		if (user == null)
+			return Response.failure("User could not be found");
+		
+		Business business = businessDao.getBusiness(businessName);
+		if (business == null)
+			return Response.failure("Business could not be found");
+		
+		return Response.success(userDao.addRating(user.getId(), business.getId(), rate));
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<Rating> updateRating(String userName, String businessName, RatingValue rate) {
-		return Response.success(userDao.updateRating(userName, businessName, rate));
+		
+		User user = userDao.getUser(userName);
+		if (user == null)
+			return Response.failure("User could not be found");
+		
+		Business business = businessDao.getBusiness(businessName);
+		if (business == null)
+			return Response.failure("Business could not be found");
+		
+		return Response.success(userDao.updateRating(user.getId(), business.getId(), rate));
 	}
 	
 }
