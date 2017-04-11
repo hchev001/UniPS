@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessService, AlertService } from '../_services/index'
 import { Response } from '@angular/http';
+import {RatingModule} from "ngx-rating";
 
 @Component({
   selector: 'app-business-entity',

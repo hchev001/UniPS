@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-md-3 text-center">
 			<img src="http://socohospice.org/newsite/wp-content/uploads/2016/11/unnamed.png" alt="Mountain View" style="width:250px;height:250px; border: #000000 3px outset; display: block;">
-			<!--<app-business-image></app-business-image>-->
+			<rating [(ngModel)]="business.rateAverage" [float]="true" [readonly]="true"></rating>
 		</div>
 		<div class="col-md-5 rating">
 			<app-business-rating></app-business-rating>
