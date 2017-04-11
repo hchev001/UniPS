@@ -35,7 +35,7 @@ export class SearchViewComponent implements OnInit {
     };
   }
 
-  redirectTo(bsn:any): void {
-
+  public redirectTo(bsn:string) {
+      console.log(bsn);
   }
 }
