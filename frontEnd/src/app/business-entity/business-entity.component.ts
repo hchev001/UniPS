@@ -14,7 +14,8 @@ export class BusinessEntityComponent implements OnInit {
         private alertService: AlertService) { }
 
   ngOnInit() {
-      this.getBusinessInfo("starbucks");
+      var bsnUserName:string = this.bsnService.getBusinessUserToRedirectTo();
+      this.getBusinessInfo(bsnUserName);
   }
 
   // Component Variables

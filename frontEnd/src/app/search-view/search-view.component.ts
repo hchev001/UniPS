@@ -14,7 +14,9 @@ export class SearchViewComponent implements OnInit {
   classesObj: Object;
   businessList: Array<Object>;
 
-  constructor(private bsnService: BusinessService) { }
+  constructor(
+        private bsnService: BusinessService,
+        private router: Router) { }
 
 
   ngOnInit() {
@@ -37,5 +39,8 @@ export class SearchViewComponent implements OnInit {
 
   public redirectTo(bsn:string) {
       console.log(bsn);
+      this.bsnService.setBusinessUserToRedirectTo(bsn);
+      this.router.navigate(['/businessentity'])
+
   }
 }
