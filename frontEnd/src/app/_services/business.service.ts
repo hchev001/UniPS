@@ -48,7 +48,9 @@ export class BusinessService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let opts:RequestOptions = new RequestOptions();
         opts.headers = headers;
-        return this._http.post(this.searchUrl,"",opts)
+
+        var newSearchURL = this.searchUrl+"?keyword="+text;
+        return this._http.post(newSearchURL,"",opts)
                         .map(response => response.json());
     }
 
