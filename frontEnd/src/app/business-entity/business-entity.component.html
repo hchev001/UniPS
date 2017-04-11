@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-md-3 text-center">
 			<img src="http://socohospice.org/newsite/wp-content/uploads/2016/11/unnamed.png" alt="Mountain View" style="width:250px;height:250px; border: #000000 3px outset; display: block;">
-			<!--<app-business-image></app-business-image>-->
+			<rating [(ngModel)]="business.rateAverage" [float]="true" [readonly]="true"></rating>
 		</div>
 		<div class="col-md-5 rating">
 			<app-business-rating></app-business-rating>
@@ -28,7 +28,7 @@
 					<button type="button" class="btn btn-outline-danger btn-block" routerLink="/writereview"><i class="fa fa-comment"></i> Review</button>
 				</div>
 				<div class="col-md-6 top-buffer">
-					<button type="button" class="btn btn-secondary btn-block" routerLink="/leaverate"><i class="fa fa-star"></i> Rate</button>
+					<button type="button" class="btn btn-secondary btn-block" (click)='rate()'><i class="fa fa-star"></i> Rate</button>
 				</div>
 			</div>
 			<div class="row">
