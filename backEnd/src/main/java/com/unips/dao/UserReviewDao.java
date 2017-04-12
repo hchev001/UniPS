@@ -6,16 +6,16 @@ import com.unips.entity.Comment;
 
 public interface UserReviewDao {
 	
-	public List<Comment> getAllReviews(String userName);
+	public List<Comment> getAllReviews(int userId);
 
-	public List<Comment> getAllReviewsForBusiness(String userName, String businessName);
+	public List<Comment> getAllReviewsForBusiness(int userId, int businessId);
 
-	public Comment addReviewForBusiness(String userName, String businessName);
+	public Comment addReviewForBusiness(int userId, int businessId);
 
-	public Comment getReview(String userName, Integer reviewId);
+	public Comment getReview(int userId, int businessId);
 
-	public Comment updateReview(String userName, Integer reviewId);
+	public Comment updateReview(int userId, int businessId);
 
-	public Boolean deleteReview(String userName, Integer reviewId);
+	public Boolean deleteReview(int userId, int businessId);
 
 }

@@ -54,7 +54,7 @@ public class UserService<T> {
 		return  Response.success(userDao.getAllUsers());
 	}
 
-	@PreAuthorize("#username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<User> getUser(String username) {
 		return  Response.success(userDao.getUser(username));
 	}
