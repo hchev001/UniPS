@@ -152,11 +152,11 @@ public class UserService<T> {
 		
 		User user = userDao.getUser(userName);
 		if (user == null)
-			return Response.failure("User could not be found");
+			return Response.failureUserNotFound();
 		
 		Business business = businessDao.getBusiness(businessName);
 		if (business == null)
-			return Response.failure("Business could not be found");
+			return Response.failureBusinessNotFound();
 		
 		return Response.success(userDao.getRating(user.getId(), business.getId()));
 	}
@@ -166,11 +166,11 @@ public class UserService<T> {
 		
 		User user = userDao.getUser(userName);
 		if (user == null)
-			return Response.failure("User could not be found");
+			return Response.failureUserNotFound();
 		
 		Business business = businessDao.getBusiness(businessName);
 		if (business == null)
-			return Response.failure("Business could not be found");
+			return Response.failureBusinessNotFound();
 		
 		Rating rating = userDao.getRating(user.getId(), business.getId());
 		if (rating != null)
@@ -184,11 +184,11 @@ public class UserService<T> {
 		
 		User user = userDao.getUser(userName);
 		if (user == null)
-			return Response.failure("User could not be found");
+			return Response.failureUserNotFound();
 		
 		Business business = businessDao.getBusiness(businessName);
 		if (business == null)
-			return Response.failure("Business could not be found");
+			return Response.failureBusinessNotFound();
 		
 		Rating rating = userDao.getRating(user.getId(), business.getId());
 		if (rating == null)

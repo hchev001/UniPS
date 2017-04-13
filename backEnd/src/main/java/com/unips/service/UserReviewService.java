@@ -26,10 +26,10 @@ public class UserReviewService<T> {
 	
 	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<List<Comment>> getAllReviews(String userName) {
-		System.out.println("I made it here");
+
 		User user = userDao.getUser(userName);
 		if (user == null)
-			return Response.failure("User does not exist");
+			return Response.failureUserNotFound();
 		
 		return Response.success(userReviewDao.getAllReviews(user.getId()));
 	}
