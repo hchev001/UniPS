@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
-    data: Object;
+    data: any = {};
+    authority: any = [];
     authenticated: boolean = false;
 
     constructor(
@@ -38,8 +39,11 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         this.authenticationService.authenticate( this.model.username, this.model.password)
         .subscribe(
-          (res:Response) => {
+          (res) => {
             this.data = res;
+            this.authority = this.data.authorities;
+            console.log("The authority of this user is: " + JSON.stringify(this.authority[0].authority));
+            this.authenticationService.setAuthority(JSON.stringify(this.authority[0].authority));
             this.authenticationService.setUserName(this.model.username);
             this.authenticationService.setAuthenticationStatus(true);
             console.log(this.model.username + 'has been succesfully authenticated');
