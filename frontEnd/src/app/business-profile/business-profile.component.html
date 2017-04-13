@@ -17,7 +17,20 @@
 		</div>
 		<div class="col-md-5 rating">
 			<address>
-				<strong>Subway</strong><br> Location: Graham Center (GC)<br>
+				<strong>UserName: </strong> {{business?.username}}<br>
+				<strong>Business Name: </strong>{{business?.name}}<br>
+				<div>
+					<strong>Address:</strong><br>
+					<span>Line 1: {{address?.line1}}</span><br>
+					<span>Line 2: {{address?.line2}}</span><br>
+					<span>City: {{address?.city}}</span><br>
+					<span>State: {{address?.state}}</span><br>
+					<span>Zip: {{address?.zip}}</span>
+				</div><br>
+				<div >
+					<strong>Current Rating</strong><span><rating [(ngModel)] = "business.rateAverage" [readonly]="true"></rating></span>
+
+				</div>
 			</address>
 		</div>
 		<div class="col-md-4 text-center">
@@ -36,7 +49,7 @@
 
 	<!-- empthy column - reviews-->
 	<div class="container customContainer" style="border-top:medium #5e5e5e solid;">
-		<div class="row">
+		<div class="row" *ngFor="let comment of comments">
 			<div class="col-md-3" style="border-right:medium #5e5e5e solid; ">
 			</div>
 			<div class="col-md-9">
@@ -46,32 +59,17 @@
 							style="width:75px;height:75px; border: #000000 3px outset; display: block;">
 					</div>
 					<div class="col-md-7">
-            <div class="row">
-              <div class="col-md-12">
-                <p>The lady with the big forehead she is so crazy, she never changes her gloves. She threatens customers all the time.</p>
-              </div>
-              <div class="col-md-12">
-                <span class="pull-right"><button type="button" class="btn btn-secondary">Report <i class="fa fa-flag" aria-hidden="true"></i></button></span>
-              </div>
-            </div>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="col-md-2">
-						<img src="http://brandonmathis.com/projects/fancy-avatars/demo/images/avatar_male_dark_on_clear_200x200.png" alt="Mountain View"
-							style="width:75px;height:75px; border: #000000 3px outset; display: block;">
-					</div>
-					<div class="col-md-7">
-            <div class="row">
-              <div class="col-md-12">
-                <p>Service wasn't that bad, I kinda expected a little bit more meat in my sub than what they gave me.</p>
-              </div>
-              <div class="col-md-12">
-                <span class="pull-right"><button type="button" class="btn btn-secondary">Report <i class="fa fa-flag" aria-hidden="true"></i></button></span>
-              </div>
-            </div>
+            			<div class="row">
+              				<div class="col-md-12">
+                				<p>{{comment.body}}</p>
+              				</div>
+              				<div class="col-md-12">
+                				<span class="pull-right"><button type="button" class="btn btn-secondary">Report <i class="fa fa-flag" aria-hidden="true"></i></button></span>
+              				</div>
+            			</div>
 					</div>
 				</div>
 				<hr>
 			</div>
+		</div>
+	</div>

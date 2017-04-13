@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Rx'
 import { BusinessEntity } from '../_models/businessEntity.model';
 import { Address } from '../_models/address.model';
 import { Comment } from '../_models/comment.model';
+import { AuthenticationService } from '../_services/index'
 
 //  Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -11,7 +12,9 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class BusinessService {
-    constructor(private _http: Http) { }
+    constructor(
+        private _http: Http,
+        private authService: AuthenticationService) { }
 
     private businessUserToRedirectTo:string;
 
@@ -22,18 +25,24 @@ export class BusinessService {
                         .map((res:Response) => res.json());
   }
 
+  setBusinessUserToRedirectTo(username: string){
+      this.businessUserToRedirectTo = username;
+  }
+
+  getBusinessUserToRedirectTo(): string {
+      return this.businessUserToRedirectTo;
+  }
+
     getBusiness(username:string) {
         var requestUrl:string = this.businessUrl + "/" + username;
         return this._http.get(requestUrl)
                         .map((res:Response) => res.json());
     }
 
-    setBusinessUserToRedirectTo(username: string){
-        this.businessUserToRedirectTo = username;
-    }
-
-    getBusinessUserToRedirectTo(): string {
-        return this.businessUserToRedirectTo;
+    getBusinessComments(username:string){
+        var requestUrl:string = this.businessUrl+"/"+username+"/reviews";
+        return this._http.get(requestUrl)
+                        .map((res:Response) => res.json());
     }
 
     postNewRating(userName:string, businessName:string, rating:string){
