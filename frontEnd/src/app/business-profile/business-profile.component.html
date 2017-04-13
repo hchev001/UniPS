@@ -61,7 +61,9 @@
 					<div class="col-md-7">
             			<div class="row">
               				<div class="col-md-12">
-                				<p>{{comment.body}}</p>
+								<h6>{{comment?.subject}}</h6>
+                				<p>{{comment?.body}}<br> <span class="flushRight">{{comment?.createdDate}}</span></p>
+
               				</div>
               				<div class="col-md-12">
                 				<span class="pull-right"><button type="button" class="btn btn-secondary">Report <i class="fa fa-flag" aria-hidden="true"></i></button></span>

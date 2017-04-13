@@ -8,16 +8,16 @@ import { BusinessService, AlertService, AuthenticationService } from '../_servic
 })
 export class BusinessProfileComponent implements OnInit {
 
-  constructor(
+    constructor(
             private bsnService: BusinessService,
             private alertService: AlertService,
             private authService: AuthenticationService) { }
 
 
-  ngOnInit() {
+    ngOnInit() {
       this.populateBusinessInfo();
       this.populateBusinessComments();
-  }
+    }
 
 
 
@@ -29,13 +29,14 @@ export class BusinessProfileComponent implements OnInit {
       private comments: any = [];
 
     // used to fetch just the account information of the username paramater
-      populateBusinessInfo(){
+    populateBusinessInfo(){
         var username = this.authService.getUsername();
         return this.bsnService.getBusiness(username)
               .subscribe(
                   (res ) => {
                       this.business = res.data;
                       this.address = this.business.address;
+                      this.comments = this.business.comments;
                   },
                   (err:any) => {
                       this.alertService.error(err);
@@ -45,15 +46,15 @@ export class BusinessProfileComponent implements OnInit {
                   }
           );
 
-      }
+    }
 
-      populateBusinessComments(){
+    populateBusinessComments(){
           var username = this.authService.getUsername();
           return this.bsnService.getBusinessComments(username)
             .subscribe(
                 (res) => {
                     this.comments = res.data;
-                }
-            )
-      }
+            }
+        )
+    }
 }

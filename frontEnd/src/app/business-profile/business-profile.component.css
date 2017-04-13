@@ -26,4 +26,8 @@ hr {
 }
 .top-buffer {
     margin-top:20px;
-} 
+}
+
+.flushRight {
+    text-align: right;
+}

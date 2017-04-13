@@ -9,7 +9,7 @@
     padding-left: 1%;
 }
 
-hr { 
+hr {
     display: block;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
@@ -24,6 +24,10 @@ hr {
     padding-top: 2%;
     margin-top: 3%;
 }
-.top-buffer { 
+.top-buffer {
     margin-top:20px;
-} 
+}
+
+.flushRight {
+    text-align: right;
+}
