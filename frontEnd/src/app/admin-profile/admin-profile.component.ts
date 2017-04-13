@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../_services';
 
 @Component({
   selector: 'app-admin-profile',
@@ -6,10 +7,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-profile.component.css']
 })
 export class AdminProfileComponent implements OnInit {
-
-  constructor() { }
+    // isntance Variables
+    model: any = {};
+  constructor(
+      private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
+      this.populateModel();
   }
 
+  populateModel() {
+      var username = this.authService.getUsername();
+      this.authService.getUserInfo(username).subscribe(
+        (res) => {
+            this.model = res.data;
+        },
+        (err:any) => {
+            console.log(err);
+        },
+        () => {
+            console.log("no error fetching user info");
+        }
+    );
+
+  }
 }
