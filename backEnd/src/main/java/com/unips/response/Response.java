@@ -37,6 +37,14 @@ public class Response <AnyData> {
 		return new Response<AnyData>(FAILURE, "Missing implementation in the backend.");
 	}
 	
+	public static <AnyData> Response<AnyData> failureUserNotFound() {
+		return  Response.failure("User not found!");
+	}
+	
+	public static <AnyData> Response<AnyData> failureBusinessNotFound() {
+		return  Response.failure("Business not found!");
+	}
+	
 	public String getStatus() {
 		return status;
 	}
