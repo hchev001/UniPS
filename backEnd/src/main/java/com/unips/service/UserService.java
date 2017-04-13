@@ -147,7 +147,7 @@ public class UserService<T> {
 	
 	
 	// User ratings Interaction
-	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Rating> getRating(String userName, String businessName) {
 		
 		User user = userDao.getUser(userName);
@@ -161,7 +161,7 @@ public class UserService<T> {
 		return Response.success(userDao.getRating(user.getId(), business.getId()));
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Rating> addRating(String userName, String businessName, RatingValue rate) {
 		
 		User user = userDao.getUser(userName);
@@ -179,7 +179,7 @@ public class UserService<T> {
 		return Response.success(userDao.addRating(user.getId(), business.getId(), rate));
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Rating> updateRating(String userName, String businessName, RatingValue rate) {
 		
 		User user = userDao.getUser(userName);
