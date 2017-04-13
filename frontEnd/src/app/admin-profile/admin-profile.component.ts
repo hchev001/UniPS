@@ -19,7 +19,7 @@ export class AdminProfileComponent implements OnInit {
 
   populateModel() {
       var username = this.authService.getUsername();
-      this.authService.getUserInfo(username).subscribe(
+      this.authService.getAdminInfo(username).subscribe(
         (res) => {
             this.model = res.data;
         },
