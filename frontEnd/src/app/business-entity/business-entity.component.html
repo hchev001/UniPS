@@ -85,7 +85,8 @@
 							style="width:75px;height:75px; border: #000000 3px outset; display: block;">
 					</div>
 					<div class="col-md-7">
-						<p>{{comment.body}}</p>
+						<h6>{{comment?.subject}}</h6>
+						<p>{{comment.body}}<br> <span class="flushRight">{{comment?.createdDate}}</span></p>
 						<hr>
 					</div>
 				</div>
