@@ -54,7 +54,7 @@ public class UserReviewController {
 	
 	
 	@ApiOperation("Get review by reviewId.")
-	@RequestMapping(value="{reviewId}", method = RequestMethod.GET)
+	@RequestMapping(value="/id/{reviewId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response<Comment> getReview(
 			@PathVariable("userName") String userName,

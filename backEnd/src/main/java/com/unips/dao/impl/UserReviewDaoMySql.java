@@ -32,10 +32,15 @@ public class UserReviewDaoMySql implements UserReviewDao {
 		return jdbcTemplate.query(sql, values, types, new CommentRowMapper());
 		
 	}
-
 	
 	public List<Comment> getAllReviewsForBusiness(int userId, int businessId) {
-		return null;
+		final String sql = "SELECT * FROM `unipsdb`.`comment` AS c " +
+							"WHERE c.user_id=? AND c.business_id=?";
+		
+		Object[] values = new Object[] {userId, businessId};
+		int[] types = new int[] {Types.INTEGER, Types.INTEGER};
+		
+		return jdbcTemplate.query(sql, values, types, new CommentRowMapper());
 	}
 
 	public Comment addReviewForBusiness(int userId, int businessId) {

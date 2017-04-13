@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import com.unips.dao.BusinessDao;
 import com.unips.dao.UserDao;
 import com.unips.dao.UserReviewDao;
+import com.unips.entity.Business;
 import com.unips.entity.Comment;
 import com.unips.entity.User;
 import com.unips.response.Response;
@@ -24,6 +26,10 @@ public class UserReviewService<T> {
 	@Qualifier("user.mysql")
 	UserDao userDao;
 	
+	@Autowired
+	@Qualifier("business.mysql")
+	BusinessDao businessDao;
+	
 	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<List<Comment>> getAllReviews(String userName) {
 
@@ -35,8 +41,16 @@ public class UserReviewService<T> {
 	}
 
 	public Response<List<Comment>> getAllReviewsForBusiness(String userName, String businessName) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		User user = userDao.getUser(userName);
+		if (user == null) 
+			return Response.failureUserNotFound();
+		
+		Business business = businessDao.getBusiness(businessName);
+		if (business == null)
+			return Response.failureBusinessNotFound();
+		
+		return Response.success(userReviewDao.getAllReviewsForBusiness(user.getId(), business.getId()));
 	}
 
 	public Response<Comment> addReviewForBusiness(String userName, String businessName) {
