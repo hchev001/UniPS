@@ -54,7 +54,7 @@ public class UserService<T> {
 		return  Response.success(userDao.getAllUsers());
 	}
 
-	@PreAuthorize("#username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
 	public Response<User> getUser(String username) {
 		return  Response.success(userDao.getUser(username));
 	}
@@ -147,30 +147,30 @@ public class UserService<T> {
 	
 	
 	// User ratings Interaction
-	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Rating> getRating(String userName, String businessName) {
 		
 		User user = userDao.getUser(userName);
 		if (user == null)
-			return Response.failure("User could not be found");
+			return Response.failureUserNotFound();
 		
 		Business business = businessDao.getBusiness(businessName);
 		if (business == null)
-			return Response.failure("Business could not be found");
+			return Response.failureBusinessNotFound();
 		
 		return Response.success(userDao.getRating(user.getId(), business.getId()));
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Rating> addRating(String userName, String businessName, RatingValue rate) {
 		
 		User user = userDao.getUser(userName);
 		if (user == null)
-			return Response.failure("User could not be found");
+			return Response.failureUserNotFound();
 		
 		Business business = businessDao.getBusiness(businessName);
 		if (business == null)
-			return Response.failure("Business could not be found");
+			return Response.failureBusinessNotFound();
 		
 		Rating rating = userDao.getRating(user.getId(), business.getId());
 		if (rating != null)
@@ -179,16 +179,16 @@ public class UserService<T> {
 		return Response.success(userDao.addRating(user.getId(), business.getId(), rate));
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN') or #username == authentication.getName()")
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Rating> updateRating(String userName, String businessName, RatingValue rate) {
 		
 		User user = userDao.getUser(userName);
 		if (user == null)
-			return Response.failure("User could not be found");
+			return Response.failureUserNotFound();
 		
 		Business business = businessDao.getBusiness(businessName);
 		if (business == null)
-			return Response.failure("Business could not be found");
+			return Response.failureBusinessNotFound();
 		
 		Rating rating = userDao.getRating(user.getId(), business.getId());
 		if (rating == null)
