@@ -113,6 +113,18 @@ export class AuthenticationService {
                         .map(response => response.json());
     }
 
+    public getUserInfo(username:string){
+    let headers: Headers = new Headers();
+
+    // headers.append('user', username);
+    // let opts:RequestOptions = new RequestOptions();
+    // opts.headers = headers;
+    var uri = '/api/users/' + username;
+    return this.http.get(uri)
+                    .map(response => response.json());
+
+    }               
+
     logout(): void {
         this.authenticated = false;
         this.username = '';
