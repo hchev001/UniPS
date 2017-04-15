@@ -17,10 +17,10 @@
 		<div class="col-md-5 rating">
 			<app-business-rating></app-business-rating>
 			<address>
-				<strong>Chili's</strong><br> 11200 SW 8th St<br> Miami, FL 33199<br>
-				<abbr title="Phone">P:</abbr> (305) 348-2668
+				<strong>{{business?.name}}</strong><br> {{address?.line1}}<br>{{address?.line2}}<br> {{address?.city}}, {{address?.state}} {{address?.zip}}<br>
+				<abbr title="Phone">P:</abbr> {{business?.phoneBusiness}}
 			</address>
-			<br>Family-friendly chain serving classic Tex-Mex & American fare in a Southwestern-sytle setting<br>
+			<br>{{business?.description}}<br>
 		</div>
 	</div>
 
@@ -29,8 +29,8 @@
 		<div class="row">
 			<div class="col-md-12" style="border-right:medium #5e5e5e solid; ">
 				<h2>Write a Review</h2>
-				<textarea cols="80" rows="5" maxlength="300" placeholder="Leave your review here ..."></textarea><br>
-				<button type="button" class="btn btn-success" routerLink="/businessentity">Post your review</button><br><br>
+				<textarea ref-textarea cols="80" rows="5" maxlength="300" [(ngModel)]="textValue"></textarea><br>
+				<button type="button" class="btn btn-success" (click)="submitReview(textarea.value)">Post your review</button><br><br>
 			</div>
 		</div>
 	</div>

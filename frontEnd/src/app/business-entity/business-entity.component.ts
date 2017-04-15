@@ -52,7 +52,15 @@ export class BusinessEntityComponent implements OnInit {
         if (this.authService.isAuthenticated()) {
             this.router.navigate(['/leaverate']);
         } else {
-            this.alertService.error("Please log in first.");
+            this.alertService.error("Please log in first to leave a rating.");
+        }
+    }
+
+    review() {
+        if (this.authService.isAuthenticated()) {
+            this.router.navigate(['/writereview']);
+        } else {
+            this.alertService.error("Please log in first to write a review.");
         }
     }
 }
