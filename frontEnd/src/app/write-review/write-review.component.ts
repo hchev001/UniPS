@@ -33,13 +33,30 @@ export class WriteReviewComponent implements OnInit {
 
 
     private submitReview(value: string): void {
-        this.logText(value);
+        this.newReview(value);
         this.router.navigate(['/businessentity']);
 
     }
-    private logText(value: string): void {
-        this.log = value;
-        console.log(this.log);
+    private newReview(value: string): void {
+        if (this.authService.isAuthenticated())
+        {
+            this.bsnService.postNewReview(this.currentUser, this.currentBusiness, this.textValue)
+                            .subscribe(
+                                (res) => {
+                                    console.log("no response body");
+                                },
+                                (err:any) => {
+                                    console.log(err);
+                                },
+                                () => {
+                                    console.log("no errors posting new review");
+                                }
+                            );
+            this.alertService.success('Your review has been succesfully added', true);
+            this.router.navigate(['/businessentity']);
+        } else {
+            console.log("user is not logged in");
+        }
     }
 
 

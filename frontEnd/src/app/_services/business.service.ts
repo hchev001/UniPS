@@ -23,15 +23,15 @@ export class BusinessService {
     getBusinesses() {
         return this._http.get(this.businessUrl)
                         .map((res:Response) => res.json());
-  }
+    }
 
-  setBusinessUserToRedirectTo(username: string){
-      this.businessUserToRedirectTo = username;
-  }
+    setBusinessUserToRedirectTo(username: string){
+        this.businessUserToRedirectTo = username;
+    }
 
-  getBusinessUserToRedirectTo(): string {
-      return this.businessUserToRedirectTo;
-  }
+    getBusinessUserToRedirectTo(): string {
+        return this.businessUserToRedirectTo;
+    }
 
     getBusiness(username:string) {
         var requestUrl:string = this.businessUrl + "/" + username;
@@ -55,5 +55,18 @@ export class BusinessService {
         opts.headers = headers;
         return this._http.post(requestUrl,'', opts)
                         .map((res:Response) => res.json());
+    }
+
+    postNewReview(userName: string, businessName: string, bodyText: string){
+        var uri: string = '/api/users/' + userName + '/reviews/' + businessName;
+        var review: any = JSON.stringify( bodyText );
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', '*/*');
+        var opts = new RequestOptions();
+        opts.headers = headers;
+        return this._http.post(uri, review, opts)
+                        .map((res:Response) => res);
+
     }
 }
