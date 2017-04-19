@@ -63,7 +63,7 @@ public class UserReviewController {
 	}
 	
 	@ApiOperation("Update review by reviewId")
-	@RequestMapping(value="{reviewId}", method = RequestMethod.PUT)
+	@RequestMapping(value="/id/{reviewId}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response<Comment> updateReview(
 			@PathVariable("userName") String userName,
@@ -72,7 +72,7 @@ public class UserReviewController {
 	}
 	
 	@ApiOperation("Delete review by reviewId")
-	@RequestMapping(value="{reviewId}", method = RequestMethod.DELETE)
+	@RequestMapping(value="/id/{reviewId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response<Boolean> deleteReview(
 			@PathVariable("userName") String userName,

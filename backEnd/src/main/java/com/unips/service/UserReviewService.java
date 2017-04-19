@@ -53,9 +53,17 @@ public class UserReviewService<T> {
 		return Response.success(userReviewDao.getAllReviewsForBusiness(user.getId(), business.getId()));
 	}
 
-	public Response<Comment> addReviewForBusiness(String userName, String businessName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response<Comment> addReviewForBusiness(String userName, String businessName, Comment comment) {
+		
+		User user = userDao.getUser(userName);
+		if (user == null) 
+			return Response.failureUserNotFound();
+		
+		Business business = businessDao.getBusiness(businessName);
+		if (business == null)
+			return Response.failureBusinessNotFound();
+		
+		return Response.success(userReviewDao.addReviewForBusiness(user.getId(), business.getId(), comment));
 	}
 
 	public Response<Comment> getReview(String userName, Integer reviewId) {

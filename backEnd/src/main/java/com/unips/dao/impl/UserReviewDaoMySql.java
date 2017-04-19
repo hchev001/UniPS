@@ -43,19 +43,47 @@ public class UserReviewDaoMySql implements UserReviewDao {
 		return jdbcTemplate.query(sql, values, types, new CommentRowMapper());
 	}
 
-	public Comment addReviewForBusiness(int userId, int businessId) {
+	public Comment addReviewForBusiness(Comment review) {
+		
+		final String sql = "INSERT INTO `unipsdb`.`comment` " +
+						   "(`subject`, `body`, `comment_flag_id`, `user_id`, `business_id`) " +
+						   "(?, ?, ?, ?, ?)";
+
+		Object [] values = new Object[] {review.getSubject(), review.getBody(), review.getFlag().ordinal(), review.getUserId(), review.getBussinessId()};
+		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR, Types.TINYINT, Types.INTEGER, Types.INTEGER};
+		
+		int result = jdbcTemplate.update(sql, values, types);
+		
+		if (result != 1)
+			return null;
+		
+		return getReviewBySubjectBodyUserAndBusiness(review);
+	}
+
+	private Comment getReviewBySubjectBodyUserAndBusiness(Comment review) {
+		
+		final String sql = "SELECT * FROM `unipsdb`.`comment`  AS c " +
+							"WHERE c.subject=? AND c.body=? AND c.user_id=? AND c.business_id=?";	
+		Object[] values = {review.getSubject(), review.getBody(), review.getUserId(), review.getBussinessId()};
+		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.INTEGER};
+		
+		List<Comment> result = jdbcTemplate.query(sql, values, types, new CommentRowMapper());
+		
+		if(result.size() != 1)
+			return null;
+		
+		return result.get(0);
+	}
+	
+	public Comment getReview(int reviewId) {
 		return null;
 	}
 
-	public Comment getReview(int userId, int businessId) {
+	public Comment updateReview(Comment review) {
 		return null;
 	}
 
-	public Comment updateReview(int userId, int businessId) {
-		return null;
-	}
-
-	public Boolean deleteReview(int userId, int businessId) {
+	public Boolean deleteReview(Comment review) {
 		return null;
 	}
 
