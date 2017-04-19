@@ -19,8 +19,17 @@ export class SearchFieldComponent implements OnInit {
   }
 
   search(userQuery: string) {
-      this.bizService.setCurrentBusinessStringQuery(userQuery);
+
+      // checks if user input is not zero, null, or undefined
+      if(!this.isEmpty(userQuery)){
+          this.bizService.setCurrentBusinessStringQuery(userQuery);
+      } else {
+          this.bizService.setCurrentBusinessStringQuery("");
+      }
       this.router.navigate(['/search']);
   }
 
+  isEmpty(val:string):boolean {
+      return (val === undefined || val == null || val.length < 0);
+  }
 }
