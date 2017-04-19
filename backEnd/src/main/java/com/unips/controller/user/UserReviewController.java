@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,35 +49,35 @@ public class UserReviewController {
 	@ResponseBody
 	public Response<Comment> addReviewForBusiness(
 			@PathVariable("userName") String userName,
-			@PathVariable("businessName") String businessName){
-		return service.addReviewForBusiness(userName, businessName);
+			@PathVariable("businessName") String businessName,
+			@RequestBody Comment review){
+		return service.addReviewForBusiness(review, userName, businessName);
 	}
 	
 	
 	@ApiOperation("Get review by reviewId.")
-	@RequestMapping(value="/id/{reviewId}", method = RequestMethod.GET)
+	@RequestMapping(value="id/{reviewId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response<Comment> getReview(
-			@PathVariable("userName") String userName,
 			@PathVariable("reviewId") Integer reviewId) {
-		return service.getReview(userName, reviewId);
+		return service.getReview(reviewId);
 	}
 	
 	@ApiOperation("Update review by reviewId")
-	@RequestMapping(value="{reviewId}", method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseBody
 	public Response<Comment> updateReview(
 			@PathVariable("userName") String userName,
-			@PathVariable("reviewId") Integer reviewId){
-		return service.updateReview(userName, reviewId);
+			@RequestBody Comment review) {
+		return service.updateReview(review);
 	}
 	
 	@ApiOperation("Delete review by reviewId")
-	@RequestMapping(value="{reviewId}", method = RequestMethod.DELETE)
+	@RequestMapping(method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response<Boolean> deleteReview(
 			@PathVariable("userName") String userName,
-			@PathVariable("reviewId") Integer reviewId){
-		return service.deleteReview(userName, reviewId);
+			@RequestBody Comment review){
+		return service.deleteReview(review);
 	}
 }

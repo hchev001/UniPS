@@ -53,26 +53,53 @@ public class UserReviewService<T> {
 		return Response.success(userReviewDao.getAllReviewsForBusiness(user.getId(), business.getId()));
 	}
 
-	public Response<Comment> addReviewForBusiness(String userName, String businessName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response<Comment> addReviewForBusiness(Comment comment, String userName, String businessName) {
+		
+		User user = userDao.getUser(userName);
+		if (user == null) 
+			return Response.failureUserNotFound();
+		
+		Business business = businessDao.getBusiness(businessName);
+		if (business == null)
+			return Response.failureBusinessNotFound();
+		
+		comment.setUserId(user.getId());
+		comment.setBussinessId(business.getId());
+		
+		return Response.success(userReviewDao.addReviewForBusiness(comment));
 	}
 
-	public Response<Comment> getReview(String userName, Integer reviewId) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Response<Comment> getReview(Integer reviewId) {
+		
+		Comment result = userReviewDao.getReview(reviewId);
+		
+		if (result == null)
+			return Response.failure("Review does not exist");
+		
+		return Response.success(result);
 	}
 
-	public Response<Comment> updateReview(String userName, Integer reviewId) {
-		// TODO Auto-generated method stub
-		return null;
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
+	public Response<Comment> updateReview(Comment review) {
+		
+		Comment result = userReviewDao.updateReview(review);
+		
+		if (result == null)
+			Response.failure("Review could not be updated");
+		
+		return Response.success(result);
 	}
 
-	public Response<Boolean> deleteReview(String userName, Integer reviewId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
+	public Response<Boolean> deleteReview(Comment review) {
 	
-	
+		boolean result = userReviewDao.deleteReview(review);
+		
+		if (!result)
+			return Response.failure("Review could not be deleted");
+		
+		return Response.success(result);
+	}
+
 }
