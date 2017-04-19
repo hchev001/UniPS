@@ -10,12 +10,12 @@ public interface UserReviewDao {
 
 	public List<Comment> getAllReviewsForBusiness(int userId, int businessId);
 
-	public Comment addReviewForBusiness(int userId, int businessId);
+	public Comment addReviewForBusiness(Comment review);
 
-	public Comment getReview(int userId, int businessId);
+	public Comment getReview(int reviewId);
 
-	public Comment updateReview(int userId, int businessId);
+	public Comment updateReview(Comment review);
 
-	public Boolean deleteReview(int userId, int businessId);
+	public Boolean deleteReview(Comment review);
 
 }

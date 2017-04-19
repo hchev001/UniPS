@@ -16,6 +16,7 @@ public class SearchResultRowMapper implements RowMapper<BusinessSearchResult> {
 		
 		BusinessSearchResult business = new BusinessSearchResult();
 		
+		business.setUsername(rs.getString("username"));
 		business.setEmail(rs.getString("email"));
 		business.setPictureFeatured(rs.getString("picture_featured"));
 		business.setDescription(rs.getString("description"));
