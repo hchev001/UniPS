@@ -18,3 +18,18 @@ VALUES
 SELECT * FROM `unipsdb`.`comment`  AS c
 WHERE c.subject=? AND c.body=? AND c.user_id=? AND c.business_id=?;
 
+
+-- Get review by ID
+SELECT * FROM `unipsdb`.`comment`  AS c WHERE c.comment_id=?;
+
+
+-- Update review by id
+UPDATE `unipsdb`.`comment`
+SET
+`subject` =  'My Subject Updated',
+`body` = 'My Body updated'
+WHERE `comment_id` = 2;
+
+
+-- Delete review
+

@@ -64,8 +64,8 @@ public class UserReviewDaoMySql implements UserReviewDao {
 		
 		final String sql = "SELECT * FROM `unipsdb`.`comment`  AS c " +
 							"WHERE c.subject=? AND c.body=? AND c.user_id=? AND c.business_id=?";	
-		Object[] values = {review.getSubject(), review.getBody(), review.getUserId(), review.getBussinessId()};
-		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.INTEGER};
+		Object[] values = new Object[] {review.getSubject(), review.getBody(), review.getUserId(), review.getBussinessId()};
+		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.INTEGER};
 		
 		List<Comment> result = jdbcTemplate.query(sql, values, types, new CommentRowMapper());
 		
@@ -76,15 +76,50 @@ public class UserReviewDaoMySql implements UserReviewDao {
 	}
 	
 	public Comment getReview(int reviewId) {
-		return null;
+		
+		final String sql = "SELECT * FROM `unipsdb`.`comment`  AS c WHERE c.comment_id=?";
+		
+		Object[] values = new Object[] {reviewId};
+		int[] types = new int[] {Types.INTEGER};	
+
+		List<Comment> result = jdbcTemplate.query(sql, values, types, new CommentRowMapper());
+
+		if(result.size() != 1)
+			return null;
+
+		return result.get(0);
 	}
 
 	public Comment updateReview(Comment review) {
-		return null;
+		
+		final String sql = "UPDATE `unipsdb`.`comment` " + 
+							"SET `subject` = ?, `body` = ?" +
+							"WHERE `comment_id` = ?";	
+		
+		Object[] values = new Object[] {review.getSubject(), review.getBody(), review.getId()};
+		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+		
+		int result = jdbcTemplate.update(sql, values, types);
+		
+		if (result != 1)
+			return null;
+		
+		return getReview(review.getId());
 	}
 
 	public Boolean deleteReview(Comment review) {
-		return null;
+		
+		final String sql = "DELETE FROM `unipsdb`.`comment` WHERE `comment_id`=?";
+		
+		Object[] values = new Object[] {review.getSubject(), review.getBody(), review.getId()};
+		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+		
+		int result = jdbcTemplate.update(sql, values, types);
+		
+		if (result != 1)
+			return false;
+		
+		return true;
 	}
 
 }
