@@ -45,12 +45,13 @@ public class UserReviewController {
 	
 	
 	@ApiOperation("Add reviews from user to business")
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="{businessName}", method = RequestMethod.POST)
 	@ResponseBody
 	public Response<Comment> addReviewForBusiness(
 			@PathVariable("userName") String userName,
+			@PathVariable("businessName") String businessName,
 			@RequestBody Comment review){
-		return service.addReviewForBusiness(review);
+		return service.addReviewForBusiness(review, userName, businessName);
 	}
 	
 	

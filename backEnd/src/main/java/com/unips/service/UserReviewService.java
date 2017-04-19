@@ -53,7 +53,18 @@ public class UserReviewService<T> {
 		return Response.success(userReviewDao.getAllReviewsForBusiness(user.getId(), business.getId()));
 	}
 
-	public Response<Comment> addReviewForBusiness(Comment comment) {
+	public Response<Comment> addReviewForBusiness(Comment comment, String userName, String businessName) {
+		
+		User user = userDao.getUser(userName);
+		if (user == null) 
+			return Response.failureUserNotFound();
+		
+		Business business = businessDao.getBusiness(businessName);
+		if (business == null)
+			return Response.failureBusinessNotFound();
+		
+		comment.setUserId(user.getId());
+		comment.setBussinessId(business.getId());
 		
 		return Response.success(userReviewDao.addReviewForBusiness(comment));
 	}
