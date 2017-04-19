@@ -2,7 +2,7 @@
  first name, last name, username and password. -->
  <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 register" align="center" >
             <h2>Register with UniPS</h2>
             <p>Please pick the account you would like to register for:</p>
             <label class="custom-control custom-radio">
@@ -16,7 +16,7 @@
               <span class="custom-control-description">Business Account</span>
             </label>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-3 col-centered">
             <form name="form" (ngSubmit)="register(f.value)" #f="ngForm" novalidate>
 
                 <!-- Business Name -->
@@ -131,9 +131,10 @@
                     <label for="answer2">Answer</label>
                     <input type="text" class="form-control" name="question2" [(ngModel)]="model.answer2" #answer2="ngModel" required />
                 </div>
-
+                <div *ngIf="defaultFieldsViawable()" class="form-group" >        
                 <button type="submit" class="btn btn-success center-block">Register</button>
                 <a [routerLink]="['/home']" class="btn btn-link center-block">Cancel</a>
+                </div>
             </form>
         </div>
         <div class="col-md-12">
