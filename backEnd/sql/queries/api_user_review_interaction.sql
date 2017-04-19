@@ -25,11 +25,10 @@ SELECT * FROM `unipsdb`.`comment`  AS c WHERE c.comment_id=?;
 
 -- Update review by id
 UPDATE `unipsdb`.`comment`
-SET
-`subject` =  'My Subject Updated',
-`body` = 'My Body updated'
+SET `subject` =  'My Subject Updated', `body` = 'My Body updated'
 WHERE `comment_id` = 2;
 
 
 -- Delete review
+DELETE FROM `unipsdb`.`comment` WHERE `comment_id`=?;
 

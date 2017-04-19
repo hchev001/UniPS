@@ -58,6 +58,7 @@ public class UserReviewService<T> {
 		return Response.success(userReviewDao.addReviewForBusiness(comment));
 	}
 
+
 	public Response<Comment> getReview(Integer reviewId) {
 		
 		Comment result = userReviewDao.getReview(reviewId);
@@ -68,6 +69,7 @@ public class UserReviewService<T> {
 		return Response.success(result);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Comment> updateReview(Comment review) {
 		
 		Comment result = userReviewDao.updateReview(review);
@@ -78,6 +80,7 @@ public class UserReviewService<T> {
 		return Response.success(result);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN') or #userName == authentication.getName()")
 	public Response<Boolean> deleteReview(Comment review) {
 	
 		boolean result = userReviewDao.deleteReview(review);
@@ -88,6 +91,4 @@ public class UserReviewService<T> {
 		return Response.success(result);
 	}
 
-	
-	
 }

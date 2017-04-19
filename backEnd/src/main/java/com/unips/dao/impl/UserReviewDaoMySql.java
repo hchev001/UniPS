@@ -47,7 +47,7 @@ public class UserReviewDaoMySql implements UserReviewDao {
 		
 		final String sql = "INSERT INTO `unipsdb`.`comment` " +
 						   "(`subject`, `body`, `comment_flag_id`, `user_id`, `business_id`) " +
-						   "(?, ?, ?, ?, ?)";
+						   "VALUES (?, ?, ?, ?, ?)";
 
 		Object [] values = new Object[] {review.getSubject(), review.getBody(), review.getFlag().ordinal(), review.getUserId(), review.getBussinessId()};
 		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR, Types.TINYINT, Types.INTEGER, Types.INTEGER};
@@ -111,8 +111,8 @@ public class UserReviewDaoMySql implements UserReviewDao {
 		
 		final String sql = "DELETE FROM `unipsdb`.`comment` WHERE `comment_id`=?";
 		
-		Object[] values = new Object[] {review.getSubject(), review.getBody(), review.getId()};
-		int[] types = new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+		Object[] values = new Object[] {review.getId()};
+		int[] types = new int[] {Types.INTEGER};
 		
 		int result = jdbcTemplate.update(sql, values, types);
 		
@@ -121,5 +121,4 @@ public class UserReviewDaoMySql implements UserReviewDao {
 		
 		return true;
 	}
-
 }
