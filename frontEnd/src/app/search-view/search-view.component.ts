@@ -43,7 +43,7 @@ export class SearchViewComponent implements OnInit {
   public redirectTo(bsn:string) {
       console.log(bsn);
       this.bsnService.setBusinessUserToRedirectTo(bsn);
-      this.router.navigate(['/businessentity'])
+      this.router.navigate(['/businessentity']);
 
   }
 }

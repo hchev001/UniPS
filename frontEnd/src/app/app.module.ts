@@ -42,6 +42,7 @@ import { EditProfileViewComponent } from './edit-profile-view/edit-profile-view.
 // Services Imports
 
 import { BusinessService } from './_services';
+import { DummyComponent } from './dummy/dummy.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { BusinessService } from './_services';
     EditProfileViewComponent,
     LeaveRateComponent,
     WriteReviewComponent,
+    DummyComponent,
   ],
   imports: [
     BrowserModule,
