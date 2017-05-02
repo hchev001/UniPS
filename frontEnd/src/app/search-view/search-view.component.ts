@@ -16,22 +16,32 @@ export class SearchViewComponent implements OnInit {
   businessList: Array<Object>;
   starsCount: number;
   starsCounts: number[] = [];
+  querry: string;
 
   constructor(
         private bsnService: BusinessService,
-        private router: Router) { }
+        private router: Router)
+        {
+            this.querry = this.bsnService.getCurrentBusinessStringQuery();
+        }
 
 
   ngOnInit() {
     this.isDropDownMenu = false;
     this.toggleDropDown(event);
-    this.getAllBusinesses();
+    this.querry.length > 0 ? this.getQuerriedBusiness() : this.getAllBusinesses();
   }
 
   getAllBusinesses() {
     this.bsnService.getBusinesses()
                     .subscribe(response => this.businessList = response.data);
   }
+
+  getQuerriedBusiness() {
+      this.bsnService.newSearch(this.querry)
+                        .subscribe(response => this.businessList = response.data);
+  }
+
 
   toggleDropDown(event): void {
     this.isDropDownMenu = !this.isDropDownMenu;
@@ -43,7 +53,7 @@ export class SearchViewComponent implements OnInit {
   public redirectTo(bsn:string) {
       console.log(bsn);
       this.bsnService.setBusinessUserToRedirectTo(bsn);
-      this.router.navigate(['/businessentity'])
+      this.router.navigate(['/businessentity']);
 
   }
 }

@@ -18,6 +18,8 @@ export class BusinessService {
 
     private businessUserToRedirectTo:string;
 
+    private currentBusinessStringQuery: string;
+
     private businessUrl = '/api/business'; // URL to web api
 
     getBusinesses() {
@@ -31,6 +33,14 @@ export class BusinessService {
 
   getBusinessUserToRedirectTo(): string {
       return this.businessUserToRedirectTo;
+  }
+
+  getCurrentBusinessStringQuery(): string {
+      return this.currentBusinessStringQuery;
+  }
+
+  setCurrentBusinessStringQuery(val:string) {
+      this.currentBusinessStringQuery = val;
   }
 
     getBusiness(username:string) {
@@ -54,6 +64,17 @@ export class BusinessService {
         var opts = new RequestOptions();
         opts.headers = headers;
         return this._http.post(requestUrl,'', opts)
+                        .map((res:Response) => res.json());
+    }
+
+    // Search: Search Controller
+    newSearch(query:string){
+        var requestUrl: string = 'api/search?keyword='+query;
+        var headers = new Headers();
+        headers.append('Accept', "*/*");
+        var opts = new RequestOptions();
+        opts.headers = headers;
+        return this._http.post(requestUrl, '', opts)
                         .map((res:Response) => res.json());
     }
 }
